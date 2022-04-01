@@ -18,7 +18,7 @@
 ## NeoVim
 
 ### Plugins
-- #### [Coc](https://github.com/VundleVim/Vundle.vim)
+- #### [Coc](https://github.com/neoclide/coc.nvim)
 - #### [fzf](https://github.com/junegunn/fzf.vim)
 - #### [vim-flake8](https://github.com/nvie/vim-flake8)
 - #### [ligthline](https://github.com/itchyny/lightline.vim)
