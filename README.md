@@ -15,3 +15,15 @@
 - #### [vim-tmux-navigator](https://github.com/christoomey/vim-tmux-navigator)
 - #### [indentLine](https://github.com/Yggdroot/indentLine)
 
+## NeoVim
+
+### Plugins
+- #### [Coc](https://github.com/VundleVim/Vundle.vim)
+- #### [fzf](https://github.com/junegunn/fzf.vim)
+- #### [vim-flake8](https://github.com/nvie/vim-flake8)
+- #### [ligthline](https://github.com/itchyny/lightline.vim)
+- #### [vim-fugitive](https://github.com/pope/vim-fugitive)
+- #### [vim-airline](https://github.com/vim-airline)
+
+
+
