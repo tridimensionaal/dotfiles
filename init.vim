@@ -42,18 +42,32 @@ Plug 'nvie/vim-flake8'
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
+Plug 'mattn/emmet-vim'
 call plug#end()
 "----------------------------------------------
 
 
 "-------------------Config-------------------
-" for html/rb files, 2 spaces
+" for sql files, 2 spaces
 autocmd Filetype sql set tabstop=2 shiftwidth=2 expandtab
+
+" for html, css and js files, 2 spaces
+autocmd Filetype html,css,js set tabstop=2 shiftwidth=2 expandtab
+
 
 "-------------------CocConf-------------------
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
+"
+let g:coc_global_extensions = [
+            \ 'coc-css', 
+            \'coc-html', 
+            \'coc-json', 
+            \'coc-tsserver', 
+            \'coc-pyright'
+            \]
+
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
@@ -79,6 +93,11 @@ let g:lightline = {
 
 "-------------------fugitive-------------------
 nmap <leader>gs :G<CR>
+"----------------------------------------------
+
+"-------------------emmet-------------------
+let g:user_emmet_mode='n'
+let g:user_emmet_leader_key=','
 "----------------------------------------------
 
 
