@@ -19,7 +19,6 @@
 ### Plugins
  - ### [coc.nvim](https://github.com/neoclide/coc.nvim)
  - ### [fzf](https://github.com/junegunn/fzf)
- - ### [fzf.vim](https://github.com/junegunn/fzf.vim)
  - ### [vim-flake8](https://github.com/nvie/vim-flake8)
  - ### [lightline.vim](https://github.com/itchyny/lightline.vim)
  - ### [vim-fugitive](https://github.com/tpope/vim-fugitive)
