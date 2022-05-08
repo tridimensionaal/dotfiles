@@ -37,6 +37,7 @@ set splitright
 call plug#begin('~/.config/nvim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'nvie/vim-flake8'
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive'
@@ -98,7 +99,6 @@ nmap <leader>gs :G<CR>
 let g:user_emmet_mode='n'
 let g:user_emmet_leader_key=','
 "----------------------------------------------
-
 
 
 
