@@ -1,6 +1,7 @@
+
 # DotFiles
 
-## Vim
+## Vim (old config)
 
 ### Plugins
  - ### [Vundle.vim](https://github.com/VundleVim/Vundle.vim)
@@ -14,7 +15,7 @@
  - ### [vim-tmux-navigator](https://github.com/christoomey/vim-tmux-navigator)
  - ### [indentLine](https://github.com/Yggdroot/indentLine)
 
-## NeoVim
+## NeoVim (old config)
 
 ### Plugins
  - ### [coc.nvim](https://github.com/neoclide/coc.nvim)
