@@ -104,5 +104,9 @@ source $ZSH/oh-my-zsh.sh
 
 
 # Load Angular CLI autocompletion.
-source <(ng completion script)
+if command -v ng > /dev/null; then
+	source <(ng completion script)
+fi
+
 export PATH="$PATH:/opt/nvim/"
+export PATH=$PATH:/usr/local/go/bin
