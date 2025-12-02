@@ -61,7 +61,7 @@ return {
                     arrow_closed = "",
                 },
                 git = {
-                    unstaged = "✗",
+                    unstaged = "X",
                     staged = "✓",
                     unmerged = "",
                     renamed = "➜",

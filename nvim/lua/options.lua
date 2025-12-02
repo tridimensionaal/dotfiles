@@ -7,6 +7,8 @@ opt.clipboard:append("unnamedplus")
 
 -- text
 opt.encoding = "utf-8"
+opt.matchpairs = { "(:)", "{:}", "[:]", "<:>" }
+
 
 -- indent 
 local indent = 4
@@ -24,6 +26,9 @@ opt.relativenumber = true
 -- style
 opt.cursorline = true 
 opt.termguicolors = true -- enable 24-bit RGB colors
+opt.showmode = false
+
+
 
 
 -- perfomance
