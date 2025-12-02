@@ -9,7 +9,7 @@ map("n", "<leader>w", "<cmd>w<CR>", {desc = "save current buffer" })
 map("n", "<leader>q", "<cmd>q<CR>", {desc = "save current buffer" })
 
 -- buffers
-map("n", "<leader>c", "<cmd>bdelete<CR>", {desc = "close current buffer"})
+map("n", "<leader>c", "<cmd>bdelete | bprevious <CR>", {desc = "close current buffer"})
 map("n", "<leader>bb", "<cmd>BufferLinePick<CR>", {desc = "choose buffer"})
 
 
@@ -18,7 +18,7 @@ map("n", "<leader>/", "gcc", { desc = "comment line", remap = true })
 map("v", "<leader>/", "gc", { desc = "comment visual block", remap = true })
 
 -- tree
-map("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "Toggle NvimTree sidebar" }) -- open/close
+map("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "Toggle  vimTree sidebar" }) -- open/close
 map("n", "<leader>er", ":NvimTreeRefresh<CR>", { desc = "Refresh NvimTree" }) -- refresh
 
 map("n", "<leader>h", "<C-w>h", { desc = "switch window left" })
