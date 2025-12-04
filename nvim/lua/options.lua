@@ -9,7 +9,6 @@ opt.clipboard:append("unnamedplus")
 opt.encoding = "utf-8"
 opt.matchpairs = { "(:)", "{:}", "[:]", "<:>" }
 
-
 -- indent
 local indent = 4
 opt.autoindent = true
@@ -17,7 +16,6 @@ opt.expandtab = true
 opt.shiftwidth = indent
 opt.smartindent = true
 opt.tabstop = indent -- insert 2 spaces for a tab
-
 
 -- numbers
 opt.number = true
@@ -28,15 +26,12 @@ opt.cursorline = true
 opt.termguicolors = true -- enable 24-bit RGB colors
 opt.showmode = false
 
-
 --- utils
 opt.scrolloff = 8
 
-
-
 -- perfomance
 -- remember N lines in history
-opt.history = 100    -- keep 100 lines of history
+opt.history = 100 -- keep 100 lines of history
 opt.redrawtime = 1500
 opt.timeoutlen = 200 -- time to wait for a mapped sequence to complete (in milliseconds)
 opt.ttimeoutlen = 10
