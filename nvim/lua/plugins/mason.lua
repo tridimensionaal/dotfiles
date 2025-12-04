@@ -1,5 +1,9 @@
+-- packagge manager
 return {
-    require("mason").setup {
+    "mason-org/mason.nvim",
+    cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
+    build = ":MasonUpdate",
+    opts = {
         PATH = "prepend",
         ui = {
             icons = {

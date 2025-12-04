@@ -1,4 +1,6 @@
+-- tabs
 return {
+    "akinsho/bufferline.nvim",
     options = {
         themable = true,
         offsets = {
