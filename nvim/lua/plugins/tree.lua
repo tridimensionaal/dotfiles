@@ -1,9 +1,16 @@
 return {
   "nvim-tree/nvim-tree.lua",
   dependencies = {
-    "nvim-tree/nvim-web-devicons", -- REQUIRED for file-type icons
+    "nvim-tree/nvim-web-devicons",
   },
+
   cmd = { "NvimTreeToggle", "NvimTreeFocus" },
+
+  keys = {
+    -- Keymaps that trigger lazy loading:
+    { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "Toggle NvimTree sidebar" },
+    { "<leader>er", "<cmd>NvimTreeRefresh<CR>", desc = "Refresh NvimTree" },
+  },
 
   opts = {
     filters = {
@@ -38,7 +45,7 @@ return {
       },
 
       icons = {
-        webdev_colors = true, -- ⭐️ enables filetype icons
+        webdev_colors = true,
         show = {
           file = true,
           folder = true,
@@ -49,7 +56,6 @@ return {
         glyphs = {
           symlink = "",
 
-          -- folders KEEP your custom style
           folder = {
             default = "",
             empty = "",
@@ -61,7 +67,6 @@ return {
             arrow_closed = "",
           },
 
-          -- git icons OK
           git = {
             unstaged = "X",
             staged = "✓",
