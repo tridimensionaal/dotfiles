@@ -3,6 +3,7 @@ vim.g.mapleader = " "
 
 -- Load default configurations and plugins
 -- it is like automatic require("something")
+--
 for _, source in ipairs({
   "lazy_init",
   "mappings",
