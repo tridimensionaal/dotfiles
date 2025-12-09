@@ -1,9 +1,9 @@
+--
 return {
   "numToStr/Comment.nvim",
   version = "*",
 
   keys = {
-    -- NORMAL mode: toggle comment on the current line
     {
       "<leader>/",
       function()
@@ -13,7 +13,6 @@ return {
       mode = "n",
     },
 
-    -- VISUAL mode: toggle comment on the selected block
     {
       "<leader>/",
       function()

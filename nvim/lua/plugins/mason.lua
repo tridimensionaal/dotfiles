@@ -1,4 +1,5 @@
 -- packagge manager
+-- 
 return {
   "mason-org/mason.nvim",
   cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
@@ -23,7 +24,6 @@ return {
         cancel_installation = "<C-c>",
       },
     },
-
     max_concurrent_installers = 10,
   },
 }

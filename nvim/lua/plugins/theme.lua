@@ -1,3 +1,6 @@
 return {
-    "EdenEast/nightfox.nvim",
+  "EdenEast/nightfox.nvim",
+  config = function()
+    require("config.ui.colors").apply()
+  end,
 }

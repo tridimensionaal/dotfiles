@@ -12,18 +12,7 @@ return {
     { "<leader>c", "<cmd>bdelete | bprevious <cr>", { desc = "close current buffer" } },
   },
 
-  opts = {
-    options = {
-      themable = true,
-
-      offsets = {
-        {
-          filetype = "NvimTree",
-          text = "File Explorer",
-          highlight = "Directory",
-          separator = true,
-        },
-      },
-    },
-  },
+  opts = function()
+    return require("config.ui.bufferline")
+  end,
 }
