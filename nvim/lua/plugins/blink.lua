@@ -2,6 +2,7 @@
 
 return {
   "Saghen/blink.cmp",
+  version = "1.*", -- use tagged releases with prebuilt fuzzy matcher binaries
   dependencies = {
     "neovim/nvim-lspconfig",
     "L3MON4D3/LuaSnip",
