@@ -1,3 +1,5 @@
+-- for autocompletation
+
 return {
   "Saghen/blink.cmp",
   dependencies = {
@@ -5,8 +7,17 @@ return {
     "L3MON4D3/LuaSnip",
   },
   opts = {
-    keymap = { preset = "default" },
-    sources = { default = { "lsp", "path", "snippets", "buffer" } },
+    keymap = {
+      preset = "default",
+
+      ["<Tab>"] = { "select_next", "fallback" },
+      ["<S-Tab>"] = { "select_prev", "fallback" },
+      ["<CR>"] = { "accept", "fallback" },
+    },
+
+    sources = {
+      default = { "lsp", "path", "snippets", "buffer" },
+    },
   },
   config = function(_, opts)
     require("blink.cmp").setup(opts)

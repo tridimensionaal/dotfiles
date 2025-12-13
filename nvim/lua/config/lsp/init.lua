@@ -1,3 +1,5 @@
+require("config.lsp.mappings").setup()
+
 local capabilities = require("config.lsp.capabilities")
 local servers = require("config.lsp.servers")
 
