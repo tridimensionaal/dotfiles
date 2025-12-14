@@ -1,37 +1,33 @@
 return {
   "WhoIsSethDaniel/mason-tool-installer.nvim",
-  event = "VeryLazy",
-  cmd = {
-    "MasonToolsInstall",
-    "MasonToolsInstallSync",
-    "MasonToolsUpdate",
-    "MasonToolsUpdateSync",
-    "MasonToolsClean",
-  },
   dependencies = {
     "williamboman/mason.nvim",
   },
-  opts = function()
+  event = "VeryLazy",
+
+  config = function()
+    local languages = require("config.languages")
+
     local ensure = {}
 
-    local linters = require("config.tools.linters")
-    local formatters = require("config.tools.formatters")
-    local lsp_servers = require("config.tools.lsp.servers")
+    for _, lang in pairs(languages) do
+      if lang.lsp and type(lang.lsp.server) == "string" then
+        table.insert(ensure, lang.lsp.server)
+      end
 
-    for _, group in ipairs({ linters, formatters }) do
-      for _, lang in pairs(group) do
-        if lang.tools then
-          vim.list_extend(ensure, lang.tools)
-        end
+      if lang.format and lang.format.tools then
+        vim.list_extend(ensure, lang.format.tools)
+      end
+
+      if lang.lint and lang.lint.tools then
+        vim.list_extend(ensure, lang.lint.tools)
       end
     end
 
-    vim.list_extend(ensure, vim.tbl_keys(lsp_servers))
-
-    return {
+    require("mason-tool-installer").setup({
       ensure_installed = ensure,
       auto_update = false,
       run_on_start = true,
-    }
+    })
   end,
 }

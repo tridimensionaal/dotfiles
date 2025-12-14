@@ -1,27 +1,27 @@
 local null_ls = require("null-ls")
-local linters = require("config.tools.linters")
-local formatters = require("config.tools.formatters")
+local languages = require("config.languages")
 
-local function collect_sources(collection)
+local function collect_sources()
   local acc = {}
-  for _, lang in pairs(collection) do
-    if type(lang.sources) == "function" then
-      vim.list_extend(acc, lang.sources(null_ls))
-    elseif lang.sources then
-      vim.list_extend(acc, lang.sources)
+
+  for _, lang in pairs(languages) do
+    if lang.lint and type(lang.lint.sources) == "function" then
+      vim.list_extend(acc, lang.lint.sources(null_ls))
+    end
+
+    if lang.format and type(lang.format.sources) == "function" then
+      vim.list_extend(acc, lang.format.sources(null_ls))
     end
   end
+
   return acc
 end
-
-local sources = {}
-vim.list_extend(sources, collect_sources(linters))
-vim.list_extend(sources, collect_sources(formatters))
 
 local format_augroup = vim.api.nvim_create_augroup("NoneLsFormatOnSave", {})
 
 null_ls.setup({
-  sources = sources,
+  sources = collect_sources(),
+
   on_attach = function(client, bufnr)
     if not client.supports_method("textDocument/formatting") then
       return
@@ -35,9 +35,9 @@ null_ls.setup({
         if vim.v.cmdbang == 1 then
           return
         end
-
         vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 3000 })
       end,
     })
   end,
 })
+

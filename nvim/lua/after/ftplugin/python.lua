@@ -1,0 +1,1 @@
+-- require("config.languages.python.options").apply()
