@@ -24,6 +24,7 @@ return {
       "vimdoc",
       "yaml",
       "python",
+      "rust",
     },
 
     highlight = {
