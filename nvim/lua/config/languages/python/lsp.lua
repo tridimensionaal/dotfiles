@@ -1,6 +1,7 @@
 -- from astronvim
 return {
   server = "basedpyright",
+
   settings = {
     basedpyright = {
       analysis = {

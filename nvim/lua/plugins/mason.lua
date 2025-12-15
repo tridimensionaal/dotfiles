@@ -2,6 +2,7 @@
 --
 return {
   "mason-org/mason.nvim",
+  lazy = false,
   cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
   build = ":MasonUpdate",
   opts = {
