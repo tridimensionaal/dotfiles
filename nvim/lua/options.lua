@@ -28,6 +28,7 @@ opt.showmode = false
 
 --- utils
 opt.scrolloff = 8
+opt.wrap = false
 
 -- perfomance
 -- remember N lines in history
