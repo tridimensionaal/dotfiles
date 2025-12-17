@@ -27,6 +27,11 @@ null_ls.setup({
       return
     end
 
+    -- Let rustaceanvim handle Rust formatting to avoid double formatters.
+    if vim.bo[bufnr].filetype == "rust" then
+      return
+    end
+
     vim.api.nvim_clear_autocmds({ group = format_augroup, buffer = bufnr })
     vim.api.nvim_create_autocmd("BufWritePre", {
       group = format_augroup,
@@ -40,4 +45,3 @@ null_ls.setup({
     })
   end,
 })
-

@@ -1,7 +1,15 @@
+local languages = { "lua", "python", "rust" }
 local M = {}
 
-M.lua = require("config.languages.lua")
-M.python = require("config.languages.python")
-M.rust = require("config.languages.rust")
+for _, name in ipairs(languages) do
+  local mod = require("config.languages." .. name)
+  local ok, plugins = pcall(require, "config.languages." .. name .. ".plugins")
+
+  if ok and type(plugins) == "table" then
+    mod.plugins = plugins
+  end
+
+  M[name] = mod
+end
 
 return M

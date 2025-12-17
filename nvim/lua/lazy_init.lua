@@ -12,8 +12,25 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+local languages = require("config.languages")
+local language_plugins = {}
+
+for _, lang in pairs(languages) do
+  if type(lang.plugins) == "table" then
+    vim.list_extend(language_plugins, lang.plugins)
+  end
+end
+
+local spec = {
+  { import = "plugins" },
+}
+
+if #language_plugins > 0 then
+  vim.list_extend(spec, language_plugins)
+end
+
 require("lazy").setup({
-  spec = "plugins",
+  spec = spec,
   lockfile = vim.fn.stdpath("config") .. "/lazy-lock.json",
   defaults = {
     lazy = false,
