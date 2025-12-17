@@ -15,6 +15,8 @@ return {
       ["<S-Tab>"] = { "select_prev", "fallback" },
       ["<CR>"] = { "accept", "fallback" },
       ["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
+      ["<C-k>"] = { "scroll_documentation_up", "fallback" },
+      ["<C-j>"] = { "scroll_documentation_down", "fallback" },
     },
 
     sources = {
