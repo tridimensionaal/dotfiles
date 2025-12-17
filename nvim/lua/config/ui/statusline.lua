@@ -1,7 +1,7 @@
 local colors = require("config.ui.colors").palette
-
 local lualine = require("lualine")
 
+-- from lualine
 local conditions = {
   buffer_not_empty = function()
     return vim.fn.empty(vim.fn.expand("%:t")) ~= 1

@@ -1,4 +1,3 @@
--- Local diagnostics helper: inline messages plus handy keymaps.
 vim.diagnostic.config({
   virtual_text = { prefix = "●" },
   signs = false,
@@ -20,7 +19,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.api.nvim_set_current_win(win)
       end
     end, opts)
-    --
+
+    -- move between diagnostics
     vim.keymap.set("n", "<leader>ln", vim.diagnostic.goto_next, opts)
     vim.keymap.set("n", "<leader>lp", vim.diagnostic.goto_prev, opts)
   end,

@@ -5,7 +5,6 @@ function M.setup()
   local mappings = require("config.lsp.mappings")
   local capabilities = require("config.lsp.capabilities")
 
-  -- Global LSP mappings / diagnostics
   mappings.setup()
 
   for _, lang in pairs(languages) do

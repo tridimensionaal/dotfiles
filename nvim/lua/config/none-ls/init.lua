@@ -27,7 +27,7 @@ null_ls.setup({
       return
     end
 
-    -- Let rustaceanvim handle Rust formatting to avoid double formatters.
+    -- hardcoded for rust because it uses rustaceanvim
     if vim.bo[bufnr].filetype == "rust" then
       return
     end
