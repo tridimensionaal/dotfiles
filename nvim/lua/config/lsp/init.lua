@@ -8,7 +8,7 @@ function M.setup()
   mappings.setup()
 
   for _, lang in pairs(languages) do
-    if lang.lsp then
+    if lang.lsp and not lang.lsp.skip_builtin then
       local lsp = lang.lsp
 
       vim.lsp.config(lsp.server, {

@@ -16,6 +16,9 @@ return {
         settings = settings,
         default_settings = settings,
         on_attach = function(client, bufnr)
+          -- Disable semantic tokens to avoid LSP re-highlighting (e.g. splitting Rust macros into mixed colors).
+          client.server_capabilities.semanticTokensProvider = nil
+
           if not client.supports_method("textDocument/formatting") then
             return
           end
