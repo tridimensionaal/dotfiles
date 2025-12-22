@@ -1,4 +1,4 @@
-local languages = { "lua", "python", "rust" }
+local languages = { "lua", "python", "rust", "markdown" }
 local M = {}
 
 for _, name in ipairs(languages) do
