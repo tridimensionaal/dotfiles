@@ -7,7 +7,7 @@ return {
   cmd = { "NvimTreeToggle", "NvimTreeFocus" },
 
   keys = {
-    -- Keymaps that trigger lazy loading:
+    -- keymaps that trigger lazy loading:
     { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "Toggle NvimTree sidebar" },
     { "<leader>er", "<cmd>NvimTreeRefresh<CR>", desc = "Refresh NvimTree" },
   },
@@ -15,7 +15,8 @@ return {
   opts = {
     filters = {
       dotfiles = false,
-      custom = { ".git", "node_modules", "__pycache__" },
+      -- use anchored patterns so names containing "git" (e.g. gitsigns.lua) are not hidden
+      custom = { "^\\.git$", "^node_modules$", "^__pycache__$" },
     },
 
     disable_netrw = true,
@@ -37,7 +38,7 @@ return {
 
     renderer = {
       root_folder_label = false,
-      highlight_git = false,
+      highlight_git = true,
       highlight_opened_files = "none",
 
       indent_markers = {
@@ -50,7 +51,7 @@ return {
           file = true,
           folder = true,
           folder_arrow = true,
-          git = false,
+          git = true, -- show git status columns on files
         },
 
         glyphs = {
@@ -68,16 +69,22 @@ return {
           },
 
           git = {
-            unstaged = "X",
-            staged = "✓",
-            unmerged = "",
+            unstaged = "",
+            staged = "",
+            unmerged = "",
             renamed = "➜",
-            untracked = "★",
-            deleted = "",
+            untracked = "",
+            deleted = "",
             ignored = "◌",
           },
         },
       },
+    },
+
+    git = {
+      enable = true,
+      show_on_dirs = true,
+      show_on_open_dirs = true,
     },
   },
 }
