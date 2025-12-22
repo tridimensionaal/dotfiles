@@ -10,6 +10,7 @@ return {
     -- keymaps that trigger lazy loading:
     { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "Toggle NvimTree sidebar" },
     { "<leader>er", "<cmd>NvimTreeRefresh<CR>", desc = "Refresh NvimTree" },
+    { "<leader>ec", "<cmd>NvimTreeCollapse<CR>", desc = "Collapse NvimTree sidebar" },
   },
 
   opts = {

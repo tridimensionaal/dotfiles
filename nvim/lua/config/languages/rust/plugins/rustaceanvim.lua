@@ -36,7 +36,7 @@ return {
                 bufnr = bufnr,
                 timeout_ms = 3000,
                 filter = function(c)
-                  return c.name == "rust_analyzer"
+                  return c.name == "rust-analyzer" or c.name == "rust_analyzer"
                 end,
               })
             end,
