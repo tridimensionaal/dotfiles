@@ -36,14 +36,13 @@ return {
 }
 ```
 ## How to add a language config
+
 1. Create a new folder under `lua/config/languages/<lang>/`.
+
 2. Add an `init.lua` that returns a module with any of: `lsp`, `format`, `lint`, `options`, `plugins`.
    Each submodule is optional, and `pcall` is used so missing files don't error.
-3. Add the language name to `lua/config/languages/init.lua` explicitly.
-4. Optional: if the language needs extra plugins, add `lua/config/languages/<lang>/plugins/init.lua`
-   and set `M.plugins` in the language `init.lua`. These specs are merged into the main Lazy spec.
+   Example:
 
-Example:
 ```lua
 -- lua/config/languages/rust/init.lua
 local M = {}
@@ -61,6 +60,29 @@ M.plugins = ok_plugins and plugins or nil
 return M
 ```
 
+3. Add `lsp.lua`, `lint.lua`, and/or `format.lua` in that language folder depending on what you need.
+   Each file is optional; only include what you plan to configure.
+
+4. Add the language name to `lua/config/languages/init.lua` explicitly.
+  Example:
+```lua
+local M = {}
+
+M.lua = require("config.languages.lua")
+M.python = require("config.languages.python")
+M.rust = require("config.languages.rust")
+M.markdown = require("config.languages.markdown")
+
+return M
+```
+
+5. Add the Treesitter parser name to `lua/plugins/treesitter.lua` under `opts.ensure_installed`.
+   This is currently hardcoded there; the long-term goal is to pull this list from
+   `lua/config/languages/<lang>/` instead.
+
+6. Optional: if the language needs extra plugins, add `lua/config/languages/<lang>/plugins/init.lua`
+   and set `M.plugins` in the language `init.lua`. These specs are merged into the main Lazy spec.
+
 ```lua
 -- lua/config/languages/rust/plugins/init.lua
 return {
@@ -69,5 +91,16 @@ return {
 }
 ```
 
+## TODO
+
+- [ ] Derive Treesitter parsers from `lua/config/languages/<lang>/` instead of hardcoding in `lua/plugins/treesitter.lua`.
+
+
 ## References and inspirations
-- [AstroNvim](https://github.com/AstroNvim/AstroNvim)
+
+- [AstroNvim/AstroNvim](https://github.com/AstroNvim/AstroNvim)
+- [tjdevries/advent-of-nvim](https://github.com/tjdevries/advent-of-nvim)
+- [asyncedd/dots.nvim](https://github.com/asyncedd/dots.nvim)
+- [nvim-lua/kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim)
+- [SnaxVim/SnaxVim](https://github.com/SnaxVim/SnaxVim)
+- [j4de/nvim](https://codeberg.org/j4de/nvim/src/branch/master)
