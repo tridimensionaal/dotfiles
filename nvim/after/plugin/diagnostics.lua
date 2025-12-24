@@ -5,6 +5,7 @@ vim.diagnostic.config({
     border = "rounded",
     focusable = true,
     close_events = { "BufHidden", "InsertEnter" },
+    header = "",
   },
 })
 
