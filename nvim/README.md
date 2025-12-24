@@ -1,6 +1,11 @@
 # Neovim config
 
-Personal Neovim setup.
+<p align="center">
+  <img src="./neovim-setup.png" width="800">
+</p>
+<p align="center">
+  <em> Personal Neovim setup. </em>
+</p>
 
 ## Notes
 - Uses Lazy.nvim for plugin management (`lua/lazy_init.lua`).
@@ -93,6 +98,8 @@ return {
 
 ## TODO
 
+- [ ] Replace the custom diagnostics plugin with a more established plugin.
+- [ ] Add TODO plugin ([folke/todo-comments.nvim](https://github.com/folke/todo-comments.nvim))
 - [ ] Derive Treesitter parsers from `lua/config/languages/<lang>/` instead of hardcoding in `lua/plugins/treesitter.lua`.
 
 
