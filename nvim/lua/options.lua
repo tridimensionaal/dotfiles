@@ -25,6 +25,7 @@ opt.relativenumber = true
 opt.cursorline = true
 opt.termguicolors = true -- enable 24-bit RGB colors
 opt.showmode = false
+opt.hlsearch = false
 
 --- utils
 opt.scrolloff = 8
