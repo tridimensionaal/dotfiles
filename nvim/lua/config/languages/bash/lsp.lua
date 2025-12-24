@@ -1,5 +1,5 @@
 return {
-  server = "bash-language-server",
+  server = "bashls",
 
   settings = {
     bashIde = {
