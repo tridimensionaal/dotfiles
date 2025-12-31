@@ -10,6 +10,8 @@ return {
     { "<leader>bb", "<cmd>BufferLinePick<CR>", desc = "Select buffer" },
     -- close current buffer
     { "<leader>c", "<cmd>bdelete | bprevious <cr>", { desc = "close current buffer" } },
+
+    { "<leader>n", "<cmd>enew<CR>", desc = "create new buffer" },
   },
 
   opts = function()
