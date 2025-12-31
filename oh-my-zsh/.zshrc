@@ -72,7 +72,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git python)
+plugins=(git python vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -107,6 +107,7 @@ source $ZSH/oh-my-zsh.sh
 # if command -v ng > /dev/null; then
 # 	source <(ng completion script)
 # fi
+bindkey -M viins 'jj' vi-cmd-mode
 
 export PATH="$PATH:/opt/nvim/"
 export PATH=$PATH:/usr/local/go/bin
