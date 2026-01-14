@@ -1002,6 +1002,8 @@
   typeset -g POWERLEVEL9K_VIRTUALENV_SHOW_WITH_PYENV=false
   # Separate environment name from Python version only with a space.
   typeset -g POWERLEVEL9K_VIRTUALENV_{LEFT,RIGHT}_DELIMITER=
+  # Show only the virtualenv directory name (e.g., "venv") instead of a verbose prompt modifier.
+  typeset -g POWERLEVEL9K_VIRTUALENV_CONTENT_EXPANSION='${VIRTUAL_ENV:t}'
   # Custom icon.
   # typeset -g POWERLEVEL9K_VIRTUALENV_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
