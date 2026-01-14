@@ -23,5 +23,11 @@ source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Load aliases if present.
+# enable completion with case-insensitive matching for Tab.
+autoload -Uz compinit
+compinit
+# insensitive case only if there are no case-sensitive matches,
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
+
+# load aliases if present.
 [[ -r ~/.zsh_aliases ]] && source ~/.zsh_aliases
