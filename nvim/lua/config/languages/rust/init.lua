@@ -2,6 +2,7 @@ local M = {}
 
 local ok_lsp, rust_lsp = pcall(require, "config.languages.rust.lsp")
 local ok_plugins, plugins = pcall(require, "config.languages.rust.plugins")
+local ok_treesitter, treesitter = pcall(require, "config.languages.rust.treesitter")
 
 if ok_lsp and type(rust_lsp) == "table" then
   -- rustaceanvim handles rust_analyzer; avoid double-registering via the generic LSP setup.
@@ -10,5 +11,6 @@ if ok_lsp and type(rust_lsp) == "table" then
 end
 
 M.plugins = ok_plugins and plugins or nil
+M.treesitter = ok_treesitter and treesitter or nil
 
 return M
