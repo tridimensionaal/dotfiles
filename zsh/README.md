@@ -1,17 +1,17 @@
-# zsh config
+# Zsh
 
-Files in this directory are meant to be symlinked into `$HOME`.
+This package keeps the main Zsh config under `~/.config/zsh` and installs one top-level file:
 
-## Files
-- `.zshrc`: main Zsh configuration, loads Powerlevel10k and user settings.
-- `.zsh_aliases`: optional alias definitions, sourced by `.zshrc` if present.
-- `.p10k.zsh`: Powerlevel10k prompt configuration.
+- `~/.zshenv` sets `ZDOTDIR="$HOME/.config/zsh"`
 
-## Setup
-```sh
-ln -sfn "$PWD/zsh/.zshrc" "$HOME/.zshrc"
-ln -sfn "$PWD/zsh/.zsh_aliases" "$HOME/.zsh_aliases"
-ln -sfn "$PWD/zsh/.p10k.zsh" "$HOME/.p10k.zsh"
-```
+Tracked config files:
 
-## TODO
+- `~/.config/zsh/.zshrc`
+- `~/.config/zsh/.zsh_aliases`
+- `~/.config/zsh/.p10k.zsh`
+
+## Notes
+
+- history is stored at `${XDG_STATE_HOME:-$HOME/.local/state}/zsh/history`
+- the Powerlevel10k prompt config is loaded from `ZDOTDIR`
+- the `Bash-scripts-for-daily-task` integration is optional and only loads when `${BASH_SCRIPTS_INIT}` or its default path exists

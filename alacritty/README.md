@@ -1,7 +1,5 @@
-# Alacritty config
+# Alacritty
 
-`alacritty/alacritty.toml` is my Alacritty configuration file (mostly colors and fonts).
+This package installs `~/.config/alacritty/alacritty.toml`.
 
-## TODO
-- [ ] Review the available Alacritty config options; I haven't explored this much yet.
-- [ ] Add more customizations beyond the current theme/font/window settings.
+The current config is mostly theme, font, and window settings, and it expects `Hack Nerd Font` to be installed.

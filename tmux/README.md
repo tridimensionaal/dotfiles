@@ -1,10 +1,22 @@
-# Tmux config
+# Tmux
 
-`tmux/tmux.conf` is my tmux configuration file.
+This package installs the real tmux config at `~/.config/tmux/tmux.conf`.
+
+`~/.tmux.conf` is kept as a small compatibility shim that sources the XDG config, so tmux still picks up the config without extra wrapper logic.
+
+## TPM
+
+The config uses TPM and plugin-managed features.
+
+- install TPM at `~/.tmux/plugins/tpm`
+- then open tmux and press `Ctrl-Space` followed by `Shift-I`
+- plugin state is intentionally kept under `~/.tmux/plugins/`, outside the Stow-managed config tree
+
+Without TPM, basic tmux settings still load, but theme and plugin features will not.
 
 ## Notable settings
-- Prefix key is `Ctrl+Space` (default `Ctrl+b` is unbound).
-- Vim-style pane navigation with `h/j/k/l`.
-- Copy mode uses vim keys: `v` to start selection, `C-v` rectangle toggle, `y` to copy.
-- Splits and new windows open in the current pane directory.
-- Uses TPM with: sensible defaults, vim navigator, dracula theme, and yank.
+
+- prefix is `Ctrl+Space`
+- pane navigation uses `h/j/k/l`
+- splits and new windows start in the current pane directory
+- TPM plugins are enabled for sensible defaults, vim navigation, Dracula, and yank

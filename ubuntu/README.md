@@ -1,7 +1,10 @@
-# Ubuntu setup
+# Ubuntu Notes
 
-`ubuntu/install.sh` is a basic, non-automatic script to set up my Ubuntu environment. It is probably deprecated, I haven't checked it in a long time.
+This directory is deprecated and is no longer the primary installation path.
 
-## TODO
-- [ ] Investigate ways to install ubuntu with some post installations configurations or something like that.
-- [ ] Automate the tasks currently handled by `ubuntu/install.sh`.
+Use the repo root workflow instead:
+
+- `./install.sh` for symlinking packages with GNU Stow
+- [dependencies.md](../dependencies.md) for the dependency inventory
+
+`ubuntu/install.sh` remains only as a historical reference stub.

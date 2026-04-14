@@ -1,0 +1,64 @@
+{
+    "modules-left": ["sway/workspaces", "sway/mode"],
+    "modules-center": ["clock", "idle_inhibitor"],
+    "modules-right": ["network", "wireplumber#sink", "wireplumber#source", "battery", "custom/power"],
+
+    "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+    "network": {
+        "interface": "wlp*",
+        "format-wifi": "{essid} ",
+        "format-disconnected": "Offline",
+        "max-length": 24,
+        "tooltip-format-wifi": "{essid}\nSignal: {signalStrength}%\nIP: {ipaddr}\nInterface: {ifname}",
+        "tooltip-format-disconnected": "Wi-Fi disconnected"
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    },
+    "clock": {
+        // "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        // "format-alt": "{:%Y-%m-%d}"
+		"on-click": "gnome-calendar"
+    },
+    "wireplumber#sink": {
+        "format": "{volume}% {icon}",
+        "format-muted": "Muted ",
+        "format-icons": ["", "", ""],
+        "scroll-step": 5,
+        "max-volume": 150,
+        "tooltip-format": "Speaker: {volume}%\nDevice: {node_name}"
+    },
+    "wireplumber#source": {
+        "node-type": "Audio/Source",
+        "format": "{volume}% ",
+        "format-muted": "Mic ",
+        "scroll-step": 5,
+        "max-volume": 150,
+        "tooltip-format": "Microphone: {volume}%\nDevice: {node_name}"
+    },
+    "battery": {
+        "bat": "BAT0",
+        "adapter": "AC",
+        "full-at": 100,
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-charging": "{capacity}% ",
+        "format-plugged": "{capacity}% ",
+        "format-icons": ["", "", "", "", ""],
+        "tooltip-format": "{capacity}% ({timeTo})"
+    },
+	"custom/power": {
+		"format": "",
+		"tooltip": false,
+		"on-click": "wlogout"
+    }
+}

@@ -1,9 +1,10 @@
-# Arch setup
-Files for arch installation.
+# Arch Notes
 
-- `arch/install.sh` is a basic, non-automatic script to set up my Arch environment. It is probably deprecated. I haven't checked it in a long time.
-- `arch/user.conf` is a GNOME dconf export used by the install script.
+This directory is deprecated and is no longer the primary installation path.
 
-## TODO
-- [ ] Investigate ways to install arch with some post installations configurations or something like that.
-- [ ] Automate the tasks currently handled by `arch/install.sh`.
+Use the repo root workflow instead:
+
+- `./install.sh` for symlinking packages with GNU Stow
+- [dependencies.md](../dependencies.md) for the dependency inventory
+
+`arch/user.conf` is kept as a historical GNOME dconf export. `arch/install.sh` remains only as a stub pointing to the root workflow.
