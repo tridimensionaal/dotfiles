@@ -50,6 +50,10 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 # load aliases if present.
 [[ -r ${ZDOTDIR:-${XDG_CONFIG_HOME:-$HOME/.config}/zsh}/.zsh_aliases ]] && source "${ZDOTDIR:-${XDG_CONFIG_HOME:-$HOME/.config}/zsh}/.zsh_aliases"
 
+if [[ -z "${SSH_CONNECTION:-}" ]]; then
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
+fi
+
 # ---start_of_bash_scripts_setup---
 # Optional integration with Bash-scripts-for-daily-task.
 _bash_scripts_init="${BASH_SCRIPTS_INIT:-$HOME/github/Bash-scripts-for-daily-task/setup/init}"
