@@ -14,6 +14,10 @@ SAVEHIST=20000
 setopt APPEND_HISTORY
 setopt INC_APPEND_HISTORY
 
+_zsh_cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+mkdir -p "$_zsh_cache_dir"
+ZCOMPDUMP="$_zsh_cache_dir/.zcompdump"
+
 # activate vim mode
 bindkey -v
 bindkey -M viins 'jj' vi-cmd-mode
@@ -43,7 +47,7 @@ fi
 
 # enable completion with case-insensitive matching for Tab.
 autoload -Uz compinit
-compinit
+compinit -d "$ZCOMPDUMP"
 # insensitive case only if there are no case-sensitive matches,
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 
