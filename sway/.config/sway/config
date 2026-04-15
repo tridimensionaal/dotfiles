@@ -15,13 +15,15 @@ set $up k
 set $right l
 # Your preferred terminal emulator
 set $term alacritty
+# Your preferred browser
+set $browser firefox
 # Your preferred application launcher
 set $menu wmenu-run
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg $HOME/Pictures/wallpapers/picture_1.jpg center
 #
 # Example configuration:
 #
@@ -57,6 +59,16 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 input type:keyboard {
 	xkb_layout "latam"
 }
+
+# Add some breathing room around tiled windows and avoid title bars.
+gaps inner 12
+gaps outer 3
+default_border pixel 2
+default_floating_border pixel 2
+client.focused          #4c566a #4c566a #eceff4 #4c566a #4c566a
+client.unfocused        #2e3440 #2e3440 #a0a0a0 #2e3440 #2e3440
+client.focused_inactive #3b4252 #3b4252 #d8dee9 #3b4252 #3b4252
+client.urgent           #bf616a #bf616a #ffffff #bf616a #bf616a
 #
 # You can also configure each device individually.
 # Read `man 5 sway-input` for more information about this section.
@@ -73,6 +85,9 @@ input type:keyboard {
 
     # Start your launcher
     bindsym $mod+d exec $menu
+
+    # Start your browser
+    bindsym $mod+Shift+b exec $browser
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -135,6 +150,8 @@ input type:keyboard {
     bindsym $mod+Shift+8 move container to workspace number 8
     bindsym $mod+Shift+9 move container to workspace number 9
     bindsym $mod+Shift+0 move container to workspace number 10
+    assign [app_id="firefox"] workspace number 2
+    assign [class="firefox"] workspace number 2
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
 #
