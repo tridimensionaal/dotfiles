@@ -55,6 +55,15 @@ The install script is conservative:
 - it is safe to re-run
 - it does not overwrite conflicting files
 
+The `waybar` package uses standard utility applications on click:
+
+- Wi-Fi opens `nm-connection-editor`
+- speaker and mic open `pavucontrol`
+- battery opens `gnome-power-statistics`
+- power opens `wlogout`
+
+The Sway config adds floating window rules for those utility apps so they open centered like popups instead of splitting the current workspace.
+
 ## Dependency Tracking
 
 Dependencies now live in [dependencies.md](dependencies.md) instead of the old distro-specific install scripts. The manifest is derived from the tracked configs and separates:

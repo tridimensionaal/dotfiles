@@ -51,9 +51,12 @@ This inventory is derived from the configs tracked in this repository. Package n
 ### `waybar`
 
 - `waybar`
+- `nm-connection-editor`
 - `wireplumber`
+- `pavucontrol`
 - `wlogout`
 - `gnome-calendar`
+- `gnome-power-statistics` provided by `gnome-power-manager`
 - font families: `Font Awesome 7 Free`, `Font Awesome 7 Brands`
 
 ## Post-Stow Bootstrap State Not Enforced By `install.sh`

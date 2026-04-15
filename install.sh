@@ -241,6 +241,9 @@ check_waybar_dependencies() {
   check_command_dependency "$package" wireplumber
   check_command_dependency "$package" wlogout
   check_command_dependency "$package" gnome-calendar
+  check_command_dependency "$package" nm-connection-editor
+  check_command_dependency "$package" pavucontrol
+  check_command_dependency "$package" gnome-power-statistics
   check_font_dependency "$package" "Font Awesome 7 Free"
   check_font_dependency "$package" "Font Awesome 7 Brands"
 }

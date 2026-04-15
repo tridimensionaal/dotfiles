@@ -11,6 +11,7 @@
         "format-wifi": "{essid} ",
         "format-disconnected": "Offline",
         "max-length": 24,
+        "on-click": "nm-connection-editor",
         "tooltip-format-wifi": "{essid}\nSignal: {signalStrength}%\nIP: {ipaddr}\nInterface: {ifname}",
         "tooltip-format-disconnected": "Wi-Fi disconnected"
     },
@@ -32,6 +33,7 @@
         "format-icons": ["", "", ""],
         "scroll-step": 5,
         "max-volume": 150,
+        "on-click": "pavucontrol",
         "tooltip-format": "Speaker: {volume}%\nDevice: {node_name}"
     },
     "wireplumber#source": {
@@ -40,6 +42,7 @@
         "format-muted": "Mic ",
         "scroll-step": 5,
         "max-volume": 150,
+        "on-click": "pavucontrol",
         "tooltip-format": "Microphone: {volume}%\nDevice: {node_name}"
     },
     "battery": {
@@ -54,6 +57,7 @@
         "format-charging": "{capacity}% ",
         "format-plugged": "{capacity}% ",
         "format-icons": ["", "", "", "", ""],
+        "on-click": "gnome-power-statistics",
         "tooltip-format": "{capacity}% ({timeTo})"
     },
 	"custom/power": {
