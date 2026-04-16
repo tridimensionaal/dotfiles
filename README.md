@@ -15,6 +15,8 @@ Each top-level directory is a Stow package that maps into `$HOME`.
 - `legacy` -> old configs kept for reference
 - `arch` and `ubuntu` -> deprecated historical notes, not the main install flow
 
+The Sway package is split into `~/.config/sway/config` plus ordered fragments under `~/.config/sway/config.d/`.
+
 ## Install
 
 Requirements:
