@@ -154,10 +154,9 @@ client.urgent           #bf616a #bf616a #ffffff #bf616a #bf616a
     assign [class="firefox"] workspace number 2
     for_window [app_id="nm-connection-editor"] floating enable, resize set width 960 px height 720 px, move position center
     for_window [app_id="org.pulseaudio.pavucontrol"] floating enable, resize set width 980 px height 720 px, move position center
-    for_window [app_id="gnome-power-statistics"] floating enable, resize set width 960 px height 720 px, move position center
     for_window [class="Nm-connection-editor"] floating enable, resize set width 960 px height 720 px, move position center
     for_window [class="Pavucontrol"] floating enable, resize set width 980 px height 720 px, move position center
-    for_window [class="Gnome-power-statistics"] floating enable, resize set width 960 px height 720 px, move position center
+    for_window [app_id="org.gnome.PowerStats"] floating enable, resize set width 960 px height 720 px, move position center
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
 #
