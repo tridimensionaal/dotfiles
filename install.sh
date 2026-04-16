@@ -245,6 +245,7 @@ check_waybar_dependencies() {
   check_command_dependency "$package" nm-connection-editor
   check_command_dependency "$package" pavucontrol
   check_command_dependency "$package" gnome-power-statistics
+  check_font_dependency "$package" "Hack Nerd Font"
   check_font_dependency "$package" "Font Awesome 7 Free"
   check_font_dependency "$package" "Font Awesome 7 Brands"
 }
@@ -253,6 +254,7 @@ check_gtk_dependencies() {
   local package=$1
 
   check_command_dependency "$package" gtk-launch
+  check_font_dependency "$package" "Hack Nerd Font"
 }
 
 check_package_dependencies() {

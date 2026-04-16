@@ -58,11 +58,12 @@ This inventory is derived from the configs tracked in this repository. Package n
 - `wlogout`
 - `gnome-calendar`
 - `gnome-power-statistics` provided by `gnome-power-manager`
-- font families: `Font Awesome 7 Free`, `Font Awesome 7 Brands`
+- font families: `Hack Nerd Font`, `Font Awesome 7 Free`, `Font Awesome 7 Brands`
 
 ### `gtk`
 
 - `gtk-launch` from the GTK stack
+- font family: `Hack Nerd Font`
 - GTK applications that read `~/.config/gtk-3.0/settings.ini` and `~/.config/gtk-4.0/settings.ini`
 
 ## Post-Stow Bootstrap State Not Enforced By `install.sh`

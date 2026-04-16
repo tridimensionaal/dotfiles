@@ -1,7 +1,7 @@
 * {
     border: none;
-    font-family: "Font Awesome 7 Free", "Font Awesome 7 Brands", Roboto, Arial, sans-serif;
-    font-size: 13px;
+    font-family: "Hack Nerd Font", "Font Awesome 7 Free", "Font Awesome 7 Brands", sans-serif;
+    font-size: 15px;
     color: #ffffff;
     border-radius: 20px;
 }
@@ -34,10 +34,6 @@ window#waybar {
 #workspaces button {
     padding: 1px 5px;
     background-color: transparent;
-}
-#workspaces button:hover {
-    box-shadow: inherit;
-    background-color: rgba(0,153,153,1);
 }
 
 #workspaces button.focused {
@@ -75,10 +71,10 @@ window#waybar {
 #custom-power:hover,
 #custom-power:active {
     color: #ffffff;
-    font-size: 12px;
-    font-family: "Font Awesome 7 Free", "Font Awesome 7 Brands", Roboto, Arial, sans-serif;
+    font-size: 14px;
+    font-family: "Hack Nerd Font", "Font Awesome 7 Free", "Font Awesome 7 Brands", sans-serif;
     font-weight: 600;
-    padding: 0 6px;
+    padding: 0 10px;
     margin: 0;
     min-width: 0;
     background: transparent;
@@ -91,14 +87,6 @@ window#waybar {
 #custom-power label {
     padding: 0;
     margin: 0;
-}
-#network:hover,
-#wireplumber:hover,
-#battery:hover,
-#custom-power:hover,
-#clock:hover,
-#idle_inhibitor:hover {
-    background-color: rgba(0,153,153,0.18);
 }
 #wireplumber.muted,
 #battery.warning:not(.charging) {
