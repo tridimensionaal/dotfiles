@@ -45,6 +45,7 @@ This inventory is derived from the configs tracked in this repository. Package n
 - `brightnessctl`
 - `grim`
 - `swaynag`
+- `thunar`
 - `pkill`
 - readable file: `/usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png`
 
@@ -58,6 +59,11 @@ This inventory is derived from the configs tracked in this repository. Package n
 - `gnome-calendar`
 - `gnome-power-statistics` provided by `gnome-power-manager`
 - font families: `Font Awesome 7 Free`, `Font Awesome 7 Brands`
+
+### `gtk`
+
+- `gtk-launch` from the GTK stack
+- GTK applications that read `~/.config/gtk-3.0/settings.ini` and `~/.config/gtk-4.0/settings.ini`
 
 ## Post-Stow Bootstrap State Not Enforced By `install.sh`
 
@@ -85,4 +91,6 @@ This inventory is derived from the configs tracked in this repository. Package n
 - The Waybar config assumes:
   - the battery device is `BAT0`
   - the Wi-Fi interface matches `wlp*`
+- The Sway window rules assume Thunar identifies itself as `app_id="thunar"` or `class="Thunar"`.
 - The Sway wallpaper path and the Powerlevel10k theme path are distro-specific and may need adjustment on systems that package them differently.
+- GTK dark preference is a best-effort hint, not a universal Linux-wide theme switch; some future apps will ignore it.

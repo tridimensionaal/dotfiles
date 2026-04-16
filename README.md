@@ -12,10 +12,12 @@ Each top-level directory is a Stow package that maps into `$HOME`.
 - `zsh` -> `~/.config/zsh/` plus `~/.zshenv`
 - `sway` -> `~/.config/sway/`
 - `waybar` -> `~/.config/waybar/`
+- `gtk` -> `~/.config/gtk-3.0/` and `~/.config/gtk-4.0/`
 - `legacy` -> old configs kept for reference
 - `arch` and `ubuntu` -> deprecated historical notes, not the main install flow
 
 The Sway package is split into `~/.config/sway/config` plus ordered fragments under `~/.config/sway/config.d/`.
+It also includes window rules for desktop utility apps such as Thunar so they open as centered floating windows instead of tiling.
 
 ## Install
 
@@ -65,6 +67,8 @@ The `waybar` package uses standard utility applications on click:
 - power opens `wlogout`
 
 The Sway config adds floating window rules for those utility apps so they open centered like popups instead of splitting the current workspace.
+
+The `gtk` package sets a default dark preference for GTK 3 and GTK 4 applications using `Adwaita`.
 
 ## Dependency Tracking
 

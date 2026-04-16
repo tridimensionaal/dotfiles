@@ -6,7 +6,7 @@ SCRIPT_DIR=$(
   cd "$(dirname "${BASH_SOURCE[0]}")" && pwd
 )
 
-PACKAGES=(nvim tmux alacritty zsh sway waybar)
+PACKAGES=(nvim tmux alacritty zsh sway waybar gtk)
 DRY_RUN=0
 declare -a MISSING_DEPENDENCIES=()
 declare -a WARNINGS=()
@@ -230,6 +230,7 @@ check_sway_dependencies() {
   check_command_dependency "$package" brightnessctl
   check_command_dependency "$package" grim
   check_command_dependency "$package" swaynag
+  check_command_dependency "$package" thunar
   check_command_dependency "$package" pkill
   check_file_dependency "$package" /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png
 }
@@ -246,6 +247,12 @@ check_waybar_dependencies() {
   check_command_dependency "$package" gnome-power-statistics
   check_font_dependency "$package" "Font Awesome 7 Free"
   check_font_dependency "$package" "Font Awesome 7 Brands"
+}
+
+check_gtk_dependencies() {
+  local package=$1
+
+  check_command_dependency "$package" gtk-launch
 }
 
 check_package_dependencies() {
@@ -269,6 +276,9 @@ check_package_dependencies() {
       ;;
     waybar)
       check_waybar_dependencies "$package"
+      ;;
+    gtk)
+      check_gtk_dependencies "$package"
       ;;
   esac
 }
