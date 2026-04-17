@@ -1,21 +1,32 @@
 local M = {}
 
-M.palette = {
-  bg = "#202328",
-  fg = "#bbc2cf",
-  yellow = "#ECBE7B",
-  cyan = "#008080",
-  darkblue = "#081633",
-  green = "#98be65",
-  orange = "#FF8800",
-  violet = "#a9a1e1",
-  magenta = "#c678dd",
-  blue = "#51afef",
-  red = "#ec5f67",
-}
-
 function M.apply()
-  pcall(vim.cmd.colorscheme, "nightfox")
+  local ok, dracula = pcall(require, "dracula")
+  if not ok then
+    return
+  end
+
+  dracula.setup({
+    transparent_bg = true,
+    show_end_of_buffer = false,
+    lualine_bg_color = "none",
+    overrides = function(colors)
+      return {
+        CursorLineNr = { fg = colors.yellow, bg = "NONE" },
+        WinSeparator = { fg = colors.comment, bg = "NONE" },
+        NormalFloat = { bg = colors.bg },
+        FloatBorder = { fg = colors.comment, bg = colors.bg },
+        Pmenu = { bg = colors.bg },
+        PmenuSel = { fg = colors.fg, bg = colors.selection },
+        PmenuSbar = { bg = colors.bg },
+        PmenuThumb = { bg = colors.selection },
+        IblIndent = { fg = colors.selection, nocombine = true },
+        IblScope = { fg = colors.comment, nocombine = true },
+      }
+    end,
+  })
+
+  pcall(vim.cmd.colorscheme, "dracula")
 end
 
 return M

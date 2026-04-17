@@ -1,5 +1,5 @@
-local colors = require("config.ui.colors").palette
 local lualine = require("lualine")
+local colors = require("dracula").colors()
 
 -- from lualine
 local conditions = {
@@ -20,10 +20,7 @@ local config = {
   options = {
     component_separators = "",
     section_separators = "",
-    theme = {
-      normal = { c = { fg = colors.fg, bg = colors.bg } },
-      inactive = { c = { fg = colors.fg, bg = colors.bg } },
-    },
+    theme = "dracula-nvim",
   },
   sections = {
     lualine_a = {},
@@ -70,14 +67,14 @@ ins_left({
       v = colors.blue,
       [""] = colors.blue,
       V = colors.blue,
-      c = colors.magenta,
+      c = colors.pink,
       no = colors.red,
       s = colors.orange,
       S = colors.orange,
       [""] = colors.orange,
       ic = colors.yellow,
-      R = colors.violet,
-      Rv = colors.violet,
+      R = colors.bright_blue,
+      Rv = colors.bright_blue,
       cv = colors.red,
       ce = colors.red,
       r = colors.cyan,
@@ -99,7 +96,7 @@ ins_left({
 ins_left({
   "filename",
   cond = conditions.buffer_not_empty,
-  color = { fg = colors.magenta, gui = "bold" },
+  color = { fg = colors.pink, gui = "bold" },
 })
 
 ins_left({ "location" })
@@ -136,7 +133,7 @@ ins_left({
     return msg
   end,
   icon = " LSP:",
-  color = { fg = "#ffffff", gui = "bold" },
+  color = { fg = colors.fg, gui = "bold" },
 })
 
 ins_right({
@@ -156,7 +153,7 @@ ins_right({
 ins_right({
   "branch",
   icon = "",
-  color = { fg = colors.violet, gui = "bold" },
+  color = { fg = colors.bright_blue, gui = "bold" },
 })
 
 ins_right({
