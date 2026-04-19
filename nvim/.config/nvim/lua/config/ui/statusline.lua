@@ -21,6 +21,7 @@ local config = {
     component_separators = "",
     section_separators = "",
     theme = "dracula-nvim",
+    globalstatus = true,
   },
   sections = {
     lualine_a = {},
