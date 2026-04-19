@@ -1,18 +1,14 @@
 {
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["clock", "idle_inhibitor"],
-    "modules-right": ["network", "wireplumber#sink", "wireplumber#source", "battery", "custom/power"],
+    "modules-right": ["tray", "wireplumber#sink", "wireplumber#source", "battery", "custom/power"],
 
     "sway/mode": {
         "format": "<span style=\"italic\">{}</span>"
     },
-    "network": {
-        "interface": "wlp*",
-        "format-wifi": "{essid} ",
-        "format-disconnected": "Offline",
-        "max-length": 24,
-        "tooltip": false,
-        "on-click": "nm-connection-editor",
+    "tray": {
+        "icon-size": 20,
+        "spacing": 8
     },
     "idle_inhibitor": {
         "format": "{icon}",
@@ -33,7 +29,7 @@
         "scroll-step": 5,
         "max-volume": 150,
         "tooltip": false,
-        "on-click": "pavucontrol",
+        "on-click": "pavucontrol -t 3",
     },
     "wireplumber#source": {
         "node-type": "Audio/Source",
@@ -42,7 +38,7 @@
         "scroll-step": 5,
         "max-volume": 150,
         "tooltip": false,
-        "on-click": "pavucontrol",
+        "on-click": "pavucontrol -t 4",
     },
     "battery": {
         "bat": "BAT0",
