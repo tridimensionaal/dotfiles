@@ -355,6 +355,35 @@ download_wallpaper() {
   die "unable to download wallpaper: neither curl nor wget is available"
 }
 
+refresh_font_cache() {
+  if ! have_command fc-cache; then
+    return
+  fi
+
+  log "refreshing fontconfig cache"
+  run fc-cache -f
+}
+
+install_tmux_plugins() {
+  local tpm_dir="${HOME}/.tmux/plugins/tpm"
+
+  if ((SKIP_INSTALL)); then
+    log "skipping tmux plugin bootstrap because ./install.sh was skipped"
+    return
+  fi
+
+  if [[ -d "${tpm_dir}/.git" ]]; then
+    log "updating TPM at ${tpm_dir}"
+    run git -C "${tpm_dir}" pull --ff-only
+  else
+    log "cloning TPM into ${tpm_dir}"
+    run git clone https://github.com/tmux-plugins/tpm "${tpm_dir}"
+  fi
+
+  log "installing tmux plugins via TPM"
+  run "${tpm_dir}/bin/install_plugins"
+}
+
 run_repo_install() {
   if ((SKIP_INSTALL)); then
     log "skipping ./install.sh"
@@ -378,6 +407,7 @@ main() {
   start_sudo_keepalive
 
   install_pacman_packages
+  refresh_font_cache
   install_aur_packages
 
   if ((DEPS_ONLY)); then
@@ -388,6 +418,7 @@ main() {
   clone_or_update_repo
   download_wallpaper
   run_repo_install
+  install_tmux_plugins
 
   log "bootstrap complete"
 }

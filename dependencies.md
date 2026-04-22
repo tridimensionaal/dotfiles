@@ -78,7 +78,8 @@ This inventory is derived from the configs tracked in this repository. Package n
 - Treesitter parser artifacts derived from the tracked parser list:
   - core: `git_config`, `git_rebase`, `gitcommit`, `gitignore`, `json`, `ssh_config`, `toml`, `vim`, `vimdoc`, `yaml`
   - languages: `bash`, `css`, `html`, `javascript`, `lua`, `luadoc`, `luap`, `markdown`, `markdown_inline`, `python`, `rust`, `svelte`, `typescript`
-- `tmux-plugins/tpm` clone at `~/.tmux/plugins/tpm` and the plugins it installs after tmux is running
+- `tmux-plugins/tpm` clone at `~/.tmux/plugins/tpm` and the plugins it installs
+  The Arch VM bootstrap script now installs these automatically; manual installs still need this step.
   Basic tmux settings still work without TPM, but theme and plugin-managed behavior do not.
 
 ## Optional Extras

@@ -8,8 +8,8 @@ This package installs the real tmux config at `~/.config/tmux/tmux.conf`.
 
 The config uses TPM and plugin-managed features.
 
-- install TPM at `~/.tmux/plugins/tpm`
-- then open tmux and press `Ctrl-Space` followed by `Shift-I`
+- clone TPM at `~/.tmux/plugins/tpm`
+- then either run `~/.tmux/plugins/tpm/bin/install_plugins` or open tmux and press `Ctrl-Space` followed by `Shift-I`
 - plugin state is intentionally kept under `~/.tmux/plugins/`, outside the Stow-managed config tree
 
 Without TPM, basic tmux settings still load, but theme and plugin features will not.
