@@ -118,7 +118,7 @@ Use [remote-install.sh](../remote-install.sh) as the `curl | bash` entrypoint:
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/tridimensionaal/dotfiles/core/v1.0/remote-install.sh | \
-  bash -s -- --yes
+  bash -s --yes
 ```
 
 `remote-install.sh` stays intentionally thin:
@@ -136,11 +136,12 @@ Useful options:
 - `--repo-dir DIR`: clone into a different directory
 - `--repo-ref REF`: clone or update to a specific branch or tag
 
-When using `remote-install.sh`, pass bootstrap options after `--`:
+`remote-install.sh` accepts the common bootstrap flags directly. Use `--` only
+for passthrough flags the wrapper does not recognize yet:
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/tridimensionaal/dotfiles/core/v1.0/remote-install.sh | \
-  bash -s -- --repo-ref core/v1.0 -- --yes --skip-install
+  bash -s -- --repo-ref core/v1.0 --yes --skip-install
 ```
 
 ## Dotfiles Validation

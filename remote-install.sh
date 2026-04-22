@@ -19,15 +19,22 @@ Options:
   --repo-url URL      Clone from this Git URL
   --repo-ref REF      Clone this branch/tag/ref (default: core/v1.0)
   --repo-dir DIR      Clone into this directory (default: ~/dotfiles)
+  --deps-only         Forward to ./arch-vm-bootstrap.sh
+  --skip-aur          Forward to ./arch-vm-bootstrap.sh
+  --skip-install      Forward to ./arch-vm-bootstrap.sh
+  --dry-run           Forward to ./arch-vm-bootstrap.sh
+  --yes               Forward to ./arch-vm-bootstrap.sh
   --help              Show this help text
 
-Everything after `--` is forwarded to ./arch-vm-bootstrap.sh.
+The bootstrap options above can be passed directly to this wrapper.
+Everything after `--` is also forwarded to ./arch-vm-bootstrap.sh.
 Note: `--deps-only` still clones the repo first because this wrapper delegates
 only after a local checkout exists.
 
 Examples:
-  ./remote-install.sh -- --yes
-  ./remote-install.sh --repo-ref main -- --yes --skip-install
+  ./remote-install.sh --yes
+  ./remote-install.sh --repo-ref main --yes --skip-install
+  ./remote-install.sh --repo-ref main -- --some-future-flag
 EOF
 }
 
@@ -61,6 +68,9 @@ parse_args() {
         (($# >= 2)) || die "--repo-dir requires a value"
         REPO_DIR=$2
         shift
+        ;;
+      --deps-only|--skip-aur|--skip-install|--dry-run|--yes)
+        DELEGATE_ARGS+=("$1")
         ;;
       --help|-h)
         usage

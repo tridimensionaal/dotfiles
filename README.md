@@ -47,8 +47,10 @@ On a fresh Arch guest where you also want dependencies installed first:
 For a one-command bootstrap from a clean Arch VM:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/tridimensionaal/dotfiles/core/v1.0/remote-install.sh | bash -s -- --yes
+curl -fsSL https://raw.githubusercontent.com/tridimensionaal/dotfiles/core/v1.0/remote-install.sh | bash -s --yes
 ```
+
+`remote-install.sh` accepts the common bootstrap flags directly.
 
 Dry-run first:
 
