@@ -55,6 +55,21 @@ pkgver=1
 pkgrel=1
 arch=('any')
 PKG
+  elif [[ ${2:-} == https://github.com/tmux-plugins/tpm ]]; then
+    mkdir -p "${dest}/bin"
+    cat >"${dest}/bin/install_plugins" <<'SCRIPT'
+#!/usr/bin/env bash
+set -euo pipefail
+exit 0
+SCRIPT
+    chmod +x "${dest}/bin/install_plugins"
+  else
+    cat >"${dest}/install.sh" <<'SCRIPT'
+#!/usr/bin/env bash
+set -euo pipefail
+exit 0
+SCRIPT
+    chmod +x "${dest}/install.sh"
   fi
 
   exit 0
@@ -76,6 +91,25 @@ EOF
 cat >"${BIN_DIR}/fc-cache" <<'EOF'
 #!/usr/bin/env bash
 set -euo pipefail
+exit 0
+EOF
+
+cat >"${BIN_DIR}/getent" <<'EOF'
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ ${1:-} == "passwd" ]]; then
+  printf 'tester:x:1000:1000:Tester:/home/tester:/bin/bash\n'
+  exit 0
+fi
+
+exit 1
+EOF
+
+cat >"${BIN_DIR}/chsh" <<EOF
+#!/usr/bin/env bash
+set -euo pipefail
+printf '%s\n' "\$*" >>"${LOG_DIR}/chsh.log"
 exit 0
 EOF
 
@@ -131,7 +165,7 @@ EOF
 
 chmod +x "${BIN_DIR}/"*
 
-PATH="${BIN_DIR}:$PATH" HOME="${HOME_DIR}" "${TARGET_SCRIPT}" --deps-only >/dev/null 2>"${LOG_DIR}/stderr.log" || status=$?
+PATH="${BIN_DIR}:$PATH" HOME="${HOME_DIR}" USER=tester "${TARGET_SCRIPT}" >/dev/null 2>"${LOG_DIR}/stderr.log" || status=$?
 status=${status:-0}
 
 if [[ ${status} -ne 0 ]]; then
@@ -140,3 +174,4 @@ if [[ ${status} -ne 0 ]]; then
 fi
 
 grep -q -- '--config' "${LOG_DIR}/makepkg.log"
+grep -q -- '-s .*/zsh tester' "${LOG_DIR}/chsh.log"

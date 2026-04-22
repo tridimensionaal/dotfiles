@@ -399,6 +399,37 @@ refresh_font_cache() {
   run fc-cache -f
 }
 
+current_login_shell() {
+  local target_user
+
+  target_user=${USER:-$(id -un)}
+
+  if have_command getent; then
+    getent passwd "${target_user}" | cut -d: -f7
+    return
+  fi
+
+  printf '%s\n' "${SHELL:-}"
+}
+
+ensure_zsh_login_shell() {
+  local zsh_path
+  local login_shell
+  local target_user
+
+  zsh_path=$(command -v zsh)
+  login_shell=$(current_login_shell)
+  target_user=${USER:-$(id -un)}
+
+  if [[ "${login_shell##*/}" == "zsh" ]]; then
+    log "login shell already set to zsh"
+    return
+  fi
+
+  log "setting login shell to ${zsh_path} for ${target_user}"
+  run sudo chsh -s "${zsh_path}" "${target_user}"
+}
+
 install_tmux_plugins() {
   local tpm_dir="${HOME}/.tmux/plugins/tpm"
 
@@ -453,6 +484,7 @@ main() {
   clone_or_update_repo
   download_wallpaper
   run_repo_install
+  ensure_zsh_login_shell
   install_tmux_plugins
 
   log "bootstrap complete"
