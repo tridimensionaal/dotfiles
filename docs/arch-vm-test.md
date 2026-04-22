@@ -118,7 +118,7 @@ Use [remote-install.sh](../remote-install.sh) as the `curl | bash` entrypoint:
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/tridimensionaal/dotfiles/core/v1.0/remote-install.sh | \
-  bash -s --yes
+  bash -s -- --yes
 ```
 
 `remote-install.sh` stays intentionally thin:

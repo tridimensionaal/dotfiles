@@ -12,6 +12,7 @@ DEPS_ONLY=0
 SKIP_AUR=0
 SKIP_INSTALL=0
 YES=0
+SUDO_KEEPALIVE_PID=""
 
 PACMAN_PACKAGES=(
   stow
@@ -186,6 +187,31 @@ ensure_not_root() {
   fi
 }
 
+cleanup() {
+  if [[ -n "${SUDO_KEEPALIVE_PID}" ]]; then
+    kill "${SUDO_KEEPALIVE_PID}" 2>/dev/null || true
+    wait "${SUDO_KEEPALIVE_PID}" 2>/dev/null || true
+    sudo -k 2>/dev/null || true
+  fi
+}
+
+start_sudo_keepalive() {
+  if ((DRY_RUN)); then
+    return
+  fi
+
+  log "refreshing sudo credentials"
+  sudo -v
+
+  (
+    while true; do
+      sleep 60
+      sudo -n true
+    done
+  ) &
+  SUDO_KEEPALIVE_PID=$!
+}
+
 install_pacman_packages() {
   local pacman_args=(-Syu --needed)
 
@@ -304,10 +330,13 @@ run_repo_install() {
 }
 
 main() {
+  trap cleanup EXIT
+
   parse_args "$@"
   ensure_not_root
   require_command sudo
   require_command pacman
+  start_sudo_keepalive
 
   install_pacman_packages
   install_aur_packages
