@@ -6,6 +6,7 @@ REPO_URL="https://github.com/tridimensionaal/dotfiles.git"
 REPO_REF="core/v1.0"
 REPO_DIR="${HOME}/dotfiles"
 DELEGATE_SCRIPT="arch-vm-bootstrap.sh"
+YES=0
 declare -a DELEGATE_ARGS=()
 
 usage() {
@@ -23,7 +24,7 @@ Options:
   --skip-aur          Forward to ./arch-vm-bootstrap.sh
   --skip-install      Forward to ./arch-vm-bootstrap.sh
   --dry-run           Forward to ./arch-vm-bootstrap.sh
-  --yes               Forward to ./arch-vm-bootstrap.sh
+  --yes               Forward to ./arch-vm-bootstrap.sh and use --noconfirm for the initial git install
   --help              Show this help text
 
 The bootstrap options above can be passed directly to this wrapper.
@@ -70,6 +71,9 @@ parse_args() {
         shift
         ;;
       --deps-only|--skip-aur|--skip-install|--dry-run|--yes)
+        if [[ "$1" == "--yes" ]]; then
+          YES=1
+        fi
         DELEGATE_ARGS+=("$1")
         ;;
       --help|-h)
@@ -96,6 +100,8 @@ ensure_not_root() {
 }
 
 ensure_git() {
+  local pacman_args=(-Sy --needed)
+
   if have_command git; then
     return
   fi
@@ -104,8 +110,12 @@ ensure_git() {
     die "git is not installed and pacman is unavailable"
   fi
 
+  if ((YES)); then
+    pacman_args+=(--noconfirm)
+  fi
+
   log "installing git so the repo can be cloned"
-  sudo pacman -Sy --needed git
+  sudo pacman "${pacman_args[@]}" git
 }
 
 clone_or_update_repo() {
