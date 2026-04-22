@@ -109,6 +109,7 @@ That script:
 - installs the official Arch packages required by the tracked configs
 - builds and installs the two required AUR packages
 - clones or updates the dotfiles repo under `~/dotfiles`
+- downloads the wallpaper expected by [sway/.config/sway/config.d/20-output.conf](../sway/.config/sway/config.d/20-output.conf)
 - runs `./install.sh --dry-run` and then `./install.sh`
 
 ### One-command remote bootstrap
@@ -162,6 +163,14 @@ The dry run should succeed without missing dependency errors. A normal run shoul
 - `sway`
 - `waybar`
 - `gtk`
+
+If you are not using `arch-vm-bootstrap.sh`, create the wallpaper file expected by [sway/.config/sway/config.d/20-output.conf](../sway/.config/sway/config.d/20-output.conf) before logging into Sway:
+
+```sh
+mkdir -p "$HOME/Pictures/wallpapers"
+curl -fsSL 'https://64.media.tumblr.com/5418cfe910d3aacbd338b62f8e902920/4d297239ab123154-5a/s1280x1920/2c8f9cd34d432881a820204145fd71216e4938a0.jpg' \
+  -o "$HOME/Pictures/wallpapers/picture_1.jpg"
+```
 
 ## Runtime Checks
 

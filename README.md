@@ -4,7 +4,7 @@ Personal dotfiles managed with GNU Stow.
 
 ## Layout
 
-Each top-level directory is a Stow package that maps into `$HOME`.
+Supported Stow packages live at the repo root and map into `$HOME`.
 
 - `nvim` -> `~/.config/nvim/`
 - `tmux` -> `~/.config/tmux/tmux.conf` plus `~/.tmux.conf`
@@ -13,8 +13,14 @@ Each top-level directory is a Stow package that maps into `$HOME`.
 - `sway` -> `~/.config/sway/`
 - `waybar` -> `~/.config/waybar/`
 - `gtk` -> `~/.config/gtk-3.0/` and `~/.config/gtk-4.0/`
-- `legacy` -> old configs kept for reference
-- `arch` and `ubuntu` -> deprecated historical notes, not the main install flow
+
+The repo root also keeps the active install and documentation entrypoints:
+
+- `install.sh` -> repo-local Stow installer with dependency preflight
+- `arch-vm-bootstrap.sh` -> Arch guest bootstrap helper
+- `remote-install.sh` -> thin `curl | bash` entrypoint that clones first, then delegates locally
+- `dependencies.md` -> install-time and post-stow dependency inventory
+- `docs/` -> active project documentation
 
 The Sway package is split into `~/.config/sway/config` plus ordered fragments under `~/.config/sway/config.d/`.
 It also includes window rules for desktop utility apps such as Thunar so they open as centered floating windows instead of tiling.
@@ -30,6 +36,18 @@ Install everything:
 
 ```sh
 ./install.sh
+```
+
+On a fresh Arch guest where you also want dependencies installed first:
+
+```sh
+./arch-vm-bootstrap.sh --yes
+```
+
+For a one-command bootstrap from a clean Arch VM:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/tridimensionaal/dotfiles/core/v1.0/remote-install.sh | bash -s -- --yes
 ```
 
 Dry-run first:
@@ -53,18 +71,19 @@ stow -D -t "$HOME" nvim
 The install script is conservative:
 
 - it requires `stow`
-- it validates package-scoped host/runtime dependencies before stowing
+- it validates package-scoped runtime dependencies used by the tracked configs before stowing
 - it aggregates missing dependency errors across the requested packages
 - it preflights every requested package before making changes
 - it is safe to re-run
 - it does not overwrite conflicting files
 
-The `waybar` package uses standard utility applications on click:
+The default desktop session integrates utility apps in two places:
 
-- Wi-Fi opens `nm-connection-editor`
+- the tray hosts `nm-applet`
 - speaker and mic open `pavucontrol`
 - battery opens `gnome-power-statistics`
 - power opens `wlogout`
+- the clock opens `gnome-calendar`
 
 The Sway config adds floating window rules for those utility apps so they open centered like popups instead of splitting the current workspace.
 
@@ -78,6 +97,8 @@ Dependencies now live in [dependencies.md](dependencies.md) instead of the old d
 - post-stow bootstrap state handled later by plugin/tool managers
 - hardware and environment assumptions
 
+For a reproducible Arch GUI validation path, use [docs/arch-vm-test.md](docs/arch-vm-test.md). That guide covers the current `virt-manager` + `archinstall` + Sway test flow and the expected runtime checks after `./install.sh`.
+
 ## Non-XDG Exceptions
 
 Two home-level files remain on purpose:
@@ -86,7 +107,3 @@ Two home-level files remain on purpose:
 - `~/.tmux.conf` sources `~/.config/tmux/tmux.conf` because tmux still looks for the traditional top-level config by default.
 
 Everything else is kept under `~/.config` where the application supports it cleanly.
-
-## Deprecated Paths
-
-`ubuntu/install.sh` and `arch/install.sh` are no longer part of the primary workflow. They remain only as historical references and point back to the Stow-based install flow.

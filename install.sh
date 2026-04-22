@@ -224,15 +224,19 @@ check_sway_dependencies() {
 
   check_command_dependency "$package" sway
   check_command_dependency "$package" alacritty
+  check_command_dependency "$package" firefox
   check_command_dependency "$package" wmenu-run
   check_command_dependency "$package" waybar
+  check_command_dependency "$package" nm-applet
+  check_command_dependency "$package" gsettings
   check_command_dependency "$package" pactl
   check_command_dependency "$package" brightnessctl
   check_command_dependency "$package" grim
   check_command_dependency "$package" swaynag
   check_command_dependency "$package" thunar
   check_command_dependency "$package" pkill
-  check_file_dependency "$package" /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png
+  check_file_dependency "$package" "$HOME/Pictures/wallpapers/picture_1.jpg"
+  check_file_dependency "$package" /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 }
 
 check_waybar_dependencies() {
@@ -242,7 +246,6 @@ check_waybar_dependencies() {
   check_command_dependency "$package" wireplumber
   check_command_dependency "$package" wlogout
   check_command_dependency "$package" gnome-calendar
-  check_command_dependency "$package" nm-connection-editor
   check_command_dependency "$package" pavucontrol
   check_command_dependency "$package" gnome-power-statistics
   check_font_dependency "$package" "Hack Nerd Font"

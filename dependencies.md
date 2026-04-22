@@ -39,20 +39,23 @@ This inventory is derived from the configs tracked in this repository. Package n
 
 - `sway`
 - `alacritty`
+- `firefox`
 - `wmenu-run`
 - `waybar`
+- `nm-applet`
+- `gsettings`
 - `pactl`
 - `brightnessctl`
 - `grim`
 - `swaynag`
 - `thunar`
 - `pkill`
-- readable file: `/usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png`
+- readable file: `$HOME/Pictures/wallpapers/picture_1.jpg`
+- readable file: `/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1`
 
 ### `waybar`
 
 - `waybar`
-- `nm-connection-editor`
 - `wireplumber`
 - `pavucontrol`
 - `wlogout`
@@ -82,6 +85,7 @@ This inventory is derived from the configs tracked in this repository. Package n
 
 - `nvm`: `.zshrc` sources `/usr/share/nvm/init-nvm.sh` when present, but the config works without it
 - `Bash-scripts-for-daily-task`: `.zshrc` loads it only when `${BASH_SCRIPTS_INIT}` or the default path exists
+- `nm-connection-editor`: useful for manual NetworkManager configuration and VM validation, but not required for the default Sway session to start
 
 ## Assumptions And Uncertain Dependencies
 
@@ -91,7 +95,6 @@ This inventory is derived from the configs tracked in this repository. Package n
   - `python3` may be required by some tooling or plugins, but this repo does not directly shell out to it in the tracked config
 - The Waybar config assumes:
   - the battery device is `BAT0`
-  - the Wi-Fi interface matches `wlp*`
 - The Sway window rules assume Thunar identifies itself as `app_id="thunar"` or `class="Thunar"`.
-- The Sway wallpaper path and the Powerlevel10k theme path are distro-specific and may need adjustment on systems that package them differently.
+- The custom wallpaper path, the Powerlevel10k theme path, and the `polkit-gnome` agent path are environment-specific and may need adjustment on systems that package or provision them differently.
 - GTK dark preference is a best-effort hint, not a universal Linux-wide theme switch; some future apps will ignore it.
