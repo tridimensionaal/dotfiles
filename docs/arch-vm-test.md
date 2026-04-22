@@ -1,6 +1,6 @@
 # Arch VM Test Guide
 
-This is the supported GUI validation path for these dotfiles on Arch Linux. It uses `virt-manager` on the host, an Arch guest installed with `archinstall`, and the repo-root [install.sh](../install.sh).
+This is an internal validation guide for maintainers testing these dotfiles on Arch Linux. It uses `virt-manager` on the host, an Arch guest installed with `archinstall`, and the repo-root [install.sh](../install.sh).
 
 ## Scope
 
@@ -92,16 +92,16 @@ Re-run dotfiles validation from `20-post-deps`.
 
 Downloading only [install.sh](../install.sh) is not enough. That script expects the full repo checkout because it stows package directories such as `nvim`, `sway`, and `waybar`.
 
-There are two supported automation paths:
+For validation runs, there are two convenient automation paths:
 
 ### Repo-local bootstrap
 
-Clone the repo first, then run [arch-vm-bootstrap.sh](../arch-vm-bootstrap.sh):
+Clone the repo first, then run [install-arch.sh](../install-arch.sh):
 
 ```sh
 git clone https://github.com/tridimensionaal/dotfiles.git ~/dotfiles
 cd ~/dotfiles
-./arch-vm-bootstrap.sh --yes
+./install-arch.sh --yes
 ```
 
 That script:
@@ -125,7 +125,7 @@ curl -fsSL https://raw.githubusercontent.com/tridimensionaal/dotfiles/core/v1.0/
 
 - installs `git` if needed
 - clones this repo into `~/dotfiles`
-- delegates to the repo-local `./arch-vm-bootstrap.sh`
+- delegates to the repo-local `./install-arch.sh`
 
 Useful options:
 
@@ -165,7 +165,7 @@ The dry run should succeed without missing dependency errors. A normal run shoul
 - `waybar`
 - `gtk`
 
-If you are not using `arch-vm-bootstrap.sh`, create the wallpaper file expected by [sway/.config/sway/config.d/20-output.conf](../sway/.config/sway/config.d/20-output.conf) before logging into Sway:
+If you are not using `install-arch.sh`, create the wallpaper file expected by [sway/.config/sway/config.d/20-output.conf](../sway/.config/sway/config.d/20-output.conf) before logging into Sway:
 
 ```sh
 mkdir -p "$HOME/Pictures/wallpapers"

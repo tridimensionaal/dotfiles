@@ -5,7 +5,7 @@ set -euo pipefail
 REPO_URL="https://github.com/tridimensionaal/dotfiles.git"
 REPO_REF="core/v1.0"
 REPO_DIR="${HOME}/dotfiles"
-DELEGATE_SCRIPT="arch-vm-bootstrap.sh"
+DELEGATE_SCRIPT="install-arch.sh"
 YES=0
 declare -a DELEGATE_ARGS=()
 
@@ -13,22 +13,22 @@ usage() {
   cat <<'EOF'
 Usage: ./remote-install.sh [options] [-- bootstrap-args...]
 
-Thin remote bootstrapper for Arch guests. It clones this repo locally and then
-delegates to ./arch-vm-bootstrap.sh from the checked out repo.
+Thin remote bootstrapper for Arch systems. It clones this repo locally and then
+delegates to ./install-arch.sh from the checked out repo.
 
 Options:
   --repo-url URL      Clone from this Git URL
   --repo-ref REF      Clone this branch/tag/ref (default: core/v1.0)
   --repo-dir DIR      Clone into this directory (default: ~/dotfiles)
-  --deps-only         Forward to ./arch-vm-bootstrap.sh
-  --skip-aur          Forward to ./arch-vm-bootstrap.sh
-  --skip-install      Forward to ./arch-vm-bootstrap.sh
-  --dry-run           Forward to ./arch-vm-bootstrap.sh
-  --yes               Forward to ./arch-vm-bootstrap.sh and use --noconfirm for the initial git install
+  --deps-only         Forward to ./install-arch.sh
+  --skip-aur          Forward to ./install-arch.sh
+  --skip-install      Forward to ./install-arch.sh
+  --dry-run           Forward to ./install-arch.sh
+  --yes               Forward to ./install-arch.sh and use --noconfirm for the initial git install
   --help              Show this help text
 
 The bootstrap options above can be passed directly to this wrapper.
-Everything after `--` is also forwarded to ./arch-vm-bootstrap.sh.
+Everything after `--` is also forwarded to ./install-arch.sh.
 Note: `--deps-only` still clones the repo first because this wrapper delegates
 only after a local checkout exists.
 

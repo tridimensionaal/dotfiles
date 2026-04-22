@@ -17,7 +17,7 @@ Supported Stow packages live at the repo root and map into `$HOME`.
 The repo root also keeps the active install and documentation entrypoints:
 
 - `install.sh` -> repo-local Stow installer with dependency preflight
-- `arch-vm-bootstrap.sh` -> Arch guest bootstrap helper
+- `install-arch.sh` -> Arch dependency/bootstrap helper
 - `remote-install.sh` -> thin `curl | bash` entrypoint that clones first, then delegates locally
 - `dependencies.md` -> install-time and post-stow dependency inventory
 - `docs/` -> active project documentation
@@ -32,19 +32,13 @@ Requirements:
 - `stow`
 - the runtime dependencies described in [dependencies.md](dependencies.md)
 
-Install everything:
+For a local checkout that already has its dependencies in place:
 
 ```sh
 ./install.sh
 ```
 
-On a fresh Arch guest where you also want dependencies installed first:
-
-```sh
-./arch-vm-bootstrap.sh --yes
-```
-
-For a one-command bootstrap from a clean Arch VM:
+For a one-command bootstrap on Arch:
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/tridimensionaal/dotfiles/core/v1.0/remote-install.sh | bash -s -- --yes
@@ -52,6 +46,12 @@ curl -fsSL https://raw.githubusercontent.com/tridimensionaal/dotfiles/core/v1.0/
 
 The extra `--` belongs to `bash`: it stops bash option parsing and passes the
 remaining flags to `remote-install.sh`.
+
+If you already cloned the repo on Arch and want the dependency/bootstrap helper locally:
+
+```sh
+./install-arch.sh --yes
+```
 
 Dry-run first:
 
@@ -99,8 +99,6 @@ Dependencies now live in [dependencies.md](dependencies.md) instead of the old d
 - install-time dependencies enforced by `install.sh`
 - post-stow bootstrap state handled later by plugin/tool managers
 - hardware and environment assumptions
-
-For a reproducible Arch GUI validation path, use [docs/arch-vm-test.md](docs/arch-vm-test.md). That guide covers the current `virt-manager` + `archinstall` + Sway test flow and the expected runtime checks after `./install.sh`.
 
 ## Non-XDG Exceptions
 

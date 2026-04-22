@@ -1,6 +1,6 @@
 # Tmux
 
-This package installs the real tmux config at `~/.config/tmux/tmux.conf`.
+The main tmux config lives at `~/.config/tmux/tmux.conf`.
 
 `~/.tmux.conf` is kept as a small compatibility shim that sources the XDG config, so tmux still picks up the config without extra wrapper logic.
 

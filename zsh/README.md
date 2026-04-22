@@ -1,6 +1,6 @@
 # Zsh
 
-This package keeps the main Zsh config under `~/.config/zsh` and installs one top-level file:
+The main Zsh config lives under `~/.config/zsh` with one intentional top-level file:
 
 - `~/.zshenv` sets `ZDOTDIR="$HOME/.config/zsh"`
 

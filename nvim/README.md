@@ -1,6 +1,6 @@
 # Neovim
 
-This package installs the Neovim config into `~/.config/nvim`.
+The Neovim config lives under `~/.config/nvim`.
 
 ## Notes
 

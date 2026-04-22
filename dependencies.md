@@ -79,14 +79,13 @@ This inventory is derived from the configs tracked in this repository. Package n
   - core: `git_config`, `git_rebase`, `gitcommit`, `gitignore`, `json`, `ssh_config`, `toml`, `vim`, `vimdoc`, `yaml`
   - languages: `bash`, `css`, `html`, `javascript`, `lua`, `luadoc`, `luap`, `markdown`, `markdown_inline`, `python`, `rust`, `svelte`, `typescript`
 - `tmux-plugins/tpm` clone at `~/.tmux/plugins/tpm` and the plugins it installs
-  The Arch VM bootstrap script now installs these automatically; manual installs still need this step.
   Basic tmux settings still work without TPM, but theme and plugin-managed behavior do not.
 
 ## Optional Extras
 
 - `nvm`: `.zshrc` sources `/usr/share/nvm/init-nvm.sh` when present, but the config works without it
 - `Bash-scripts-for-daily-task`: `.zshrc` loads it only when `${BASH_SCRIPTS_INIT}` or the default path exists
-- `nm-connection-editor`: useful for manual NetworkManager configuration and VM validation, but not required for the default Sway session to start
+- `nm-connection-editor`: useful for manual NetworkManager configuration, but not required for the default Sway session to start
 
 ## Assumptions And Uncertain Dependencies
 
