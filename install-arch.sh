@@ -14,6 +14,7 @@ SKIP_INSTALL=0
 YES=0
 SUDO_KEEPALIVE_PID=""
 GPG_KEYSERVER="hkps://keyserver.ubuntu.com"
+MAKEPKG_CONFIG_PATH=""
 
 PACMAN_PACKAGES=(
   stow
@@ -226,6 +227,10 @@ ensure_not_root() {
 }
 
 cleanup() {
+  if [[ -n "${MAKEPKG_CONFIG_PATH}" ]]; then
+    rm -f "${MAKEPKG_CONFIG_PATH}" 2>/dev/null || true
+  fi
+
   if [[ -n "${SUDO_KEEPALIVE_PID}" ]]; then
     kill "${SUDO_KEEPALIVE_PID}" 2>/dev/null || true
     wait "${SUDO_KEEPALIVE_PID}" 2>/dev/null || true
@@ -248,6 +253,34 @@ start_sudo_keepalive() {
     done
   ) &
   SUDO_KEEPALIVE_PID=$!
+}
+
+ensure_makepkg_config() {
+  local xdg_makepkg_config="${HOME}/.config/pacman/makepkg.conf"
+  local user_makepkg_config="${HOME}/.makepkg.conf"
+
+  if [[ -n "${MAKEPKG_CONFIG_PATH}" ]]; then
+    return
+  fi
+
+  MAKEPKG_CONFIG_PATH=$(mktemp)
+
+  cat >"${MAKEPKG_CONFIG_PATH}" <<EOF
+#!/usr/bin/env bash
+source /etc/makepkg.conf
+for config in /etc/makepkg.conf.d/*.conf; do
+  [[ -r "\${config}" ]] || continue
+  source "\${config}"
+done
+EOF
+
+  if [[ -r "${xdg_makepkg_config}" ]]; then
+    printf 'source %q\n' "${xdg_makepkg_config}" >>"${MAKEPKG_CONFIG_PATH}"
+  elif [[ -r "${user_makepkg_config}" ]]; then
+    printf 'source %q\n' "${user_makepkg_config}" >>"${MAKEPKG_CONFIG_PATH}"
+  fi
+
+  printf 'PACMAN_AUTH=(sudo)\n' >>"${MAKEPKG_CONFIG_PATH}"
 }
 
 install_pacman_packages() {
@@ -301,13 +334,15 @@ install_aur_package() {
     makepkg_args+=(--noconfirm)
   fi
 
+  ensure_makepkg_config
+
   build_root=$(mktemp -d)
   package_dir="${build_root}/${package}"
 
   log "building AUR package: ${package}"
   run git clone "https://aur.archlinux.org/${package}.git" "${package_dir}"
   ensure_aur_signing_keys "${package_dir}"
-  run_in_dir "${package_dir}" makepkg "${makepkg_args[@]}"
+  run_in_dir "${package_dir}" makepkg --config "${MAKEPKG_CONFIG_PATH}" "${makepkg_args[@]}"
 
   if ((DRY_RUN)); then
     rmdir "${build_root}" 2>/dev/null || true
