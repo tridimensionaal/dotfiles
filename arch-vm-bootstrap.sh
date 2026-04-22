@@ -13,6 +13,7 @@ SKIP_AUR=0
 SKIP_INSTALL=0
 YES=0
 SUDO_KEEPALIVE_PID=""
+GPG_KEYSERVER="hkps://keyserver.ubuntu.com"
 
 PACMAN_PACKAGES=(
   stow
@@ -134,6 +135,43 @@ run_in_dir() {
     cd "$directory"
     "$@"
   )
+}
+
+list_validpgpkeys() {
+  local pkgbuild_path=$1
+
+  awk '
+    /^validpgpkeys=\(/ { in_keys=1 }
+    in_keys { print }
+    in_keys && /\)/ { exit }
+  ' "$pkgbuild_path" | grep -Eo '[A-F0-9]{40}' || true
+}
+
+have_gpg_public_key() {
+  local fingerprint=$1
+  gpg --list-keys --with-colons "$fingerprint" >/dev/null 2>&1
+}
+
+ensure_aur_signing_keys() {
+  local package_dir=$1
+  local fingerprint
+  local found_keys=0
+
+  while IFS= read -r fingerprint; do
+    [[ -n "$fingerprint" ]] || continue
+    found_keys=1
+
+    if have_gpg_public_key "$fingerprint"; then
+      continue
+    fi
+
+    log "importing missing AUR signing key: ${fingerprint}"
+    run gpg --keyserver "${GPG_KEYSERVER}" --recv-keys "${fingerprint}"
+  done < <(list_validpgpkeys "${package_dir}/PKGBUILD")
+
+  if ((found_keys)) && ((DRY_RUN)); then
+    return
+  fi
 }
 
 parse_args() {
@@ -268,6 +306,7 @@ install_aur_package() {
 
   log "building AUR package: ${package}"
   run git clone "https://aur.archlinux.org/${package}.git" "${package_dir}"
+  ensure_aur_signing_keys "${package_dir}"
   run_in_dir "${package_dir}" makepkg "${makepkg_args[@]}"
 
   if ((DRY_RUN)); then
