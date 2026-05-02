@@ -7,6 +7,7 @@ REPO_REF="core/v1.0"
 REPO_DIR="${HOME}/dotfiles"
 DELEGATE_SCRIPT="install-arch.sh"
 YES=0
+PROFILE="full"
 declare -a DELEGATE_ARGS=()
 
 usage() {
@@ -17,6 +18,7 @@ Thin remote bootstrapper for Arch systems. It clones this repo locally and then
 delegates to ./install-arch.sh from the checked out repo.
 
 Options:
+  --profile full|gui  Select package profile (default: full)
   --repo-url URL      Clone from this Git URL
   --repo-ref REF      Clone this branch/tag/ref (default: core/v1.0)
   --repo-dir DIR      Clone into this directory (default: ~/dotfiles)
@@ -34,6 +36,7 @@ only after a local checkout exists.
 
 Examples:
   ./remote-install.sh --yes
+  ./remote-install.sh --profile gui --yes
   ./remote-install.sh --repo-ref main --yes --skip-install
   ./remote-install.sh --repo-ref main -- --some-future-flag
 EOF
@@ -55,6 +58,16 @@ have_command() {
 parse_args() {
   while (($# > 0)); do
     case "$1" in
+      --profile)
+        (($# >= 2)) || die "--profile requires a value"
+        PROFILE=$2
+        DELEGATE_ARGS+=("$1" "$2")
+        shift
+        ;;
+      --profile=*)
+        PROFILE=${1#--profile=}
+        DELEGATE_ARGS+=("$1")
+        ;;
       --repo-url)
         (($# >= 2)) || die "--repo-url requires a value"
         REPO_URL=$2
@@ -91,6 +104,14 @@ parse_args() {
     esac
     shift
   done
+
+  case "${PROFILE}" in
+    full|gui)
+      ;;
+    *)
+      die "unknown profile: ${PROFILE}"
+      ;;
+  esac
 }
 
 ensure_not_root() {

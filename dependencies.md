@@ -2,6 +2,13 @@
 
 This inventory is derived from the configs tracked in this repository. Package names vary by distro, so this file lists tools by their upstream command or project name instead of trying to maintain `apt` and `pacman` translations inline.
 
+## Install Profiles
+
+- `full`: installs and checks `nvim`, `tmux`, `alacritty`, `zsh`, `sway`, `waybar`, and `gtk`
+- `gui`: installs and checks `alacritty`, `sway`, `waybar`, and `gtk`
+
+Use `./install.sh --profile full` or `./install.sh --profile gui` for local Stow installs. Use the same `--profile` flag with `install-arch.sh` or `remote-install.sh` for Arch dependency bootstrapping.
+
 ## Install-Time Dependencies Enforced By `install.sh`
 
 - `stow`: required for the install flow

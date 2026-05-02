@@ -12,27 +12,19 @@ DEPS_ONLY=0
 SKIP_AUR=0
 SKIP_INSTALL=0
 YES=0
+PROFILE="full"
 SUDO_KEEPALIVE_PID=""
 GPG_KEYSERVER="hkps://keyserver.ubuntu.com"
 MAKEPKG_CONFIG_PATH=""
 
-PACMAN_PACKAGES=(
+PACMAN_GUI_PACKAGES=(
   stow
   git
   base-devel
   curl
-  unzip
-  gzip
-  tar
-  gcc
   fontconfig
   gtk3
-  neovim
-  tree-sitter-cli
-  tmux
-  wl-clipboard
   alacritty
-  zsh
   sway
   swaybg
   waybar
@@ -55,14 +47,31 @@ PACMAN_PACKAGES=(
   ttf-hack-nerd
   otf-font-awesome
   firefox
+)
+
+PACMAN_FULL_PACKAGES=(
+  "${PACMAN_GUI_PACKAGES[@]}"
+  unzip
+  gzip
+  tar
+  gcc
+  neovim
+  tree-sitter-cli
+  tmux
+  wl-clipboard
+  zsh
   nodejs
   npm
   python-pynvim
 )
 
-AUR_PACKAGES=(
-  zsh-theme-powerlevel10k
+AUR_GUI_PACKAGES=(
   wlogout
+)
+
+AUR_FULL_PACKAGES=(
+  zsh-theme-powerlevel10k
+  "${AUR_GUI_PACKAGES[@]}"
 )
 
 usage() {
@@ -72,6 +81,7 @@ Usage: ./install-arch.sh [options]
 Prepare an Arch Linux system for this dotfiles repo, then run ./install.sh.
 
 Options:
+  --profile full|gui  Select package profile (default: full)
   --repo-url URL      Clone from this Git URL
   --repo-dir DIR      Clone into this directory (default: ~/dotfiles)
   --repo-ref REF      Clone or update to this branch/tag/ref
@@ -84,6 +94,7 @@ Options:
 
 Examples:
   ./install-arch.sh
+  ./install-arch.sh --profile gui
   ./install-arch.sh --repo-dir "$HOME/src/dotfiles"
   ./install-arch.sh --deps-only
 EOF
@@ -178,6 +189,14 @@ ensure_aur_signing_keys() {
 parse_args() {
   while (($# > 0)); do
     case "$1" in
+      --profile)
+        (($# >= 2)) || die "--profile requires a value"
+        PROFILE=$2
+        shift
+        ;;
+      --profile=*)
+        PROFILE=${1#--profile=}
+        ;;
       --repo-url)
         (($# >= 2)) || die "--repo-url requires a value"
         REPO_URL=$2
@@ -218,6 +237,14 @@ parse_args() {
     esac
     shift
   done
+
+  case "${PROFILE}" in
+    full|gui)
+      ;;
+    *)
+      die "unknown profile: ${PROFILE}"
+      ;;
+  esac
 }
 
 ensure_not_root() {
@@ -285,13 +312,23 @@ EOF
 
 install_pacman_packages() {
   local pacman_args=(-Syu --needed)
+  local packages=()
 
   if ((YES)); then
     pacman_args+=(--noconfirm)
   fi
 
+  case "${PROFILE}" in
+    full)
+      packages=("${PACMAN_FULL_PACKAGES[@]}")
+      ;;
+    gui)
+      packages=("${PACMAN_GUI_PACKAGES[@]}")
+      ;;
+  esac
+
   log "installing Arch packages from official repositories"
-  run sudo pacman "${pacman_args[@]}" "${PACMAN_PACKAGES[@]}"
+  run sudo pacman "${pacman_args[@]}" "${packages[@]}"
 }
 
 clone_or_update_repo() {
@@ -353,13 +390,23 @@ install_aur_package() {
 
 install_aur_packages() {
   local package
+  local packages=()
 
   if ((SKIP_AUR)); then
     log "skipping AUR packages"
     return
   fi
 
-  for package in "${AUR_PACKAGES[@]}"; do
+  case "${PROFILE}" in
+    full)
+      packages=("${AUR_FULL_PACKAGES[@]}")
+      ;;
+    gui)
+      packages=("${AUR_GUI_PACKAGES[@]}")
+      ;;
+  esac
+
+  for package in "${packages[@]}"; do
     install_aur_package "$package"
   done
 }
@@ -433,6 +480,11 @@ ensure_zsh_login_shell() {
 install_tmux_plugins() {
   local tpm_dir="${HOME}/.tmux/plugins/tpm"
 
+  if [[ "${PROFILE}" != "full" ]]; then
+    log "skipping tmux plugin bootstrap for ${PROFILE} profile"
+    return
+  fi
+
   if ((SKIP_INSTALL)); then
     log "skipping tmux plugin bootstrap because ./install.sh was skipped"
     return
@@ -457,10 +509,10 @@ run_repo_install() {
   fi
 
   log "running dotfiles preflight"
-  run_in_dir "${REPO_DIR}" ./install.sh --dry-run
+  run_in_dir "${REPO_DIR}" ./install.sh --profile "${PROFILE}" --dry-run
 
   log "installing dotfiles with stow"
-  run_in_dir "${REPO_DIR}" ./install.sh
+  run_in_dir "${REPO_DIR}" ./install.sh --profile "${PROFILE}"
 }
 
 main() {
@@ -484,7 +536,11 @@ main() {
   clone_or_update_repo
   download_wallpaper
   run_repo_install
-  ensure_zsh_login_shell
+  if [[ "${PROFILE}" == "full" ]]; then
+    ensure_zsh_login_shell
+  else
+    log "skipping zsh login shell setup for ${PROFILE} profile"
+  fi
   install_tmux_plugins
 
   log "bootstrap complete"

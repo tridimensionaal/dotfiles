@@ -7,21 +7,33 @@ SCRIPT_DIR=$(
 )
 
 PACKAGES=(nvim tmux alacritty zsh sway waybar gtk)
+GUI_PACKAGES=(alacritty sway waybar gtk)
 DRY_RUN=0
+PROFILE=""
 declare -a MISSING_DEPENDENCIES=()
 declare -a WARNINGS=()
 
 usage() {
   cat <<'EOF'
-Usage: ./install.sh [--dry-run|-n] [package ...]
+Usage: ./install.sh [--profile full|gui] [--dry-run|-n] [package ...]
 
 Install GNU Stow packages into $HOME.
 
+Profiles:
+  full    Install all tracked packages (default)
+  gui     Install the desktop stack: alacritty, sway, waybar, gtk
+
 Examples:
   ./install.sh
+  ./install.sh --profile gui
   ./install.sh --dry-run
   ./install.sh nvim zsh
 EOF
+}
+
+die() {
+  printf 'Error: %s\n' "$*" >&2
+  exit 1
 }
 
 is_known_package() {
@@ -34,6 +46,23 @@ is_known_package() {
   done
 
   return 1
+}
+
+set_profile_packages() {
+  local profile=$1
+  local -n destination=$2
+
+  case "$profile" in
+    full)
+      destination=("${PACKAGES[@]}")
+      ;;
+    gui)
+      destination=("${GUI_PACKAGES[@]}")
+      ;;
+    *)
+      die "unknown profile: ${profile}"
+      ;;
+  esac
 }
 
 require_command() {
@@ -355,6 +384,14 @@ main() {
 
   while (($# > 0)); do
     case "$1" in
+      --profile)
+        (($# >= 2)) || die "--profile requires a value"
+        PROFILE=$2
+        shift
+        ;;
+      --profile=*)
+        PROFILE=${1#--profile=}
+        ;;
       --dry-run|-n)
         DRY_RUN=1
         ;;
@@ -376,8 +413,12 @@ main() {
 
   require_command stow
 
+  if [[ -n "${PROFILE}" && ${#requested[@]} -gt 0 ]]; then
+    die "cannot combine --profile with explicit packages"
+  fi
+
   if ((${#requested[@]} == 0)); then
-    requested=("${PACKAGES[@]}")
+    set_profile_packages "${PROFILE:-full}" requested
   fi
 
   MISSING_DEPENDENCIES=()

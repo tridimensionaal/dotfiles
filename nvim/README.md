@@ -2,6 +2,12 @@
 
 The Neovim config lives under `~/.config/nvim`.
 
+Install it with:
+
+```sh
+./install.sh nvim
+```
+
 ## Notes
 
 - `init.lua` lives at `~/.config/nvim/init.lua`
@@ -14,3 +20,5 @@ The Neovim config lives under `~/.config/nvim`.
 - editor tooling installation is handled by Mason plus `mason-tool-installer`
 
 The package also keeps repo-only lint configuration such as `selene.toml`, but those files are ignored by Stow and are not linked into `$HOME`.
+
+First launch may need network access so Lazy.nvim, Mason, and Treesitter can bootstrap plugins, tool binaries, and parsers.

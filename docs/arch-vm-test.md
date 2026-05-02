@@ -1,13 +1,13 @@
 # Arch VM Test Guide
 
-This is an internal validation guide for maintainers testing these dotfiles on Arch Linux. It uses `virt-manager` on the host, an Arch guest installed with `archinstall`, and the repo-root [install.sh](../install.sh).
+This is an internal validation guide for maintainers testing these dotfiles on Arch Linux. It uses `virt-manager` on the host, an Arch guest installed with `archinstall`, and the repo-root installer scripts.
 
 ## Scope
 
 - Host hypervisor: `virt-manager`
 - Guest OS: Arch Linux ISO `2026.04.01`
 - Guest desktop preset: `archinstall` -> `Desktop` -> `Sway`
-- Dotfiles entrypoint under test: [install.sh](../install.sh)
+- Dotfiles entrypoints under test: [remote-install.sh](../remote-install.sh), [install-arch.sh](../install-arch.sh), and [install.sh](../install.sh)
 
 ## Host Setup
 
@@ -96,21 +96,22 @@ For validation runs, there are two convenient automation paths:
 
 ### Repo-local bootstrap
 
-Clone the repo first, then run [install-arch.sh](../install-arch.sh):
+Clone the repo first, then run [install-arch.sh](../install-arch.sh). Use `--profile full` for the complete workstation or `--profile gui` for only the Sway desktop stack.
 
 ```sh
 git clone https://github.com/tridimensionaal/dotfiles.git ~/dotfiles
 cd ~/dotfiles
-./install-arch.sh --yes
+./install-arch.sh --profile full --yes
+./install-arch.sh --profile gui --yes
 ```
 
 That script:
 
-- installs the official Arch packages required by the tracked configs
-- builds and installs the two required AUR packages
+- installs the official Arch packages required by the selected profile
+- builds and installs the required AUR packages for the selected profile
 - clones or updates the dotfiles repo under `~/dotfiles`
 - downloads the wallpaper expected by [sway/.config/sway/config.d/20-output.conf](../sway/.config/sway/config.d/20-output.conf)
-- runs `./install.sh --dry-run` and then `./install.sh`
+- runs `./install.sh --profile <profile> --dry-run` and then `./install.sh --profile <profile>`
 
 ### One-command remote bootstrap
 
@@ -118,7 +119,14 @@ Use [remote-install.sh](../remote-install.sh) as the `curl | bash` entrypoint:
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/tridimensionaal/dotfiles/core/v1.0/remote-install.sh | \
-  bash -s -- --yes
+  bash -s -- --profile full --yes
+```
+
+For GUI-only validation:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/tridimensionaal/dotfiles/core/v1.0/remote-install.sh | \
+  bash -s -- --profile gui --yes
 ```
 
 `remote-install.sh` stays intentionally thin:
@@ -129,6 +137,7 @@ curl -fsSL https://raw.githubusercontent.com/tridimensionaal/dotfiles/core/v1.0/
 
 Useful options:
 
+- `--profile full|gui`: select the complete workstation or GUI-only desktop profile
 - `--deps-only`: install dependencies without running `./install.sh`; when used through `remote-install.sh`, the initial repo clone still happens first
 - `--skip-aur`: skip `wlogout` and `zsh-theme-powerlevel10k`; only use this if they are already installed or if you are also skipping `./install.sh`
 - `--skip-install`: install dependencies and clone the repo, but stop before `./install.sh`
@@ -141,7 +150,7 @@ for passthrough flags the wrapper does not recognize yet:
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/tridimensionaal/dotfiles/core/v1.0/remote-install.sh | \
-  bash -s -- --repo-ref core/v1.0 --yes --skip-install
+  bash -s -- --repo-ref core/v1.0 --profile gui --yes --skip-install
 ```
 
 ## Dotfiles Validation
@@ -151,16 +160,25 @@ Clone the repo in the guest and dry-run the installer first:
 ```sh
 git clone <repo-url> ~/dotfiles
 cd ~/dotfiles
-./install.sh --dry-run
-./install.sh
+./install.sh --profile full --dry-run
+./install.sh --profile full
+./install.sh --profile gui --dry-run
+./install.sh --profile gui
 ```
 
-The dry run should succeed without missing dependency errors. A normal run should stow:
+The dry run should succeed without missing dependency errors. A normal full-profile run should stow:
 
 - `nvim`
 - `tmux`
 - `alacritty`
 - `zsh`
+- `sway`
+- `waybar`
+- `gtk`
+
+A normal GUI-profile run should stow:
+
+- `alacritty`
 - `sway`
 - `waybar`
 - `gtk`

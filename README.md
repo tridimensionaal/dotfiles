@@ -1,110 +1,81 @@
-# Dotfiles v1.0
+# Dotfiles
 
-Personal dotfiles managed with GNU Stow.
+Personal GNU Stow dotfiles for an Arch Linux Sway workstation.
 
-## Layout
+## System
 
-Supported Stow packages live at the repo root and map into `$HOME`.
-
-- `nvim` -> `~/.config/nvim/`
-- `tmux` -> `~/.config/tmux/tmux.conf` plus `~/.tmux.conf`
-- `alacritty` -> `~/.config/alacritty/`
-- `zsh` -> `~/.config/zsh/` plus `~/.zshenv`
-- `sway` -> `~/.config/sway/`
-- `waybar` -> `~/.config/waybar/`
-- `gtk` -> `~/.config/gtk-3.0/` and `~/.config/gtk-4.0/`
-
-The repo root also keeps the active install and documentation entrypoints:
-
-- `install.sh` -> repo-local Stow installer with dependency preflight
-- `install-arch.sh` -> Arch dependency/bootstrap helper
-- `remote-install.sh` -> thin `curl | bash` entrypoint that clones first, then delegates locally
-- `dependencies.md` -> install-time and post-stow dependency inventory
-- `docs/` -> active project documentation
-
-The Sway package is split into `~/.config/sway/config` plus ordered fragments under `~/.config/sway/config.d/`.
-It also includes window rules for desktop utility apps such as Thunar so they open as centered floating windows instead of tiling.
+- OS: Arch Linux
+- Window manager: Sway
+- Bar: Waybar
+- Terminal: Alacritty
+- Shell: Zsh
+- Editor: Neovim
+- Multiplexer: tmux
 
 ## Install
 
-Requirements:
-
-- `stow`
-- the runtime dependencies described in [dependencies.md](dependencies.md)
-
-For a local checkout that already has its dependencies in place:
+Fresh Arch bootstrap:
 
 ```sh
-./install.sh
+curl -fsSL https://raw.githubusercontent.com/tridimensionaal/dotfiles/core/v1.0/remote-install.sh | bash -s -- --profile full --yes
 ```
 
-For a one-command bootstrap on Arch:
+Fresh Arch GUI-only bootstrap:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/tridimensionaal/dotfiles/core/v1.0/remote-install.sh | bash -s -- --yes
+curl -fsSL https://raw.githubusercontent.com/tridimensionaal/dotfiles/core/v1.0/remote-install.sh | bash -s -- --profile gui --yes
 ```
 
-The extra `--` belongs to `bash`: it stops bash option parsing and passes the
-remaining flags to `remote-install.sh`.
-
-If you already cloned the repo on Arch and want the dependency/bootstrap helper locally:
+Local Arch bootstrap:
 
 ```sh
-./install-arch.sh --yes
+git clone https://github.com/tridimensionaal/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+./install-arch.sh --profile full --yes
 ```
 
-Dry-run first:
+Local GUI-only Arch bootstrap:
 
 ```sh
-./install.sh --dry-run
+git clone https://github.com/tridimensionaal/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+./install-arch.sh --profile gui --yes
 ```
 
-Install only one or a few packages:
+Local Stow-only install:
 
 ```sh
-./install.sh nvim zsh
+./install.sh --profile full
+./install.sh --profile gui
+./install.sh sway waybar
 ```
 
-Uninstall one package:
+Profiles:
 
-```sh
-stow -D -t "$HOME" nvim
-```
+- `full`: `nvim`, `tmux`, `alacritty`, `zsh`, `sway`, `waybar`, `gtk`
+- `gui`: `alacritty`, `sway`, `waybar`, `gtk`
 
-The install script is conservative:
+Use `--dry-run` with any local install command to preview Stow changes.
 
-- it requires `stow`
-- it validates package-scoped runtime dependencies used by the tracked configs before stowing
-- it aggregates missing dependency errors across the requested packages
-- it preflights every requested package before making changes
-- it is safe to re-run
-- it does not overwrite conflicting files
+## Packages
 
-The default desktop session integrates utility apps in two places:
+| Package | Target | Notes |
+| --- | --- | --- |
+| [nvim](nvim/README.md) | `~/.config/nvim` | Lazy.nvim, Mason, LSP, Treesitter |
+| [tmux](tmux/README.md) | `~/.config/tmux`, `~/.tmux.conf` | TPM, vim-style navigation |
+| [alacritty](alacritty/README.md) | `~/.config/alacritty` | Dracula theme, Hack Nerd Font |
+| [zsh](zsh/README.md) | `~/.config/zsh`, `~/.zshenv` | XDG layout, Powerlevel10k |
+| [sway](sway/README.md) | `~/.config/sway` | Modular Sway session |
+| [waybar](waybar/README.md) | `~/.config/waybar` | Sway modules and desktop actions |
+| [gtk](gtk/README.md) | `~/.config/gtk-3.0`, `~/.config/gtk-4.0` | Adwaita dark preference |
 
-- the tray hosts `nm-applet`
-- speaker and mic open `pavucontrol`
-- battery opens `gnome-power-statistics`
-- power opens `wlogout`
-- the clock opens `gnome-calendar`
+## Notes
 
-The Sway config adds floating window rules for those utility apps so they open centered like popups instead of splitting the current workspace.
+The installer is conservative: it preflights dependencies and Stow conflicts before linking files, is safe to re-run, and does not overwrite conflicting files.
 
-The `gtk` package sets a default dark preference for GTK 3 and GTK 4 applications using `Adwaita`.
+Runtime dependency details live in [dependencies.md](dependencies.md). Component behavior lives in each package README.
 
-## Dependency Tracking
+Two home-level files are intentional:
 
-Dependencies now live in [dependencies.md](dependencies.md) instead of the old distro-specific install scripts. The manifest is derived from the tracked configs and separates:
-
-- install-time dependencies enforced by `install.sh`
-- post-stow bootstrap state handled later by plugin/tool managers
-- hardware and environment assumptions
-
-## Non-XDG Exceptions
-
-Two home-level files remain on purpose:
-
-- `~/.zshenv` sets `ZDOTDIR="$HOME/.config/zsh"` so the rest of the Zsh config can live under XDG paths.
-- `~/.tmux.conf` sources `~/.config/tmux/tmux.conf` because tmux still looks for the traditional top-level config by default.
-
-Everything else is kept under `~/.config` where the application supports it cleanly.
+- `~/.zshenv` sets `ZDOTDIR="$HOME/.config/zsh"`.
+- `~/.tmux.conf` sources `~/.config/tmux/tmux.conf`.
