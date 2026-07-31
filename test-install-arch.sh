@@ -175,3 +175,4 @@ fi
 
 grep -q -- '--config' "${LOG_DIR}/makepkg.log"
 grep -q -- '-s .*/zsh tester' "${LOG_DIR}/chsh.log"
+grep -Eq -- '(^| )less( |$)' "${LOG_DIR}/pacman.log"

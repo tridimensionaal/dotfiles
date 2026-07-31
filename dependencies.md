@@ -9,6 +9,10 @@ This inventory is derived from the configs tracked in this repository. Package n
 
 Use `./install.sh --profile full` or `./install.sh --profile gui` for local Stow installs. Use the same `--profile` flag with `install-arch.sh` or `remote-install.sh` for Arch dependency bootstrapping.
 
+## Arch Bootstrap Dependencies
+
+- `less`: installed by both Arch profiles as Git's default pager
+
 ## Install-Time Dependencies Enforced By `install.sh`
 
 - `stow`: required for the install flow

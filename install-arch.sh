@@ -20,6 +20,7 @@ MAKEPKG_CONFIG_PATH=""
 PACMAN_GUI_PACKAGES=(
   stow
   git
+  less
   base-devel
   curl
   fontconfig
