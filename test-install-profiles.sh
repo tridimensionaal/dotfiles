@@ -47,7 +47,7 @@ for command_name in \
   wmenu-run waybar nm-applet gsettings pactl brightnessctl grim swaynag \
   thunar pkill wireplumber wlogout gnome-calendar pavucontrol \
   gnome-power-statistics gtk-launch sudo pacman gpg fc-cache getent chsh \
-  makepkg; do
+  makepkg jq; do
   [[ -x "${BIN_DIR}/${command_name}" ]] && continue
   write_fake_command "${command_name}" 'exit 0'
 done

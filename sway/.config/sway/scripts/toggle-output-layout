@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+mapfile -t outputs < <(
+  swaymsg -t get_outputs -r |
+    jq -r 'map(select(.active)) | sort_by(.rect.x) | .[] | [.name, .rect.x, .rect.y, .rect.width] | @tsv'
+)
+
+if ((${#outputs[@]} != 2)); then
+  message="Cannot swap monitor positions: expected 2 active outputs, found ${#outputs[@]}."
+  if command -v swaynag >/dev/null 2>&1; then
+    swaynag -t warning -m "${message}" &
+  else
+    printf '%s\n' "${message}" >&2
+  fi
+  exit 1
+fi
+
+IFS=$'\t' read -r left_name left_x left_y left_width <<<"${outputs[0]}"
+IFS=$'\t' read -r right_name right_x right_y right_width <<<"${outputs[1]}"
+
+gap=$((right_x - left_x - left_width))
+new_right_x=$((left_x + right_width + gap))
+
+swaymsg output "${right_name}" position "${left_x}" "${right_y}" >/dev/null
+swaymsg output "${left_name}" position "${new_right_x}" "${left_y}" >/dev/null

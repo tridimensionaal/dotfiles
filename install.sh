@@ -252,6 +252,7 @@ check_sway_dependencies() {
   local package=$1
 
   check_command_dependency "$package" sway
+  check_command_dependency "$package" jq
   check_command_dependency "$package" alacritty
   check_command_dependency "$package" firefox
   check_command_dependency "$package" wmenu-run

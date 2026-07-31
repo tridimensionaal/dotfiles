@@ -51,6 +51,7 @@ Use `./install.sh --profile full` or `./install.sh --profile gui` for local Stow
 ### `sway`
 
 - `sway`
+- `jq`, used by the two-output position toggle
 - `alacritty`
 - `firefox`
 - `wmenu-run`

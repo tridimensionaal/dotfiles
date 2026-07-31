@@ -22,6 +22,7 @@ PACMAN_GUI_PACKAGES=(
   git
   less
   gcr-4
+  jq
   base-devel
   curl
   fontconfig

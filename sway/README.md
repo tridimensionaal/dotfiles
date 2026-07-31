@@ -25,6 +25,7 @@ The Sway config lives under `~/.config/sway`.
 - `Mod+Shift+e`: confirm and exit Sway
 - `Mod+h/j/k/l`: move focus
 - `Mod+Shift+h/j/k/l`: move windows
+- `Mod+Shift+m`: swap the logical left/right positions of two active outputs
 - `Mod+1..0`: switch workspaces
 - `Mod+Shift+1..0`: move window to workspace
 - `Mod+r`: resize mode
@@ -50,3 +51,4 @@ Firefox is assigned to workspace 2. Utility windows such as NetworkManager, Pavu
 - Wallpaper path: `~/Pictures/wallpapers/picture_1.jpg`
 - Polkit agent path: `/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1`
 - GUI profile installs this package together with `alacritty`, `waybar`, and `gtk`.
+- The output-position toggle requires exactly two active outputs.
