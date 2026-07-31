@@ -22,13 +22,6 @@ ZCOMPDUMP="$_zsh_cache_dir/.zcompdump"
 bindkey -v
 bindkey -M viins 'jj' vi-cmd-mode
 
-# update PATH
-export PATH=$PATH:$HOME/bin
-
-if [[ -x /opt/nvim/nvim ]]; then
-  export PATH="$PATH:/opt/nvim/"
-fi
-
 # Prefer Neovim for CLI editor integrations.
 export EDITOR=nvim
 export VISUAL=nvim
@@ -63,3 +56,6 @@ fi
 _bash_scripts_init="${BASH_SCRIPTS_INIT:-$HOME/github/Bash-scripts-for-daily-task/setup/init}"
 [[ -r "$_bash_scripts_init" ]] && source "$_bash_scripts_init"
 # ---end_of_bash_scripts_setup---
+
+# Load integrations added by tools that do not respect ZDOTDIR.
+[[ -r "$HOME/.zshrc" ]] && source "$HOME/.zshrc"

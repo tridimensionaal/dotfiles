@@ -1,8 +1,9 @@
 # Zsh
 
-The main Zsh config lives under `~/.config/zsh` with one intentional top-level file:
+The main Zsh config lives under `~/.config/zsh` with two intentional top-level entries:
 
 - `~/.zshenv` sets `ZDOTDIR="$HOME/.config/zsh"`
+- `~/.zshrc` collects integrations from installers that do not respect `ZDOTDIR`; the main config sources it
 
 Install it with:
 
