@@ -12,8 +12,16 @@ Use `./install.sh --profile full` or `./install.sh --profile gui` for local Stow
 ## Arch Bootstrap Dependencies
 
 - `less`: installed by both Arch profiles as Git's default pager
-- `gcr-4`: installed by both Arch profiles; `gcr-ssh-agent.socket` is enabled for the user so the configured `SSH_AUTH_SOCK` is available after bootstrap
+- `gcr-4`, `gnome-keyring`, and `seahorse`: installed by both Arch profiles; the keyring daemon and GCR SSH-agent socket are enabled so encrypted SSH-key passphrases can persist across logins
 - `pipewire`, `pipewire-pulse`, and `wireplumber`: installed by both Arch profiles and started as user services for native PipeWire audio with PulseAudio application compatibility
+
+After creating an encrypted SSH key, save its passphrase to the login keyring once from the graphical session:
+
+```sh
+/usr/lib/seahorse/ssh-askpass ~/.ssh/id_ed25519
+```
+
+Log out and back in after the initial keyring installation. Ly's PAM configuration unlocks the login keyring, and GCR can then use the saved SSH passphrase after future reboots.
 
 ## Install-Time Dependencies Enforced By `install.sh`
 

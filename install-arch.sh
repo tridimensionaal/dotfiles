@@ -22,6 +22,8 @@ PACMAN_GUI_PACKAGES=(
   git
   less
   gcr-4
+  gnome-keyring
+  seahorse
   jq
   base-devel
   curl
@@ -335,8 +337,9 @@ install_pacman_packages() {
   run sudo pacman "${pacman_args[@]}" "${packages[@]}"
 }
 
-enable_ssh_agent() {
-  log "enabling GCR SSH agent"
+enable_keyring_and_ssh_agent() {
+  log "enabling GNOME Keyring and GCR SSH agent"
+  run systemctl --user enable --now gnome-keyring-daemon.socket gnome-keyring-daemon.service
   run systemctl --user enable --now gcr-ssh-agent.socket
 }
 
@@ -562,7 +565,7 @@ main() {
   start_sudo_keepalive
 
   install_pacman_packages
-  enable_ssh_agent
+  enable_keyring_and_ssh_agent
   enable_audio_services
   refresh_font_cache
   install_aur_packages

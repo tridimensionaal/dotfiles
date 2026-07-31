@@ -184,6 +184,8 @@ grep -q -- '--config' "${LOG_DIR}/makepkg.log"
 grep -Fxq -- '-s /bin/zsh tester' "${LOG_DIR}/chsh.log"
 grep -Eq -- '(^| )less( |$)' "${LOG_DIR}/pacman.log"
 grep -Eq -- '(^| )gcr-4( |$)' "${LOG_DIR}/pacman.log"
+grep -Eq -- '(^| )gnome-keyring( |$)' "${LOG_DIR}/pacman.log"
+grep -Eq -- '(^| )seahorse( |$)' "${LOG_DIR}/pacman.log"
 grep -Eq -- '(^| )jq( |$)' "${LOG_DIR}/pacman.log"
 grep -Eq -- '(^| )pipewire( |$)' "${LOG_DIR}/pacman.log"
 grep -Eq -- '(^| )pipewire-pulse( |$)' "${LOG_DIR}/pacman.log"
@@ -192,4 +194,5 @@ if grep -Eq -- '(^| )libpulse( |$)' "${LOG_DIR}/pacman.log"; then
   exit 1
 fi
 grep -Fxq -- '--user enable --now gcr-ssh-agent.socket' "${LOG_DIR}/systemctl.log"
+grep -Fxq -- '--user enable --now gnome-keyring-daemon.socket gnome-keyring-daemon.service' "${LOG_DIR}/systemctl.log"
 grep -Fxq -- '--user enable --now pipewire.socket pipewire-pulse.socket wireplumber.service' "${LOG_DIR}/systemctl.log"
