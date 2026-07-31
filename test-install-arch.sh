@@ -113,6 +113,13 @@ printf '%s\n' "\$*" >>"${LOG_DIR}/chsh.log"
 exit 0
 EOF
 
+cat >"${BIN_DIR}/systemctl" <<EOF
+#!/usr/bin/env bash
+set -euo pipefail
+printf '%s\n' "\$*" >>"${LOG_DIR}/systemctl.log"
+exit 0
+EOF
+
 cat >"${BIN_DIR}/curl" <<'EOF'
 #!/usr/bin/env bash
 set -euo pipefail
@@ -176,3 +183,5 @@ fi
 grep -q -- '--config' "${LOG_DIR}/makepkg.log"
 grep -q -- '-s .*/zsh tester' "${LOG_DIR}/chsh.log"
 grep -Eq -- '(^| )less( |$)' "${LOG_DIR}/pacman.log"
+grep -Eq -- '(^| )gcr-4( |$)' "${LOG_DIR}/pacman.log"
+grep -Fxq -- '--user enable --now gcr-ssh-agent.socket' "${LOG_DIR}/systemctl.log"

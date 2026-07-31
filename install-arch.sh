@@ -21,6 +21,7 @@ PACMAN_GUI_PACKAGES=(
   stow
   git
   less
+  gcr-4
   base-devel
   curl
   fontconfig
@@ -332,6 +333,11 @@ install_pacman_packages() {
   run sudo pacman "${pacman_args[@]}" "${packages[@]}"
 }
 
+enable_ssh_agent() {
+  log "enabling GCR SSH agent"
+  run systemctl --user enable --now gcr-ssh-agent.socket
+}
+
 clone_or_update_repo() {
   if [[ -d "${REPO_DIR}/.git" ]]; then
     log "updating existing repo at ${REPO_DIR}"
@@ -526,6 +532,7 @@ main() {
   start_sudo_keepalive
 
   install_pacman_packages
+  enable_ssh_agent
   refresh_font_cache
   install_aur_packages
 

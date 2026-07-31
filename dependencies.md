@@ -12,6 +12,7 @@ Use `./install.sh --profile full` or `./install.sh --profile gui` for local Stow
 ## Arch Bootstrap Dependencies
 
 - `less`: installed by both Arch profiles as Git's default pager
+- `gcr-4`: installed by both Arch profiles; `gcr-ssh-agent.socket` is enabled for the user so the configured `SSH_AUTH_SOCK` is available after bootstrap
 
 ## Install-Time Dependencies Enforced By `install.sh`
 
