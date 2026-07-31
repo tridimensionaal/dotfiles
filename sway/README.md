@@ -33,6 +33,8 @@ The Sway config lives under `~/.config/sway`.
 - `Mod+Shift+minus`: move window to scratchpad
 - `Print`: run `grim`
 
+The audio bindings use PipeWire's native `wpctl` interface. Volume increases are capped at 100%.
+
 ## Startup
 
 Sway starts:

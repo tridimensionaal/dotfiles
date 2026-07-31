@@ -259,7 +259,7 @@ check_sway_dependencies() {
   check_command_dependency "$package" waybar
   check_command_dependency "$package" nm-applet
   check_command_dependency "$package" gsettings
-  check_command_dependency "$package" pactl
+  check_command_dependency "$package" wpctl
   check_command_dependency "$package" brightnessctl
   check_command_dependency "$package" grim
   check_command_dependency "$package" swaynag

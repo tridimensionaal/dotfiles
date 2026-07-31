@@ -40,8 +40,9 @@ PACMAN_GUI_PACKAGES=(
   pavucontrol
   gnome-calendar
   gnome-power-manager
+  pipewire
+  pipewire-pulse
   wireplumber
-  libpulse
   xorg-xwayland
   xdg-desktop-portal-gtk
   xdg-desktop-portal-wlr
@@ -339,6 +340,11 @@ enable_ssh_agent() {
   run systemctl --user enable --now gcr-ssh-agent.socket
 }
 
+enable_audio_services() {
+  log "enabling PipeWire audio services"
+  run systemctl --user enable --now pipewire.socket pipewire-pulse.socket wireplumber.service
+}
+
 clone_or_update_repo() {
   if [[ -d "${REPO_DIR}/.git" ]]; then
     log "updating existing repo at ${REPO_DIR}"
@@ -557,6 +563,7 @@ main() {
 
   install_pacman_packages
   enable_ssh_agent
+  enable_audio_services
   refresh_font_cache
   install_aur_packages
 

@@ -44,7 +44,7 @@ write_fake_command zsh 'printf "%s\n" "zsh 5.9"'
 
 for command_name in \
   git curl unzip gzip tar cc tree-sitter wl-copy alacritty sway firefox \
-  wmenu-run waybar nm-applet gsettings pactl brightnessctl grim swaynag \
+  wmenu-run waybar nm-applet gsettings wpctl brightnessctl grim swaynag \
   thunar pkill wireplumber wlogout gnome-calendar pavucontrol \
   gnome-power-statistics gtk-launch sudo pacman gpg fc-cache getent chsh \
   makepkg jq; do
@@ -103,6 +103,8 @@ arch_gui_profile_uses_gui_dependencies_and_hooks() {
   grep -q -- './install.sh --profile gui' <<<"${output}"
   grep -q -- 'sway' <<<"${output}"
   grep -q -- 'wlogout' <<<"${output}"
+  grep -Eq -- 'pacman .* pipewire .* pipewire-pulse .* wireplumber' <<<"${output}"
+  grep -q -- 'systemctl --user enable --now pipewire.socket pipewire-pulse.socket wireplumber.service' <<<"${output}"
   grep -q -- 'skipping zsh login shell setup for gui profile' <<<"${output}"
   grep -q -- 'skipping tmux plugin bootstrap for gui profile' <<<"${output}"
 

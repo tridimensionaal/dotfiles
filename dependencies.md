@@ -13,6 +13,7 @@ Use `./install.sh --profile full` or `./install.sh --profile gui` for local Stow
 
 - `less`: installed by both Arch profiles as Git's default pager
 - `gcr-4`: installed by both Arch profiles; `gcr-ssh-agent.socket` is enabled for the user so the configured `SSH_AUTH_SOCK` is available after bootstrap
+- `pipewire`, `pipewire-pulse`, and `wireplumber`: installed by both Arch profiles and started as user services for native PipeWire audio with PulseAudio application compatibility
 
 ## Install-Time Dependencies Enforced By `install.sh`
 
@@ -58,7 +59,7 @@ Use `./install.sh --profile full` or `./install.sh --profile gui` for local Stow
 - `waybar`
 - `nm-applet`
 - `gsettings`
-- `pactl`
+- `wpctl`
 - `brightnessctl`
 - `grim`
 - `swaynag`
