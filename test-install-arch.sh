@@ -99,7 +99,7 @@ cat >"${BIN_DIR}/getent" <<'EOF'
 set -euo pipefail
 
 if [[ ${1:-} == "passwd" ]]; then
-  printf 'tester:x:1000:1000:Tester:/home/tester:/bin/bash\n'
+  printf 'tester:x:1000:1000:Tester:/home/tester:/usr/sbin/zsh\n'
   exit 0
 fi
 
@@ -181,7 +181,7 @@ if [[ ${status} -ne 0 ]]; then
 fi
 
 grep -q -- '--config' "${LOG_DIR}/makepkg.log"
-grep -q -- '-s .*/zsh tester' "${LOG_DIR}/chsh.log"
+grep -Fxq -- '-s /bin/zsh tester' "${LOG_DIR}/chsh.log"
 grep -Eq -- '(^| )less( |$)' "${LOG_DIR}/pacman.log"
 grep -Eq -- '(^| )gcr-4( |$)' "${LOG_DIR}/pacman.log"
 grep -Fxq -- '--user enable --now gcr-ssh-agent.socket' "${LOG_DIR}/systemctl.log"

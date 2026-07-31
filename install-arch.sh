@@ -466,18 +466,41 @@ current_login_shell() {
   printf '%s\n' "${SHELL:-}"
 }
 
+is_registered_zsh() {
+  local candidate=$1
+
+  [[ "${candidate##*/}" == "zsh" ]] || return 1
+  [[ -x "${candidate}" ]] || return 1
+  grep -Fxq -- "${candidate}" /etc/shells
+}
+
+registered_zsh_path() {
+  local candidate
+
+  while IFS= read -r candidate; do
+    is_registered_zsh "${candidate}" || continue
+    printf '%s\n' "${candidate}"
+    return
+  done </etc/shells
+
+  return 1
+}
+
 ensure_zsh_login_shell() {
   local zsh_path
   local login_shell
   local target_user
 
-  zsh_path=$(command -v zsh)
   login_shell=$(current_login_shell)
   target_user=${USER:-$(id -un)}
 
-  if [[ "${login_shell##*/}" == "zsh" ]]; then
+  if is_registered_zsh "${login_shell}"; then
     log "login shell already set to zsh"
     return
+  fi
+
+  if ! zsh_path=$(registered_zsh_path); then
+    die "no executable Zsh entry found in /etc/shells"
   fi
 
   log "setting login shell to ${zsh_path} for ${target_user}"

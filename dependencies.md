@@ -45,6 +45,7 @@ Use `./install.sh --profile full` or `./install.sh --profile gui` for local Stow
 ### `zsh`
 
 - `zsh >= 5.1`
+- an executable Zsh path registered in `/etc/shells`; the Arch bootstrap uses that exact path as the login shell
 - readable file: `/usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme`
 
 ### `sway`
