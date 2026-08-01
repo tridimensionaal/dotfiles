@@ -56,10 +56,11 @@ After the first boot, update the guest and install the repo prerequisites from o
 
 ```sh
 sudo pacman -Syu --needed \
-  stow git base-devel curl unzip gzip tar gcc fontconfig gtk3 neovim tree-sitter-cli \
+  stow git less gcr-4 gnome-keyring seahorse jq base-devel curl unzip gzip tar gcc \
+  fontconfig gtk3 neovim tree-sitter-cli \
   tmux wl-clipboard alacritty zsh sway swaybg waybar wmenu thunar grim brightnessctl \
   nm-connection-editor network-manager-applet pavucontrol gnome-calendar \
-  gnome-power-manager wireplumber libpulse xorg-xwayland xdg-desktop-portal-gtk \
+  gnome-power-manager pipewire pipewire-pulse wireplumber xorg-xwayland xdg-desktop-portal-gtk \
   xdg-desktop-portal-wlr polkit polkit-gnome ttf-hack-nerd otf-font-awesome firefox nodejs npm \
   python-pynvim
 ```
@@ -118,14 +119,14 @@ That script:
 Use [remote-install.sh](../remote-install.sh) as the `curl | bash` entrypoint:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/tridimensionaal/dotfiles/core/v1.0/remote-install.sh | \
+curl -fsSL https://raw.githubusercontent.com/tridimensionaal/dotfiles/main/remote-install.sh | \
   bash -s -- --profile full --yes
 ```
 
 For GUI-only validation:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/tridimensionaal/dotfiles/core/v1.0/remote-install.sh | \
+curl -fsSL https://raw.githubusercontent.com/tridimensionaal/dotfiles/main/remote-install.sh | \
   bash -s -- --profile gui --yes
 ```
 
@@ -149,8 +150,8 @@ Useful options:
 for passthrough flags the wrapper does not recognize yet:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/tridimensionaal/dotfiles/core/v1.0/remote-install.sh | \
-  bash -s -- --repo-ref core/v1.0 --profile gui --yes --skip-install
+curl -fsSL https://raw.githubusercontent.com/tridimensionaal/dotfiles/main/remote-install.sh | \
+  bash -s -- --repo-ref main --profile gui --yes --skip-install
 ```
 
 ## Dotfiles Validation

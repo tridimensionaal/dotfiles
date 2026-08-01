@@ -17,13 +17,13 @@ Personal GNU Stow dotfiles for an Arch Linux Sway workstation.
 Fresh Arch bootstrap:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/tridimensionaal/dotfiles/core/v1.0/remote-install.sh | bash -s -- --profile full --yes
+curl -fsSL https://raw.githubusercontent.com/tridimensionaal/dotfiles/main/remote-install.sh | bash -s -- --profile full --yes
 ```
 
 Fresh Arch GUI-only bootstrap:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/tridimensionaal/dotfiles/core/v1.0/remote-install.sh | bash -s -- --profile gui --yes
+curl -fsSL https://raw.githubusercontent.com/tridimensionaal/dotfiles/main/remote-install.sh | bash -s -- --profile gui --yes
 ```
 
 Local Arch bootstrap:
@@ -64,7 +64,7 @@ Use `--dry-run` with any local install command to preview Stow changes.
 | [nvim](nvim/README.md) | `~/.config/nvim` | Lazy.nvim, Mason, LSP, Treesitter |
 | [tmux](tmux/README.md) | `~/.config/tmux`, `~/.tmux.conf` | TPM, vim-style navigation |
 | [alacritty](alacritty/README.md) | `~/.config/alacritty` | Dracula theme, Hack Nerd Font |
-| [zsh](zsh/README.md) | `~/.config/zsh`, `~/.zshenv` | XDG layout, Powerlevel10k |
+| [zsh](zsh/README.md) | `~/.config/zsh`, `~/.zshenv`, `~/.zshrc` | XDG layout, Powerlevel10k |
 | [sway](sway/README.md) | `~/.config/sway` | Modular Sway session |
 | [waybar](waybar/README.md) | `~/.config/waybar` | Sway modules and desktop actions |
 | [gtk](gtk/README.md) | `~/.config/gtk-3.0`, `~/.config/gtk-4.0` | Adwaita dark preference |
@@ -75,7 +75,8 @@ The installer is conservative: it preflights dependencies and Stow conflicts bef
 
 Runtime dependency details live in [dependencies.md](dependencies.md). Component behavior lives in each package README.
 
-Two home-level files are intentional:
+Three home-level files are intentional:
 
 - `~/.zshenv` sets `ZDOTDIR="$HOME/.config/zsh"`.
+- `~/.zshrc` receives integrations from tools that do not respect `ZDOTDIR`.
 - `~/.tmux.conf` sources `~/.config/tmux/tmux.conf`.

@@ -117,6 +117,7 @@ arch_gui_profile_uses_gui_dependencies_and_hooks() {
 remote_forwards_profile_to_arch_installer() {
   write_fake_command git '
 if [[ ${1:-} == "clone" ]]; then
+  printf "%s\n" "$*" >"'"${LOG_DIR}"'/remote-clone.log"
   dest=${@: -1}
   mkdir -p "${dest}"
   cat >"${dest}/install-arch.sh" <<SCRIPT
@@ -134,6 +135,7 @@ exit 0
   PATH="${BIN_DIR}:$PATH" HOME="${HOME_DIR}" USER=tester "${REMOTE_SCRIPT}" --repo-dir "${TEST_ROOT}/remote-dotfiles" --profile gui --dry-run >/dev/null
 
   grep -q -- '--profile gui' "${LOG_DIR}/remote-delegate.log"
+  grep -q -- '--branch main' "${LOG_DIR}/remote-clone.log"
 }
 
 install_with_profile_gui_stows_desktop_stack || fail 'install.sh --profile gui package selection'

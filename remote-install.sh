@@ -3,7 +3,7 @@
 set -euo pipefail
 
 REPO_URL="https://github.com/tridimensionaal/dotfiles.git"
-REPO_REF="core/v1.0"
+REPO_REF="main"
 REPO_DIR="${HOME}/dotfiles"
 DELEGATE_SCRIPT="install-arch.sh"
 YES=0
@@ -20,7 +20,7 @@ delegates to ./install-arch.sh from the checked out repo.
 Options:
   --profile full|gui  Select package profile (default: full)
   --repo-url URL      Clone from this Git URL
-  --repo-ref REF      Clone this branch/tag/ref (default: core/v1.0)
+  --repo-ref REF      Clone this branch/tag/ref (default: main)
   --repo-dir DIR      Clone into this directory (default: ~/dotfiles)
   --deps-only         Forward to ./install-arch.sh
   --skip-aur          Forward to ./install-arch.sh
