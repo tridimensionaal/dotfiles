@@ -25,6 +25,7 @@ The Sway config lives under `~/.config/sway`.
 - `Mod+Shift+e`: confirm and exit Sway
 - `Mod+h/j/k/l`: move focus
 - `Mod+Shift+h/j/k/l`: move windows
+- `Mod+Ctrl+h/l`: move the focused workspace to the output on the left/right
 - `Mod+Shift+m`: swap the logical left/right positions of two active outputs
 - `Mod+1..0`: switch workspaces
 - `Mod+Shift+1..0`: move window to workspace
