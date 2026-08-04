@@ -25,4 +25,5 @@ Without TPM, basic tmux settings still load, but theme and plugin features will 
 - prefix is `Ctrl+Space`
 - pane navigation uses `h/j/k/l`
 - splits and new windows start in the current pane directory
+- `Ctrl+Space`, then `f` opens an 80% popup shell in the current pane directory
 - TPM plugins are enabled for sensible defaults, vim navigation, Dracula, and yank
