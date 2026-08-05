@@ -73,7 +73,7 @@ required_selectors=(
 )
 
 for selector in "${required_selectors[@]}"; do
-  if ! grep -Eq "^[[:space:]]*${selector//\#/\\#}[[:space:]]*\\{" "${BAR_STYLE}"; then
+  if ! grep -Eq "^[[:space:]]*${selector}[[:space:]]*\\{" "${BAR_STYLE}"; then
     printf 'nwg-bar stylesheet is missing selector: %s\n' "${selector}" >&2
     exit 1
   fi
