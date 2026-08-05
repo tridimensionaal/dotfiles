@@ -54,8 +54,8 @@ Log out and back in after the initial keyring installation. Ly's PAM configurati
 ### `zsh`
 
 - `zsh >= 5.1`
+- `starship`
 - an executable Zsh path registered in `/etc/shells`; the Arch bootstrap uses that exact path as the login shell
-- readable file: `/usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme`
 
 ### `sway`
 
@@ -81,7 +81,7 @@ Log out and back in after the initial keyring installation. Ly's PAM configurati
 - `waybar`
 - `wireplumber`
 - `pavucontrol`
-- `wlogout`
+- `wmenu`, used by the tracked three-action power menu
 - `gnome-calendar`
 - `gnome-power-statistics` provided by `gnome-power-manager`
 - font families: `Hack Nerd Font`, `Font Awesome 7 Free`, `Font Awesome 7 Brands`
@@ -119,5 +119,5 @@ Log out and back in after the initial keyring installation. Ly's PAM configurati
 - The Waybar config assumes:
   - the battery device is `BAT0`
 - The Sway window rules assume Thunar identifies itself as `app_id="thunar"` or `class="Thunar"`.
-- The custom wallpaper path, the Powerlevel10k theme path, and the `polkit-gnome` agent path are environment-specific and may need adjustment on systems that package or provision them differently.
+- The custom wallpaper path and the `polkit-gnome` agent path are environment-specific and may need adjustment on systems that package or provision them differently.
 - GTK dark preference is a best-effort hint, not a universal Linux-wide theme switch; some future apps will ignore it.

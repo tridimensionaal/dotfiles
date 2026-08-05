@@ -14,7 +14,7 @@ The Waybar config lives under `~/.config/waybar`.
 - Speaker opens `pavucontrol -t 3`
 - Microphone opens `pavucontrol -t 4`
 - Battery opens `gnome-power-statistics`
-- Power opens `wlogout`
+- Power opens a `wmenu` selector with Shutdown, Suspend, and Restart actions
 
 ## Styling
 

@@ -56,27 +56,13 @@ After the first boot, update the guest and install the repo prerequisites from o
 
 ```sh
 sudo pacman -Syu --needed \
-  stow git less gcr-4 gnome-keyring seahorse jq base-devel curl unzip gzip tar gcc \
+  stow git less gcr-4 gnome-keyring seahorse jq curl unzip gzip tar gcc \
   fontconfig gtk3 neovim tree-sitter-cli \
-  tmux wl-clipboard alacritty zsh sway swaybg waybar wmenu thunar grim brightnessctl \
+  tmux wl-clipboard alacritty zsh starship sway swaybg waybar wmenu thunar grim brightnessctl \
   nm-connection-editor network-manager-applet pavucontrol gnome-calendar \
   gnome-power-manager pipewire pipewire-pulse wireplumber xorg-xwayland xdg-desktop-portal-gtk \
   xdg-desktop-portal-wlr polkit polkit-gnome ttf-hack-nerd otf-font-awesome firefox nodejs npm \
   python-pynvim
-```
-
-Install the two repo-required AUR packages:
-
-```sh
-git clone https://aur.archlinux.org/zsh-theme-powerlevel10k.git
-cd zsh-theme-powerlevel10k
-makepkg -si
-cd ..
-
-git clone https://aur.archlinux.org/wlogout.git
-cd wlogout
-makepkg -si
-cd ..
 ```
 
 ## Snapshots
@@ -84,10 +70,9 @@ cd ..
 Create these VM snapshots:
 
 - `00-clean-vm`: first boot after install
-- `10-post-archinstall`: after the official repo packages are installed
-- `20-post-deps`: after the AUR packages are installed
+- `10-post-deps`: after the official repo packages are installed
 
-Re-run dotfiles validation from `20-post-deps`.
+Re-run dotfiles validation from `10-post-deps`.
 
 ## Programmatic Bootstrap
 
@@ -109,7 +94,6 @@ cd ~/dotfiles
 That script:
 
 - installs the official Arch packages required by the selected profile
-- builds and installs the required AUR packages for the selected profile
 - clones or updates the dotfiles repo under `~/dotfiles`
 - downloads the wallpaper expected by [sway/.config/sway/config.d/20-output.conf](../sway/.config/sway/config.d/20-output.conf)
 - runs `./install.sh --profile <profile> --dry-run` and then `./install.sh --profile <profile>`
@@ -140,7 +124,6 @@ Useful options:
 
 - `--profile full|gui`: select the complete workstation or GUI-only desktop profile
 - `--deps-only`: install dependencies without running `./install.sh`; when used through `remote-install.sh`, the initial repo clone still happens first
-- `--skip-aur`: skip `wlogout` and `zsh-theme-powerlevel10k`; only use this if they are already installed or if you are also skipping `./install.sh`
 - `--skip-install`: install dependencies and clone the repo, but stop before `./install.sh`
 - `--repo-url URL`: clone from a different Git remote
 - `--repo-dir DIR`: clone into a different directory
@@ -211,7 +194,7 @@ Open and validate:
 - `pavucontrol`
 - `gnome-calendar`
 - `gnome-power-statistics`
-- `wlogout`
+- `starship`
 
 Confirm these bindings from [00-vars.conf](../sway/.config/sway/config.d/00-vars.conf):
 
@@ -225,7 +208,7 @@ Confirm these Waybar click actions from [waybar/.config/waybar/config](../waybar
 - speaker opens `pavucontrol -t 3`
 - microphone opens `pavucontrol -t 4`
 - battery opens `gnome-power-statistics`
-- power opens `wlogout`
+- power opens a `wmenu` selector with Shutdown, Suspend, and Restart
 
 `nm-connection-editor` is part of the guest package set for manual validation, but it is not launched from Waybar.
 

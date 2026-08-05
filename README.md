@@ -64,7 +64,7 @@ Use `--dry-run` with any local install command to preview Stow changes.
 | [nvim](nvim/README.md) | `~/.config/nvim` | Lazy.nvim, Mason, LSP, Treesitter |
 | [tmux](tmux/README.md) | `~/.config/tmux`, `~/.tmux.conf` | TPM, vim-style navigation |
 | [alacritty](alacritty/README.md) | `~/.config/alacritty` | Dracula theme, Hack Nerd Font |
-| [zsh](zsh/README.md) | `~/.config/zsh`, `~/.zshenv`, `~/.zshrc` | XDG layout, Powerlevel10k |
+| [zsh](zsh/README.md) | `~/.config/zsh`, `~/.config/starship.toml`, `~/.zshenv`, `~/.zshrc` | XDG layout, Starship prompt |
 | [sway](sway/README.md) | `~/.config/sway` | Modular Sway session |
 | [waybar](waybar/README.md) | `~/.config/waybar` | Sway modules and desktop actions |
 | [gtk](gtk/README.md) | `~/.config/gtk-3.0`, `~/.config/gtk-4.0` | Adwaita dark preference |
