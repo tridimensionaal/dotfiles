@@ -58,7 +58,7 @@ After the first boot, update the guest and install the repo prerequisites from o
 sudo pacman -Syu --needed \
   stow git less gcr-4 gnome-keyring seahorse jq curl unzip gzip tar gcc \
   fontconfig gtk3 neovim tree-sitter-cli \
-  tmux wl-clipboard alacritty zsh starship sway swaybg waybar wmenu thunar grim brightnessctl \
+  tmux wl-clipboard alacritty zsh starship sway swaybg waybar nwg-bar wmenu thunar grim brightnessctl \
   nm-connection-editor network-manager-applet pavucontrol gnome-calendar \
   gnome-power-manager pipewire pipewire-pulse wireplumber xorg-xwayland xdg-desktop-portal-gtk \
   xdg-desktop-portal-wlr polkit polkit-gnome ttf-hack-nerd otf-font-awesome firefox nodejs npm \
@@ -195,6 +195,7 @@ Open and validate:
 - `gnome-calendar`
 - `gnome-power-statistics`
 - `starship`
+- `nwg-bar`
 
 Confirm these bindings from [00-vars.conf](../sway/.config/sway/config.d/00-vars.conf):
 
@@ -208,7 +209,7 @@ Confirm these Waybar click actions from [waybar/.config/waybar/config](../waybar
 - speaker opens `pavucontrol -t 3`
 - microphone opens `pavucontrol -t 4`
 - battery opens `gnome-power-statistics`
-- power opens a `wmenu` selector with Shutdown, Suspend, and Restart
+- power opens a compact centered `nwg-bar` card with Suspend, Restart, and Shutdown
 
 `nm-connection-editor` is part of the guest package set for manual validation, but it is not launched from Waybar.
 

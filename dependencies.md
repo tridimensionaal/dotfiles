@@ -81,7 +81,7 @@ Log out and back in after the initial keyring installation. Ly's PAM configurati
 - `waybar`
 - `wireplumber`
 - `pavucontrol`
-- `wmenu`, used by the tracked three-action power menu
+- `nwg-bar`, used by the tracked three-action power menu
 - `gnome-calendar`
 - `gnome-power-statistics` provided by `gnome-power-manager`
 - font families: `Hack Nerd Font`, `Font Awesome 7 Free`, `Font Awesome 7 Brands`

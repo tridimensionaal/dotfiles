@@ -154,6 +154,8 @@ grep -Eq -- '(^| )gnome-keyring( |$)' "${LOG_DIR}/pacman.log"
 grep -Eq -- '(^| )seahorse( |$)' "${LOG_DIR}/pacman.log"
 grep -Eq -- '(^| )jq( |$)' "${LOG_DIR}/pacman.log"
 grep -Eq -- '(^| )starship( |$)' "${LOG_DIR}/pacman.log"
+grep -Eq -- '(^| )nwg-bar( |$)' "${LOG_DIR}/pacman.log"
+grep -Eq -- '(^| )wmenu( |$)' "${LOG_DIR}/pacman.log"
 grep -Eq -- '(^| )pipewire( |$)' "${LOG_DIR}/pacman.log"
 grep -Eq -- '(^| )pipewire-pulse( |$)' "${LOG_DIR}/pacman.log"
 if grep -Eq -- '(^| )libpulse( |$)' "${LOG_DIR}/pacman.log"; then

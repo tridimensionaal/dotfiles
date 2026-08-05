@@ -274,7 +274,7 @@ check_waybar_dependencies() {
 
   check_command_dependency "$package" waybar
   check_command_dependency "$package" wireplumber
-  check_command_dependency "$package" wmenu
+  check_command_dependency "$package" nwg-bar
   check_command_dependency "$package" gnome-calendar
   check_command_dependency "$package" pavucontrol
   check_command_dependency "$package" gnome-power-statistics

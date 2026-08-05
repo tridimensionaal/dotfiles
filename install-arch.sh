@@ -29,6 +29,7 @@ PACMAN_GUI_PACKAGES=(
   sway
   swaybg
   waybar
+  nwg-bar
   wmenu
   thunar
   grim

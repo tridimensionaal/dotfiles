@@ -50,7 +50,7 @@ write_fake_command zsh 'printf "%s\n" "zsh 5.9"'
 
 for command_name in \
   git curl unzip gzip tar cc tree-sitter wl-copy alacritty sway firefox \
-  wmenu wmenu-run waybar nm-applet gsettings wpctl brightnessctl grim swaynag \
+  wmenu wmenu-run waybar nwg-bar nm-applet gsettings wpctl brightnessctl grim swaynag \
   thunar pkill wireplumber gnome-calendar pavucontrol gnome-power-statistics \
   gtk-launch sudo pacman fc-cache getent chsh jq starship; do
   [[ -x "${BIN_DIR}/${command_name}" ]] && continue
@@ -144,6 +144,7 @@ arch_gui_profile_uses_gui_dependencies_and_hooks() {
   grep -q -- './install.sh --profile gui' <<<"${output}"
   grep -q -- 'sway' <<<"${output}"
   grep -q -- 'wmenu' <<<"${output}"
+  grep -q -- 'nwg-bar' <<<"${output}"
   grep -Eq -- 'pacman .* pipewire .* pipewire-pulse .* wireplumber' <<<"${output}"
   grep -q -- 'systemctl --user enable --now pipewire.socket pipewire-pulse.socket wireplumber.service' <<<"${output}"
   grep -q -- 'skipping zsh login shell setup for gui profile' <<<"${output}"
@@ -158,6 +159,19 @@ arch_gui_profile_uses_gui_dependencies_and_hooks() {
     printf 'gui profile output included retired build dependencies or AUR behavior:\n%s\n' "${output}" >&2
     return 1
   fi
+}
+
+waybar_preflight_requires_nwg_bar() {
+  local disabled_nwg_bar="${BIN_DIR}/nwg-bar.disabled"
+
+  mv "${BIN_DIR}/nwg-bar" "${disabled_nwg_bar}"
+  if PATH="${BIN_DIR}" HOME="${HOME_DIR}" "${BASH_BIN}" "${INSTALL_SCRIPT}" waybar --dry-run >/dev/null 2>"${LOG_DIR}/install-error.log"; then
+    mv "${disabled_nwg_bar}" "${BIN_DIR}/nwg-bar"
+    return 1
+  fi
+  mv "${disabled_nwg_bar}" "${BIN_DIR}/nwg-bar"
+
+  grep -q '\[waybar\] command not found: nwg-bar' "${LOG_DIR}/install-error.log"
 }
 
 zsh_preflight_requires_starship() {
@@ -211,6 +225,7 @@ install_rejects_profile_with_explicit_packages || fail 'install.sh profile plus 
 install_rejects_unknown_profile || fail 'install.sh unknown profile validation'
 starship_config_is_valid_toml || fail 'starship config TOML syntax'
 starship_config_matches_p10k_layout || fail 'starship P10k-style prompt layout'
+waybar_preflight_requires_nwg_bar || fail 'install.sh requires nwg-bar for waybar'
 arch_gui_profile_uses_gui_dependencies_and_hooks || fail 'install-arch.sh gui profile behavior'
 zsh_preflight_requires_starship || fail 'install.sh requires starship for zsh'
 remote_rejects_retired_skip_aur_option || fail 'remote-install.sh rejects retired --skip-aur option'
