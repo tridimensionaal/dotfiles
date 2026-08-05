@@ -2,13 +2,32 @@
 
 add_newline = true
 palette = "dracula"
-format = "$os$directory$git_branch$git_status$fill$status$cmd_duration$jobs$python$nodejs$rust$time$line_break$character"
+format = """
+[╭─](comment)\
+$os\
+[](fg:current_line bg:blue)\
+$directory\
+[](fg:blue)\
+$git_branch\
+$git_status\
+$fill\
+$status\
+$cmd_duration\
+$jobs\
+$python\
+$nodejs\
+$rust\
+$time\
+$line_break\
+[╰─](comment)\
+$character"""
 
 [palettes.dracula]
 foreground = "#F8F8F2"
 background = "#282A36"
 current_line = "#44475A"
 comment = "#6272A4"
+blue = "#6272A4"
 cyan = "#8BE9FD"
 green = "#50FA7B"
 orange = "#FFB86C"
@@ -19,68 +38,78 @@ yellow = "#F1FA8C"
 
 [os]
 disabled = false
-format = "[$symbol]($style)"
-style = "bold purple"
+format = "[ $symbol ]($style)"
+style = "bold fg:foreground bg:current_line"
 
 [os.symbols]
-Arch = " "
-Linux = " "
+Arch = ""
+Linux = ""
 
 [directory]
-format = "[$path]($style)[$read_only]($read_only_style) "
-style = "bold cyan"
+format = "[ $path$read_only ]($style)"
+style = "bold fg:foreground bg:blue"
 read_only = " "
-read_only_style = "red"
 truncation_length = 3
 truncate_to_repo = true
 
 [git_branch]
-format = "[$symbol$branch(:$remote_branch)]($style) "
-style = "bold purple"
-symbol = " "
+format = "[](fg:green)[ $symbol$branch(:$remote_branch) ]($style)[](fg:green)"
+style = "bold fg:background bg:green"
+symbol = " "
 
 [git_status]
-format = "([$all_status$ahead_behind]($style) )"
-style = "bold pink"
+format = "([](fg:yellow)[ $all_status$ahead_behind ]($style)[](fg:yellow))"
+style = "bold fg:background bg:yellow"
+conflicted = "~${count}"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+untracked = "?${count}"
+stashed = "*${count}"
+modified = "!${count}"
+staged = "+${count}"
+renamed = "»${count}"
+deleted = "✘${count}"
 
 [fill]
 symbol = " "
 
 [status]
 disabled = false
-format = "[$symbol$status]($style) "
-style = "bold red"
+format = "[](fg:red)[ $symbol$status ]($style)"
+style = "bold fg:background bg:red"
+symbol = "✘ "
 
 [cmd_duration]
-format = "[󰔛 $duration]($style) "
+format = "[](fg:yellow)[ 󰔛 $duration ]($style)"
 min_time = 2000
-style = "yellow"
+style = "fg:background bg:yellow"
 
 [jobs]
-format = "[$symbol$number]($style) "
-style = "bold cyan"
+format = "[](fg:current_line)[ $symbol$number ]($style)"
+style = "bold fg:cyan bg:current_line"
 symbol = "󰜎 "
 
 [python]
-format = '[${symbol}${pyenv_prefix}(${version})( \($virtualenv\))]($style) '
-style = "yellow"
+format = '[](fg:blue)[ ${symbol}${pyenv_prefix}(${version})( \($virtualenv\)) ]($style)'
+style = "fg:foreground bg:blue"
 symbol = " "
 
 [nodejs]
-format = "[$symbol($version)]($style) "
-style = "green"
+format = "[](fg:purple)[ $symbol($version) ]($style)"
+style = "fg:background bg:purple"
 symbol = " "
 
 [rust]
-format = "[$symbol($version)]($style) "
-style = "orange"
+format = "[](fg:orange)[ $symbol($version) ]($style)"
+style = "fg:background bg:orange"
 symbol = " "
 
 [time]
 disabled = false
-format = "[$time]($style)"
-style = "comment"
-time_format = "%H:%M"
+format = "[](fg:current_line)[  $time ]($style)"
+style = "fg:foreground bg:current_line"
+time_format = "%H:%M:%S"
 
 [character]
 success_symbol = "[❯](bold green)"
