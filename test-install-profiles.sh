@@ -16,9 +16,14 @@ trap 'rm -rf "${TEST_ROOT}"' EXIT
 BIN_DIR="${TEST_ROOT}/bin"
 HOME_DIR="${TEST_ROOT}/home"
 LOG_DIR="${TEST_ROOT}/logs"
+BASH_BIN=$(command -v bash)
 
 mkdir -p "${BIN_DIR}" "${HOME_DIR}/Pictures/wallpapers" "${LOG_DIR}"
 : >"${HOME_DIR}/Pictures/wallpapers/picture_1.jpg"
+
+for command_name in bash dirname grep head sort tail; do
+  ln -s "$(command -v "${command_name}")" "${BIN_DIR}/${command_name}"
+done
 
 fail() {
   printf 'test failure: %s\n' "$*" >&2
@@ -127,7 +132,7 @@ zsh_preflight_requires_starship() {
   local disabled_starship="${BIN_DIR}/starship.disabled"
 
   mv "${BIN_DIR}/starship" "${disabled_starship}"
-  if PATH="${BIN_DIR}:$PATH" HOME="${HOME_DIR}" "${INSTALL_SCRIPT}" zsh --dry-run >/dev/null 2>"${LOG_DIR}/install-error.log"; then
+  if PATH="${BIN_DIR}" HOME="${HOME_DIR}" "${BASH_BIN}" "${INSTALL_SCRIPT}" zsh --dry-run >/dev/null 2>"${LOG_DIR}/install-error.log"; then
     mv "${disabled_starship}" "${BIN_DIR}/starship"
     return 1
   fi
