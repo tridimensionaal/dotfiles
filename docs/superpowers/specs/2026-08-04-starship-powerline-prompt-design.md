@@ -84,4 +84,3 @@ themselves when their underlying runtime or context is absent.
   indicators.
 - Render success and failure prompts to verify character and status behavior.
 - Run the existing installer/profile tests and Zsh syntax check.
-
