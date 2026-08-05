@@ -43,7 +43,12 @@ write_fake_command() {
 }
 
 write_fake_command stow 'printf "%s\n" "$*" >>"'"${LOG_DIR}"'/stow.log"'
-write_fake_command fc-list 'printf "%s\n" "Hack Nerd Font" "Font Awesome 7 Free" "Font Awesome 7 Brands"'
+write_fake_command fc-list '
+printf "%s\n" "Hack Nerd Font" "Font Awesome 7 Free" "Font Awesome 7 Brands"
+for ((font_index = 0; font_index < 8192; font_index++)); do
+  printf "Unrelated Font %d\n" "${font_index}"
+done
+'
 write_fake_command nvim 'printf "%s\n" "NVIM v0.12.0"'
 write_fake_command tmux 'printf "%s\n" "tmux 3.5"'
 write_fake_command zsh 'printf "%s\n" "zsh 5.9"'

@@ -119,7 +119,7 @@ have_font_family() {
     return 1
   fi
 
-  fc-list : family | grep -Fqi "$family"
+  fc-list : family | grep -Fi "$family" >/dev/null
 }
 
 add_missing() {
