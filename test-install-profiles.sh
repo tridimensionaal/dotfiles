@@ -103,6 +103,38 @@ starship_config_is_valid_toml() {
   python -c 'import pathlib, sys, tomllib; tomllib.loads(pathlib.Path(sys.argv[1]).read_text())' "${STARSHIP_CONFIG}"
 }
 
+starship_config_matches_p10k_layout() {
+  python - "${STARSHIP_CONFIG}" <<'PY'
+import pathlib
+import sys
+import tomllib
+
+config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text())
+prompt = config["format"]
+tokens = (
+    "╭─", "$os", "$directory", "$git_branch", "$git_status", "$fill",
+    "$status", "$cmd_duration", "$jobs", "$python", "$nodejs", "$rust",
+    "$time", "$line_break", "╰─", "$character",
+)
+positions = [prompt.index(token) for token in tokens]
+assert positions == sorted(positions), positions
+module_formats = "".join(
+    value.get("format", "")
+    for value in config.values()
+    if isinstance(value, dict)
+)
+assert "" in prompt + module_formats
+assert "" in prompt + module_formats
+assert config["add_newline"] is True
+assert config["directory"]["truncation_length"] == 3
+assert config["directory"]["truncate_to_repo"] is True
+assert config["status"]["disabled"] is False
+assert config["time"]["disabled"] is False
+assert config["character"]["success_symbol"].find("❯") >= 0
+assert config["character"]["vimcmd_symbol"].find("❮") >= 0
+PY
+}
+
 arch_gui_profile_uses_gui_dependencies_and_hooks() {
   local output
 
@@ -178,6 +210,7 @@ install_default_stows_full_stack || fail 'install.sh default full package select
 install_rejects_profile_with_explicit_packages || fail 'install.sh profile plus packages validation'
 install_rejects_unknown_profile || fail 'install.sh unknown profile validation'
 starship_config_is_valid_toml || fail 'starship config TOML syntax'
+starship_config_matches_p10k_layout || fail 'starship P10k-style prompt layout'
 arch_gui_profile_uses_gui_dependencies_and_hooks || fail 'install-arch.sh gui profile behavior'
 zsh_preflight_requires_starship || fail 'install.sh requires starship for zsh'
 remote_rejects_retired_skip_aur_option || fail 'remote-install.sh rejects retired --skip-aur option'
