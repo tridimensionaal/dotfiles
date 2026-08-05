@@ -1,0 +1,91 @@
+"$schema" = "https://starship.rs/config-schema.json"
+
+add_newline = true
+palette = "dracula"
+format = "$os$directory$git_branch$git_status$fill$status$cmd_duration$jobs$python$nodejs$rust$time$line_break$character"
+
+[palettes.dracula]
+foreground = "#F8F8F2"
+background = "#282A36"
+current_line = "#44475A"
+comment = "#6272A4"
+cyan = "#8BE9FD"
+green = "#50FA7B"
+orange = "#FFB86C"
+pink = "#FF79C6"
+purple = "#BD93F9"
+red = "#FF5555"
+yellow = "#F1FA8C"
+
+[os]
+disabled = false
+format = "[$symbol]($style)"
+style = "bold purple"
+
+[os.symbols]
+Arch = " "
+Linux = " "
+
+[directory]
+format = "[$path]($style)[$read_only]($read_only_style) "
+style = "bold cyan"
+read_only = " "
+read_only_style = "red"
+truncation_length = 3
+truncate_to_repo = true
+
+[git_branch]
+format = "[$symbol$branch(:$remote_branch)]($style) "
+style = "bold purple"
+symbol = " "
+
+[git_status]
+format = "([$all_status$ahead_behind]($style) )"
+style = "bold pink"
+
+[fill]
+symbol = " "
+
+[status]
+disabled = false
+format = "[$symbol$status]($style) "
+style = "bold red"
+
+[cmd_duration]
+format = "[󰔛 $duration]($style) "
+min_time = 2000
+style = "yellow"
+
+[jobs]
+format = "[$symbol$number]($style) "
+style = "bold cyan"
+symbol = "󰜎 "
+
+[python]
+format = '[${symbol}${pyenv_prefix}(${version})( \($virtualenv\))]($style) '
+style = "yellow"
+symbol = " "
+
+[nodejs]
+format = "[$symbol($version)]($style) "
+style = "green"
+symbol = " "
+
+[rust]
+format = "[$symbol($version)]($style) "
+style = "orange"
+symbol = " "
+
+[time]
+disabled = false
+format = "[$time]($style)"
+style = "comment"
+time_format = "%H:%M"
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+vimcmd_symbol = "[❮](bold green)"
+vimcmd_replace_one_symbol = "[❮](bold purple)"
+vimcmd_replace_symbol = "[❮](bold purple)"
+vimcmd_visual_symbol = "[❮](bold yellow)"

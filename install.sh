@@ -245,7 +245,7 @@ check_zsh_dependencies() {
   if have_command zsh; then
     check_version_dependency "$package" zsh "5.1" "$(zsh_version)"
   fi
-  check_file_dependency "$package" /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+  check_command_dependency "$package" starship
 }
 
 check_sway_dependencies() {
@@ -274,7 +274,7 @@ check_waybar_dependencies() {
 
   check_command_dependency "$package" waybar
   check_command_dependency "$package" wireplumber
-  check_command_dependency "$package" wlogout
+  check_command_dependency "$package" wmenu
   check_command_dependency "$package" gnome-calendar
   check_command_dependency "$package" pavucontrol
   check_command_dependency "$package" gnome-power-statistics

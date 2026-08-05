@@ -23,7 +23,6 @@ Options:
   --repo-ref REF      Clone this branch/tag/ref (default: main)
   --repo-dir DIR      Clone into this directory (default: ~/dotfiles)
   --deps-only         Forward to ./install-arch.sh
-  --skip-aur          Forward to ./install-arch.sh
   --skip-install      Forward to ./install-arch.sh
   --dry-run           Forward to ./install-arch.sh
   --yes               Forward to ./install-arch.sh and use --noconfirm for the initial git install
@@ -83,7 +82,7 @@ parse_args() {
         REPO_DIR=$2
         shift
         ;;
-      --deps-only|--skip-aur|--skip-install|--dry-run|--yes)
+      --deps-only|--skip-install|--dry-run|--yes)
         if [[ "$1" == "--yes" ]]; then
           YES=1
         fi

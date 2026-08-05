@@ -48,14 +48,7 @@ if [[ ${1:-} == "clone" ]]; then
   dest=${@: -1}
   mkdir -p "${dest}"
 
-  if [[ ${2:-} == https://aur.archlinux.org/* ]]; then
-    cat >"${dest}/PKGBUILD" <<'PKG'
-pkgname=fake
-pkgver=1
-pkgrel=1
-arch=('any')
-PKG
-  elif [[ ${2:-} == https://github.com/tmux-plugins/tpm ]]; then
+  if [[ ${2:-} == https://github.com/tmux-plugins/tpm ]]; then
     mkdir -p "${dest}/bin"
     cat >"${dest}/bin/install_plugins" <<'SCRIPT'
 #!/usr/bin/env bash
@@ -79,12 +72,6 @@ if [[ ${1:-} == "-C" ]]; then
   exit 0
 fi
 
-exit 0
-EOF
-
-cat >"${BIN_DIR}/gpg" <<'EOF'
-#!/usr/bin/env bash
-set -euo pipefail
 exit 0
 EOF
 
@@ -141,33 +128,9 @@ EOF
 cat >"${BIN_DIR}/makepkg" <<EOF
 #!/usr/bin/env bash
 set -euo pipefail
-
 printf '%s\n' "\$*" >>"${LOG_DIR}/makepkg.log"
-
-config=
-while ((\$# > 0)); do
-  if [[ \$1 == "--config" ]]; then
-    config=\$2
-    shift 2
-    continue
-  fi
-  shift
-done
-
-if [[ -z \${config} ]]; then
-  echo "missing --config" >&2
-  exit 10
-fi
-
-grep -q '^PACMAN_AUTH=(sudo)$' "\${config}" || {
-  echo "missing PACMAN_AUTH override" >&2
-  exit 11
-}
-
-grep -q '^source /etc/makepkg.conf$' "\${config}" || {
-  echo "missing system config source" >&2
-  exit 12
-}
+printf 'makepkg must not be invoked\n' >&2
+exit 97
 EOF
 
 chmod +x "${BIN_DIR}/"*
@@ -180,17 +143,25 @@ if [[ ${status} -ne 0 ]]; then
   exit "${status}"
 fi
 
-grep -q -- '--config' "${LOG_DIR}/makepkg.log"
+if [[ -e "${LOG_DIR}/makepkg.log" ]]; then
+  printf 'makepkg was invoked during an official-repository bootstrap\n' >&2
+  exit 1
+fi
 grep -Fxq -- '-s /bin/zsh tester' "${LOG_DIR}/chsh.log"
 grep -Eq -- '(^| )less( |$)' "${LOG_DIR}/pacman.log"
 grep -Eq -- '(^| )gcr-4( |$)' "${LOG_DIR}/pacman.log"
 grep -Eq -- '(^| )gnome-keyring( |$)' "${LOG_DIR}/pacman.log"
 grep -Eq -- '(^| )seahorse( |$)' "${LOG_DIR}/pacman.log"
 grep -Eq -- '(^| )jq( |$)' "${LOG_DIR}/pacman.log"
+grep -Eq -- '(^| )starship( |$)' "${LOG_DIR}/pacman.log"
 grep -Eq -- '(^| )pipewire( |$)' "${LOG_DIR}/pacman.log"
 grep -Eq -- '(^| )pipewire-pulse( |$)' "${LOG_DIR}/pacman.log"
 if grep -Eq -- '(^| )libpulse( |$)' "${LOG_DIR}/pacman.log"; then
   printf 'libpulse should not be a direct bootstrap package\n' >&2
+  exit 1
+fi
+if grep -Eq -- '(^| )base-devel( |$)' "${LOG_DIR}/pacman.log"; then
+  printf 'base-devel should not be required by the bootstrap\n' >&2
   exit 1
 fi
 grep -Fxq -- '--user enable --now gcr-ssh-agent.socket' "${LOG_DIR}/systemctl.log"

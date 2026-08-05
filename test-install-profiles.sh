@@ -8,6 +8,7 @@ SCRIPT_DIR=$(
 INSTALL_SCRIPT="${SCRIPT_DIR}/install.sh"
 ARCH_SCRIPT="${SCRIPT_DIR}/install-arch.sh"
 REMOTE_SCRIPT="${SCRIPT_DIR}/remote-install.sh"
+STARSHIP_CONFIG="${SCRIPT_DIR}/zsh/.config/starship.toml"
 
 TEST_ROOT=$(mktemp -d)
 trap 'rm -rf "${TEST_ROOT}"' EXIT
@@ -44,10 +45,9 @@ write_fake_command zsh 'printf "%s\n" "zsh 5.9"'
 
 for command_name in \
   git curl unzip gzip tar cc tree-sitter wl-copy alacritty sway firefox \
-  wmenu-run waybar nm-applet gsettings wpctl brightnessctl grim swaynag \
-  thunar pkill wireplumber wlogout gnome-calendar pavucontrol \
-  gnome-power-statistics gtk-launch sudo pacman gpg fc-cache getent chsh \
-  makepkg jq; do
+  wmenu wmenu-run waybar nm-applet gsettings wpctl brightnessctl grim swaynag \
+  thunar pkill wireplumber gnome-calendar pavucontrol gnome-power-statistics \
+  gtk-launch sudo pacman fc-cache getent chsh jq starship; do
   [[ -x "${BIN_DIR}/${command_name}" ]] && continue
   write_fake_command "${command_name}" 'exit 0'
 done
@@ -94,6 +94,10 @@ install_rejects_unknown_profile() {
   grep -q 'unknown profile: laptop' "${LOG_DIR}/install-error.log"
 }
 
+starship_config_is_valid_toml() {
+  python -c 'import pathlib, sys, tomllib; tomllib.loads(pathlib.Path(sys.argv[1]).read_text())' "${STARSHIP_CONFIG}"
+}
+
 arch_gui_profile_uses_gui_dependencies_and_hooks() {
   local output
 
@@ -102,16 +106,42 @@ arch_gui_profile_uses_gui_dependencies_and_hooks() {
   grep -q -- './install.sh --profile gui --dry-run' <<<"${output}"
   grep -q -- './install.sh --profile gui' <<<"${output}"
   grep -q -- 'sway' <<<"${output}"
-  grep -q -- 'wlogout' <<<"${output}"
+  grep -q -- 'wmenu' <<<"${output}"
   grep -Eq -- 'pacman .* pipewire .* pipewire-pulse .* wireplumber' <<<"${output}"
   grep -q -- 'systemctl --user enable --now pipewire.socket pipewire-pulse.socket wireplumber.service' <<<"${output}"
   grep -q -- 'skipping zsh login shell setup for gui profile' <<<"${output}"
   grep -q -- 'skipping tmux plugin bootstrap for gui profile' <<<"${output}"
 
-  if grep -E -- 'pacman|AUR package' <<<"${output}" | grep -Eq -- 'neovim|tmux| zsh |nodejs|npm|python-pynvim|zsh-theme-powerlevel10k'; then
+  if grep -E -- 'pacman|package' <<<"${output}" | grep -Eq -- 'neovim|tmux| zsh |nodejs|npm|python-pynvim|starship'; then
     printf 'gui profile output included full-only dependencies or hooks:\n%s\n' "${output}" >&2
     return 1
   fi
+
+  if grep -Eq -- 'AUR|makepkg|wlogout|base-devel' <<<"${output}"; then
+    printf 'gui profile output included retired build dependencies or AUR behavior:\n%s\n' "${output}" >&2
+    return 1
+  fi
+}
+
+zsh_preflight_requires_starship() {
+  local disabled_starship="${BIN_DIR}/starship.disabled"
+
+  mv "${BIN_DIR}/starship" "${disabled_starship}"
+  if PATH="${BIN_DIR}:$PATH" HOME="${HOME_DIR}" "${INSTALL_SCRIPT}" zsh --dry-run >/dev/null 2>"${LOG_DIR}/install-error.log"; then
+    mv "${disabled_starship}" "${BIN_DIR}/starship"
+    return 1
+  fi
+  mv "${disabled_starship}" "${BIN_DIR}/starship"
+
+  grep -q '\[zsh\] command not found: starship' "${LOG_DIR}/install-error.log"
+}
+
+remote_rejects_retired_skip_aur_option() {
+  if PATH="${BIN_DIR}:$PATH" HOME="${HOME_DIR}" USER=tester "${REMOTE_SCRIPT}" --skip-aur --dry-run >/dev/null 2>"${LOG_DIR}/remote-error.log"; then
+    return 1
+  fi
+
+  grep -q 'unknown option: --skip-aur' "${LOG_DIR}/remote-error.log"
 }
 
 remote_forwards_profile_to_arch_installer() {
@@ -142,5 +172,8 @@ install_with_profile_gui_stows_desktop_stack || fail 'install.sh --profile gui p
 install_default_stows_full_stack || fail 'install.sh default full package selection'
 install_rejects_profile_with_explicit_packages || fail 'install.sh profile plus packages validation'
 install_rejects_unknown_profile || fail 'install.sh unknown profile validation'
+starship_config_is_valid_toml || fail 'starship config TOML syntax'
 arch_gui_profile_uses_gui_dependencies_and_hooks || fail 'install-arch.sh gui profile behavior'
+zsh_preflight_requires_starship || fail 'install.sh requires starship for zsh'
+remote_rejects_retired_skip_aur_option || fail 'remote-install.sh rejects retired --skip-aur option'
 remote_forwards_profile_to_arch_installer || fail 'remote-install.sh profile forwarding'

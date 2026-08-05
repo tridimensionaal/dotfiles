@@ -9,13 +9,10 @@ WALLPAPER_URL="https://64.media.tumblr.com/5418cfe910d3aacbd338b62f8e902920/4d29
 WALLPAPER_PATH="${HOME}/Pictures/wallpapers/picture_1.jpg"
 DRY_RUN=0
 DEPS_ONLY=0
-SKIP_AUR=0
 SKIP_INSTALL=0
 YES=0
 PROFILE="full"
 SUDO_KEEPALIVE_PID=""
-GPG_KEYSERVER="hkps://keyserver.ubuntu.com"
-MAKEPKG_CONFIG_PATH=""
 
 PACMAN_GUI_PACKAGES=(
   stow
@@ -25,7 +22,6 @@ PACMAN_GUI_PACKAGES=(
   gnome-keyring
   seahorse
   jq
-  base-devel
   curl
   fontconfig
   gtk3
@@ -66,18 +62,10 @@ PACMAN_FULL_PACKAGES=(
   tmux
   wl-clipboard
   zsh
+  starship
   nodejs
   npm
   python-pynvim
-)
-
-AUR_GUI_PACKAGES=(
-  wlogout
-)
-
-AUR_FULL_PACKAGES=(
-  zsh-theme-powerlevel10k
-  "${AUR_GUI_PACKAGES[@]}"
 )
 
 usage() {
@@ -92,10 +80,9 @@ Options:
   --repo-dir DIR      Clone into this directory (default: ~/dotfiles)
   --repo-ref REF      Clone or update to this branch/tag/ref
   --deps-only         Install dependencies but skip cloning and dotfiles install
-  --skip-aur          Skip AUR package installs
   --skip-install      Skip running ./install.sh after cloning/updating the repo
   --dry-run           Print the planned actions without changing the system
-  --yes               Pass --noconfirm to pacman and makepkg
+  --yes               Pass --noconfirm to pacman
   --help              Show this help text
 
 Examples:
@@ -155,43 +142,6 @@ run_in_dir() {
   )
 }
 
-list_validpgpkeys() {
-  local pkgbuild_path=$1
-
-  awk '
-    /^validpgpkeys=\(/ { in_keys=1 }
-    in_keys { print }
-    in_keys && /\)/ { exit }
-  ' "$pkgbuild_path" | grep -Eo '[A-F0-9]{40}' || true
-}
-
-have_gpg_public_key() {
-  local fingerprint=$1
-  gpg --list-keys --with-colons "$fingerprint" >/dev/null 2>&1
-}
-
-ensure_aur_signing_keys() {
-  local package_dir=$1
-  local fingerprint
-  local found_keys=0
-
-  while IFS= read -r fingerprint; do
-    [[ -n "$fingerprint" ]] || continue
-    found_keys=1
-
-    if have_gpg_public_key "$fingerprint"; then
-      continue
-    fi
-
-    log "importing missing AUR signing key: ${fingerprint}"
-    run gpg --keyserver "${GPG_KEYSERVER}" --recv-keys "${fingerprint}"
-  done < <(list_validpgpkeys "${package_dir}/PKGBUILD")
-
-  if ((found_keys)) && ((DRY_RUN)); then
-    return
-  fi
-}
-
 parse_args() {
   while (($# > 0)); do
     case "$1" in
@@ -220,9 +170,6 @@ parse_args() {
         ;;
       --deps-only)
         DEPS_ONLY=1
-        ;;
-      --skip-aur)
-        SKIP_AUR=1
         ;;
       --skip-install)
         SKIP_INSTALL=1
@@ -260,10 +207,6 @@ ensure_not_root() {
 }
 
 cleanup() {
-  if [[ -n "${MAKEPKG_CONFIG_PATH}" ]]; then
-    rm -f "${MAKEPKG_CONFIG_PATH}" 2>/dev/null || true
-  fi
-
   if [[ -n "${SUDO_KEEPALIVE_PID}" ]]; then
     kill "${SUDO_KEEPALIVE_PID}" 2>/dev/null || true
     wait "${SUDO_KEEPALIVE_PID}" 2>/dev/null || true
@@ -286,34 +229,6 @@ start_sudo_keepalive() {
     done
   ) &
   SUDO_KEEPALIVE_PID=$!
-}
-
-ensure_makepkg_config() {
-  local xdg_makepkg_config="${HOME}/.config/pacman/makepkg.conf"
-  local user_makepkg_config="${HOME}/.makepkg.conf"
-
-  if [[ -n "${MAKEPKG_CONFIG_PATH}" ]]; then
-    return
-  fi
-
-  MAKEPKG_CONFIG_PATH=$(mktemp)
-
-  cat >"${MAKEPKG_CONFIG_PATH}" <<EOF
-#!/usr/bin/env bash
-source /etc/makepkg.conf
-for config in /etc/makepkg.conf.d/*.conf; do
-  [[ -r "\${config}" ]] || continue
-  source "\${config}"
-done
-EOF
-
-  if [[ -r "${xdg_makepkg_config}" ]]; then
-    printf 'source %q\n' "${xdg_makepkg_config}" >>"${MAKEPKG_CONFIG_PATH}"
-  elif [[ -r "${user_makepkg_config}" ]]; then
-    printf 'source %q\n' "${user_makepkg_config}" >>"${MAKEPKG_CONFIG_PATH}"
-  fi
-
-  printf 'PACMAN_AUTH=(sudo)\n' >>"${MAKEPKG_CONFIG_PATH}"
 }
 
 install_pacman_packages() {
@@ -371,61 +286,6 @@ clone_or_update_repo() {
   else
     run git clone "${REPO_URL}" "${REPO_DIR}"
   fi
-}
-
-install_aur_package() {
-  local package=$1
-  local makepkg_args=(-si --needed)
-  local build_root
-  local package_dir
-
-  if pacman -Q "$package" >/dev/null 2>&1; then
-    log "AUR package already installed: ${package}"
-    return
-  fi
-
-  if ((YES)); then
-    makepkg_args+=(--noconfirm)
-  fi
-
-  ensure_makepkg_config
-
-  build_root=$(mktemp -d)
-  package_dir="${build_root}/${package}"
-
-  log "building AUR package: ${package}"
-  run git clone "https://aur.archlinux.org/${package}.git" "${package_dir}"
-  ensure_aur_signing_keys "${package_dir}"
-  run_in_dir "${package_dir}" makepkg --config "${MAKEPKG_CONFIG_PATH}" "${makepkg_args[@]}"
-
-  if ((DRY_RUN)); then
-    rmdir "${build_root}" 2>/dev/null || true
-  else
-    rm -rf "${build_root}"
-  fi
-}
-
-install_aur_packages() {
-  local package
-  local packages=()
-
-  if ((SKIP_AUR)); then
-    log "skipping AUR packages"
-    return
-  fi
-
-  case "${PROFILE}" in
-    full)
-      packages=("${AUR_FULL_PACKAGES[@]}")
-      ;;
-    gui)
-      packages=("${AUR_GUI_PACKAGES[@]}")
-      ;;
-  esac
-
-  for package in "${packages[@]}"; do
-    install_aur_package "$package"
-  done
 }
 
 download_wallpaper() {
@@ -568,7 +428,6 @@ main() {
   enable_keyring_and_ssh_agent
   enable_audio_services
   refresh_font_cache
-  install_aur_packages
 
   if ((DEPS_ONLY)); then
     log "dependency-only run complete"
