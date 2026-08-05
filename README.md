@@ -57,6 +57,10 @@ Profiles:
 
 Use `--dry-run` with any local install command to preview Stow changes.
 
+## Validation
+
+Run `./check.sh` to validate the tracked shell scripts, Starship and nwg-bar configuration, Sway configuration, and output-layout behavior.
+
 ## Packages
 
 | Package | Target | Notes |
