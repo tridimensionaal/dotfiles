@@ -1,10 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # History lives under XDG state so the repo only needs one home-level Zsh entrypoint.
 _zsh_state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/zsh"
 mkdir -p "$_zsh_state_dir"
@@ -31,13 +24,6 @@ if [ -s /usr/share/nvm/init-nvm.sh ]; then
   source /usr/share/nvm/init-nvm.sh
 fi
 
-if [ -r /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme ]; then
-  source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
-fi
-
-# To customize prompt, run `p10k configure` or edit ${ZDOTDIR:-${XDG_CONFIG_HOME:-$HOME/.config}/zsh}/.p10k.zsh.
-[[ ! -f ${ZDOTDIR:-${XDG_CONFIG_HOME:-$HOME/.config}/zsh}/.p10k.zsh ]] || source "${ZDOTDIR:-${XDG_CONFIG_HOME:-$HOME/.config}/zsh}/.p10k.zsh"
-
 # enable completion with case-insensitive matching for Tab.
 autoload -Uz compinit
 compinit -d "$ZCOMPDUMP"
@@ -59,3 +45,5 @@ _bash_scripts_init="${BASH_SCRIPTS_INIT:-$HOME/github/Bash-scripts-for-daily-tas
 
 # Load integrations added by tools that do not respect ZDOTDIR.
 [[ -r "$HOME/.zshrc" ]] && source "$HOME/.zshrc"
+
+eval "$(starship init zsh)"

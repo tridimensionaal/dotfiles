@@ -1,6 +1,6 @@
 # Waybar
 
-The Waybar config lives under `~/.config/waybar`.
+The Waybar and power-menu configs live under `~/.config/waybar` and `~/.config/nwg-bar`.
 
 ## Modules
 
@@ -14,11 +14,11 @@ The Waybar config lives under `~/.config/waybar`.
 - Speaker opens `pavucontrol -t 3`
 - Microphone opens `pavucontrol -t 4`
 - Battery opens `gnome-power-statistics`
-- Power opens `wlogout`
+- Power opens a compact centered `nwg-bar` card with Suspend, Restart, and Shutdown actions
 
 ## Styling
 
-The CSS uses a translucent dark bar with grouped module backgrounds. It expects these font families:
+The Waybar CSS uses a translucent dark bar with grouped module backgrounds. The nwg-bar CSS uses a compact dark card with a restrained teal hover and focus state. They expect these font families:
 
 - `Hack Nerd Font`
 - `Font Awesome 7 Free`

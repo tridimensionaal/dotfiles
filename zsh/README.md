@@ -15,12 +15,14 @@ Tracked config files:
 
 - `~/.config/zsh/.zshrc`
 - `~/.config/zsh/.zsh_aliases`
-- `~/.config/zsh/.p10k.zsh`
+- `~/.config/starship.toml`
 
 ## Notes
 
 - history is stored at `${XDG_STATE_HOME:-$HOME/.local/state}/zsh/history`
-- the Powerlevel10k prompt config is loaded from `ZDOTDIR`
+- Starship is initialized at the end of the main Zsh config and reads `~/.config/starship.toml`
+- the Starship prompt intentionally mirrors the former Powerlevel10k two-line Powerline layout
+- Powerline separators and module icons require a Nerd Font configured in the terminal
 - `EDITOR`, `VISUAL`, and `GIT_EDITOR` default to `nvim`
 - completion uses a cache under `${XDG_CACHE_HOME:-$HOME/.cache}/zsh`
 - vi mode is enabled with `jj` returning to command mode

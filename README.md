@@ -57,6 +57,10 @@ Profiles:
 
 Use `--dry-run` with any local install command to preview Stow changes.
 
+## Validation
+
+Run `./check.sh` to validate the tracked shell scripts, Starship and nwg-bar configuration, Sway configuration, and output-layout behavior.
+
 ## Packages
 
 | Package | Target | Notes |
@@ -64,16 +68,18 @@ Use `--dry-run` with any local install command to preview Stow changes.
 | [nvim](nvim/README.md) | `~/.config/nvim` | Lazy.nvim, Mason, LSP, Treesitter |
 | [tmux](tmux/README.md) | `~/.config/tmux`, `~/.tmux.conf` | TPM, vim-style navigation |
 | [alacritty](alacritty/README.md) | `~/.config/alacritty` | Dracula theme, Hack Nerd Font |
-| [zsh](zsh/README.md) | `~/.config/zsh`, `~/.zshenv`, `~/.zshrc` | XDG layout, Powerlevel10k |
+| [zsh](zsh/README.md) | `~/.config/zsh`, `~/.config/starship.toml`, `~/.zshenv`, `~/.zshrc` | XDG layout, Starship prompt |
 | [sway](sway/README.md) | `~/.config/sway` | Modular Sway session |
-| [waybar](waybar/README.md) | `~/.config/waybar` | Sway modules and desktop actions |
+| [waybar](waybar/README.md) | `~/.config/waybar`, `~/.config/nwg-bar` | Sway modules and desktop actions |
 | [gtk](gtk/README.md) | `~/.config/gtk-3.0`, `~/.config/gtk-4.0` | Adwaita dark preference |
 
 ## Notes
 
 The installer is conservative: it preflights dependencies and Stow conflicts before linking files, is safe to re-run, and does not overwrite conflicting files.
 
-Runtime dependency details live in [dependencies.md](dependencies.md). Component behavior lives in each package README.
+Component behavior and assumptions live in each package README.
+
+To save an encrypted SSH key's passphrase in the graphical login keyring, run `/usr/lib/seahorse/ssh-askpass ~/.ssh/id_ed25519` once, then log out and back in.
 
 Three home-level files are intentional:
 

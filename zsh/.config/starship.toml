@@ -1,0 +1,120 @@
+"$schema" = "https://starship.rs/config-schema.json"
+
+add_newline = true
+palette = "dracula"
+format = """
+[╭─](comment)\
+$os\
+[](fg:current_line bg:blue)\
+$directory\
+[](fg:blue)\
+$git_branch\
+$git_status\
+$fill\
+$status\
+$cmd_duration\
+$jobs\
+$python\
+$nodejs\
+$rust\
+$time\
+$line_break\
+[╰─](comment)\
+$character"""
+
+[palettes.dracula]
+foreground = "#F8F8F2"
+background = "#282A36"
+current_line = "#44475A"
+comment = "#6272A4"
+blue = "#6272A4"
+cyan = "#8BE9FD"
+green = "#50FA7B"
+orange = "#FFB86C"
+pink = "#FF79C6"
+purple = "#BD93F9"
+red = "#FF5555"
+yellow = "#F1FA8C"
+
+[os]
+disabled = false
+format = "[ $symbol ]($style)"
+style = "bold fg:foreground bg:current_line"
+
+[os.symbols]
+Arch = ""
+Linux = ""
+
+[directory]
+format = "[ $path$read_only ]($style)"
+style = "bold fg:foreground bg:blue"
+read_only = " "
+truncation_length = 3
+truncate_to_repo = true
+
+[git_branch]
+format = "[](fg:green)[ $symbol$branch(:$remote_branch) ]($style)[](fg:green)"
+style = "bold fg:background bg:green"
+symbol = " "
+
+[git_status]
+format = "([](fg:yellow)[ $all_status$ahead_behind ]($style)[](fg:yellow))"
+style = "bold fg:background bg:yellow"
+conflicted = "~${count}"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+untracked = "?${count}"
+stashed = "*${count}"
+modified = "!${count}"
+staged = "+${count}"
+renamed = "»${count}"
+deleted = "✘${count}"
+
+[fill]
+symbol = " "
+
+[status]
+disabled = false
+format = "[](fg:red)[ $symbol$status ]($style)"
+style = "bold fg:background bg:red"
+symbol = "✘ "
+
+[cmd_duration]
+format = "[](fg:yellow)[ 󰔛 $duration ]($style)"
+min_time = 2000
+style = "fg:background bg:yellow"
+
+[jobs]
+format = "[](fg:current_line)[ $symbol$number ]($style)"
+style = "bold fg:cyan bg:current_line"
+symbol = "󰜎 "
+
+[python]
+format = '[](fg:blue)[ ${symbol}${pyenv_prefix}(${version})( \($virtualenv\)) ]($style)'
+style = "fg:foreground bg:blue"
+symbol = " "
+
+[nodejs]
+format = "[](fg:purple)[ $symbol($version) ]($style)"
+style = "fg:background bg:purple"
+symbol = " "
+
+[rust]
+format = "[](fg:orange)[ $symbol($version) ]($style)"
+style = "fg:background bg:orange"
+symbol = " "
+
+[time]
+disabled = false
+format = "[](fg:current_line)[  $time ]($style)"
+style = "fg:foreground bg:current_line"
+time_format = "%H:%M:%S"
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+vimcmd_symbol = "[❮](bold green)"
+vimcmd_replace_one_symbol = "[❮](bold purple)"
+vimcmd_replace_symbol = "[❮](bold purple)"
+vimcmd_visual_symbol = "[❮](bold yellow)"

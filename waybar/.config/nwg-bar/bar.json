@@ -1,0 +1,17 @@
+[
+  {
+    "label": "Suspend",
+    "exec": "systemctl suspend",
+    "icon": "/usr/share/nwg-bar/images/system-suspend.svg"
+  },
+  {
+    "label": "Restart",
+    "exec": "systemctl reboot",
+    "icon": "/usr/share/nwg-bar/images/system-reboot.svg"
+  },
+  {
+    "label": "Shutdown",
+    "exec": "systemctl poweroff",
+    "icon": "/usr/share/nwg-bar/images/system-shutdown.svg"
+  }
+]

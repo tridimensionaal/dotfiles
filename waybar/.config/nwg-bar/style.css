@@ -1,0 +1,42 @@
+window {
+  background: transparent;
+}
+
+#outer-box {
+  background: transparent;
+}
+
+#inner-box {
+  padding: 18px;
+  border: 1px solid rgba(125, 168, 184, 0.30);
+  border-radius: 16px;
+  background: rgba(7, 17, 23, 0.96);
+}
+
+button {
+  min-width: 112px;
+  margin: 6px;
+  padding: 14px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: #ffffff;
+}
+
+button:hover {
+  background: rgba(0, 153, 153, 0.24);
+}
+
+button:focus {
+  background: rgba(0, 153, 153, 0.24);
+}
+
+image {
+  margin-bottom: 8px;
+}
+
+label {
+  font-family: "Hack Nerd Font";
+  font-size: 14px;
+  color: #ffffff;
+}
