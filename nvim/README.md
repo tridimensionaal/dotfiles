@@ -18,6 +18,7 @@ Install it with:
 - filetype overrides live under `~/.config/nvim/after/ftplugin/`
 - post-plugin setup lives under `~/.config/nvim/after/plugin/`
 - plugin management is handled by `lazy.nvim`
+- validated plugin revisions are recorded in `lazy-lock.json`
 - editor tooling installation is handled by Mason plus `mason-tool-installer`
 - Markdown and text buffers wrap visually at word boundaries (`wrap` plus `linebreak`)
 

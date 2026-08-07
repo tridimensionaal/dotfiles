@@ -40,7 +40,7 @@ line breaks to the file.
 
 | Plugin | Status and current use | Decision |
 | --- | --- | --- |
-| [lazy.nvim](https://github.com/folke/lazy.nvim) | Supported. The bootstrap uses deprecated `vim.loop`; several setup values repeat documented defaults. | Use `vim.uv`, handle clone failure explicitly, keep only project-specific options, and disable the unused LuaRocks integration. Continue using lazy.nvim rather than the experimental `vim.pack`. |
+| [lazy.nvim](https://github.com/folke/lazy.nvim) | Supported. The bootstrap uses deprecated `vim.loop`; several setup values repeat documented defaults, and the recommended lockfile is ignored. | Use `vim.uv`, handle clone failure explicitly, keep only project-specific options, disable the unused LuaRocks integration, and version the cleanly resolved lockfile. Continue using lazy.nvim rather than the experimental `vim.pack`. |
 | [blink.cmp](https://github.com/saghen/blink.cmp) | Supported. Upstream's v1 installation guide recommends the existing `version = '1.*'` pin. Its default snippet backend is native `vim.snippet`. | Keep the v1 pin and options; let lazy.nvim apply `opts` declaratively. Remove the unused LuaSnip dependency. |
 | [LuaSnip](https://github.com/L3MON4D3/LuaSnip) | Supported, but it is not selected as blink.cmp's snippet preset and no snippets or LuaSnip APIs are configured. | Remove it from this configuration. Native `vim.snippet` continues to provide Blink's current snippet behavior. |
 | [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) | Supported. It supplies server configurations consumed by native `vim.lsp.config`; the deprecated legacy setup API is not used. | Keep it and make the language configuration forwarding generic. |
@@ -76,6 +76,7 @@ line breaks to the file.
 ## Formal configuration references
 
 - [lazy.nvim plugin spec](https://lazy.folke.io/spec)
+- [lazy.nvim lockfile guidance](https://lazy.folke.io/usage/lockfile)
 - [blink.cmp installation](https://cmp.saghen.dev/installation) and
   [snippet configuration](https://cmp.saghen.dev/configuration/snippets)
 - [Mason package registry](https://github.com/mason-org/mason-registry)
