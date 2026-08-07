@@ -23,10 +23,10 @@ return {
             return
           end
 
-          vim.api.nvim_clear_autocmds({ group = format_augroup, buffer = bufnr })
+          vim.api.nvim_clear_autocmds({ group = format_augroup, buf = bufnr })
           vim.api.nvim_create_autocmd("BufWritePre", {
             group = format_augroup,
-            buffer = bufnr,
+            buf = bufnr,
             callback = function()
               if vim.v.cmdbang == 1 then
                 return

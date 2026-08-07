@@ -109,8 +109,8 @@ git commit -m "feat(nvim): wrap prose at word boundaries"
 - Replace `vim.highlight.on_yank` with `vim.hl.on_yank`.
 - Replace deprecated diagnostic traversal with closures around
   `vim.diagnostic.jump`, using `on_jump` to retain the floating diagnostic.
-- Change only `vim.keymap.set` option tables from `buffer` to `buf`; retain the
-  current `buffer` autocmd fields.
+- Change `vim.keymap.set` and buffer-local autocmd option tables from `buffer`
+  to the current `buf` field.
 - Test the return from `vim.treesitter.get_parser` rather than expecting an exception.
 
 ### Step 2: Make native LSP setup generic
@@ -202,7 +202,7 @@ git commit -m "refactor(nvim): adopt 0.12 APIs"
 ### Step 4: Preserve mappings while improving load behavior
 
 - Fix bufferline's misplaced `desc` key.
-- Use attached clients for the lualine LSP label.
+- Keep lualine's client-selection behavior while moving setup into `opts`.
 - Apply vim-tmux-navigator's upstream lazy.nvim command/key declaration, with
   the same Ctrl-h/j/k/l/backslash mappings.
 

@@ -8,13 +8,28 @@ package.loaded["config.none-ls"] = nil
 
 local options = require("config.none-ls")
 local client = {}
+local bufnr = vim.api.nvim_get_current_buf()
+local clear_options
+local create_options
 
 function client:supports_method(method)
   assert(self == client, "Client:supports_method must be called with method syntax")
   assert(method == "textDocument/formatting", "unexpected LSP method")
-  return false
+  return true
 end
 
-options.on_attach(client, vim.api.nvim_get_current_buf())
+vim.api.nvim_clear_autocmds = function(opts)
+  clear_options = opts
+end
+
+vim.api.nvim_create_autocmd = function(_, opts)
+  create_options = opts
+end
+
+vim.bo[bufnr].filetype = "lua"
+options.on_attach(client, bufnr)
+
+assert(clear_options.buf == bufnr and clear_options.buffer == nil, "clear_autocmds must use its current buf key")
+assert(create_options.buf == bufnr and create_options.buffer == nil, "create_autocmd must use its current buf key")
 
 vim.cmd("qall!")

@@ -26,4 +26,8 @@ open_filetype("text")
 assert_equal(vim.wo.wrap, true, "text wrap")
 assert_equal(vim.wo.linebreak, true, "text word-boundary wrapping")
 
+open_filetype("lua")
+assert_equal(vim.wo.wrap, false, "non-prose wrap")
+assert_equal(vim.wo.linebreak, false, "non-prose word-boundary wrapping")
+
 vim.cmd("qall!")

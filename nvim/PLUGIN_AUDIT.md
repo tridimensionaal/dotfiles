@@ -11,6 +11,7 @@ future maintenance.
 The authoritative baseline is Neovim's
 [`news-0.12.txt`](https://github.com/neovim/neovim/blob/v0.12.4/runtime/doc/news-0.12.txt),
 [`deprecated.txt`](https://github.com/neovim/neovim/blob/v0.12.4/runtime/doc/deprecated.txt),
+[`api.txt`](https://github.com/neovim/neovim/blob/v0.12.4/runtime/doc/api.txt),
 [`lsp.txt`](https://github.com/neovim/neovim/blob/v0.12.4/runtime/doc/lsp.txt), and
 [`treesitter.txt`](https://github.com/neovim/neovim/blob/v0.12.4/runtime/doc/treesitter.txt).
 
@@ -21,7 +22,7 @@ The authoritative baseline is Neovim's
 | `vim.highlight.on_yank` | `vim.highlight` was renamed to `vim.hl`. | Use `vim.hl.on_yank`. |
 | `vim.diagnostic.goto_next()` / `goto_prev()` | Deprecated in favor of `vim.diagnostic.jump()`. | Preserve the two mappings and their diagnostic float with `jump({ count = ... })`. |
 | `client.supports_method()` | Dot-style invocation is deprecated in favor of the `Client:supports_method()` method. | Use colon syntax in none-ls and rustaceanvim attach callbacks. |
-| `{ buffer = event.buf }` in `vim.keymap.set()` | The keymap option was renamed to `buf`. | Use the 0.12 `buf` spelling. The `buffer` field used by autocmd APIs is still current and is intentionally unchanged. |
+| `buffer` in keymap and buffer-local autocmd option tables | The keymap spelling is deprecated, and the generated 0.12 API schema documents `buf` for `nvim_create_autocmd()` and `nvim_clear_autocmds()`. | Use `buf` consistently for these APIs. |
 | `pcall(vim.treesitter.get_parser, ...)` | In 0.12, parser creation failure returns `nil` instead of throwing. | Test the return value before starting Tree-sitter. |
 | Mutating `client.server_capabilities.semanticTokensProvider` | This changes negotiated client state directly; 0.12 exposes a public semantic-token switch. | Use `vim.lsp.semantic_tokens.enable(false, { bufnr = ..., client_id = ... })`. |
 | Repeating completion capabilities for each LSP | `vim.lsp.config('*', ...)` is the supported way to define defaults inherited by every configuration. | Define shared capabilities once, then forward each language's server-specific fields. |
@@ -55,7 +56,7 @@ line breaks to the file.
 | [nvim-tree.lua](https://github.com/nvim-tree/nvim-tree.lua) | Supported. Its options, commands, and keys are already declarative. | Keep the setup. Do not move netrw-disabling globals earlier because that could alter directory-startup behavior. |
 | [nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons) | Supported and used by nvim-tree, bufferline, and lualine. | Keep it as a dependency. |
 | [bufferline.nvim](https://github.com/akinsho/bufferline.nvim) | Supported. The configuration is declarative, but one lazy key description is nested as an unused positional table. | Keep the stable pin and options; place `desc` in the documented key-spec field. |
-| [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) | Supported. The statusline module performs setup as a side effect and scans every configured client rather than attached clients. | Return an options table, let lazy.nvim run setup, and query clients attached to the current buffer. Visible sections and separators remain unchanged. |
+| [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) | Supported. The statusline module performs setup as a side effect. Its existing client/filetype selection determines the visible LSP name. | Return an options table and let lazy.nvim run setup. Retain the client selection to avoid changing visible statusline behavior. |
 | [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim) | Supported and already configured with declarative `opts`. | No change. |
 | [indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim) | Supported. Its v3 module name, event, and `opts` follow the upstream setup. | No change. |
 | [Comment.nvim](https://github.com/numToStr/Comment.nvim) | Not archived and has no upstream deprecation notice. Neovim has native commenting, but this setup also exposes Comment.nvim's blockwise `gb` behavior. | Retain it to avoid a mapping/behavior change; replace the setup-only callback with `opts = {}`. |
