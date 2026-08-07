@@ -10,3 +10,20 @@ autocmd("TextYankPost", {
   end,
   group = highlight_group,
 })
+
+local prose_filetypes = {
+  markdown = true,
+  ["markdown.mdx"] = true,
+  text = true,
+}
+
+local prose_wrapping_group = augroup("ProseWrapping", { clear = true })
+autocmd({ "BufEnter", "FileType" }, {
+  pattern = "*",
+  callback = function()
+    local enabled = prose_filetypes[vim.bo.filetype] == true
+    vim.wo.wrap = enabled
+    vim.wo.linebreak = enabled
+  end,
+  group = prose_wrapping_group,
+})

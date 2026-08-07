@@ -9,7 +9,7 @@ Install it with:
 ./install.sh nvim
 ```
 
-## Notes
+## Configuration layout
 
 - `init.lua` lives at `~/.config/nvim/init.lua`
 - core editor modules live under `~/.config/nvim/lua/`
@@ -17,10 +17,12 @@ Install it with:
 - plugin specs live under `~/.config/nvim/lua/plugins/`
 - filetype overrides live under `~/.config/nvim/after/ftplugin/`
 - post-plugin setup lives under `~/.config/nvim/after/plugin/`
+
+## Tooling
+
 - plugin management is handled by `lazy.nvim`
 - validated plugin revisions are recorded in `lazy-lock.json`
 - editor tooling installation is handled by Mason plus `mason-tool-installer`
-- Markdown and text buffers wrap visually at word boundaries (`wrap` plus `linebreak`)
 
 The complete 0.12 API and plugin review, including the decision for every
 configured dependency, is in [PLUGIN_AUDIT.md](PLUGIN_AUDIT.md).
