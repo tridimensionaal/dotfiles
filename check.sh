@@ -13,6 +13,7 @@ bash -n \
   install-arch.sh \
   remote-install.sh \
   sway/.config/sway/scripts/toggle-output-layout \
+  tests/test-neovim.sh \
   test-toggle-output-layout.sh
 
 python - <<'PY'
@@ -38,5 +39,6 @@ fi
 
 sway --validate --config sway/.config/sway/config
 ./test-toggle-output-layout.sh
+./tests/test-neovim.sh
 
 printf 'Checks passed.\n'

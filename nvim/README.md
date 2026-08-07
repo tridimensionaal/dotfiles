@@ -1,6 +1,7 @@
 # Neovim
 
 The Neovim config lives under `~/.config/nvim`.
+It targets Neovim 0.12 or newer.
 
 Install it with:
 
@@ -18,7 +19,23 @@ Install it with:
 - post-plugin setup lives under `~/.config/nvim/after/plugin/`
 - plugin management is handled by `lazy.nvim`
 - editor tooling installation is handled by Mason plus `mason-tool-installer`
+- Markdown and text buffers wrap visually at word boundaries (`wrap` plus `linebreak`)
 
-The package also keeps repo-only lint configuration such as `selene.toml`, but those files are ignored by Stow and are not linked into `$HOME`.
+The complete 0.12 API and plugin review, including the decision for every
+configured dependency, is in [PLUGIN_AUDIT.md](PLUGIN_AUDIT.md).
+
+The package also keeps repo-only lint configuration such as `selene.toml` and
+`neovim.yml`, but those files are ignored by Stow and are not linked into
+`$HOME`.
 
 First launch may need network access so Lazy.nvim, Mason, and Treesitter can bootstrap plugins, tool binaries, and parsers.
+
+## Validation
+
+Run the focused headless checks with:
+
+```sh
+./tests/test-neovim.sh
+```
+
+The repository-wide `./check.sh` command includes these tests.
