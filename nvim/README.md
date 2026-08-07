@@ -30,13 +30,3 @@ The package also keeps repo-only lint configuration such as `selene.toml` and
 `$HOME`.
 
 First launch may need network access so Lazy.nvim, Mason, and Treesitter can bootstrap plugins, tool binaries, and parsers.
-
-## Validation
-
-Run the focused headless checks with:
-
-```sh
-./tests/test-neovim.sh
-```
-
-The repository-wide `./check.sh` command includes these tests.
