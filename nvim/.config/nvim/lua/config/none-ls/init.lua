@@ -45,9 +45,7 @@ local function has_null_ls_formatter(bufnr)
   return false
 end
 
-null_ls.setup({
-  debug = true,
-  log_level = "debug",
+return {
   sources = collect_sources(),
 
   --- attach handler per buffer after a none-ls client attaches.
@@ -65,7 +63,7 @@ null_ls.setup({
   --- @param bufnr integer buffer number.
   ---
   on_attach = function(client, bufnr)
-    if not client.supports_method("textDocument/formatting") then
+    if not client:supports_method("textDocument/formatting") then
       return
     end
 
@@ -96,4 +94,4 @@ null_ls.setup({
       end,
     })
   end,
-})
+}

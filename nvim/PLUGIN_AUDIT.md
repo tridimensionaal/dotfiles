@@ -20,6 +20,7 @@ The authoritative baseline is Neovim's
 | `vim.api.nvim_err_writeln` | Deprecated; `nvim_echo()` with `err = true` is the documented replacement. | Route startup errors through `nvim_echo`. |
 | `vim.highlight.on_yank` | `vim.highlight` was renamed to `vim.hl`. | Use `vim.hl.on_yank`. |
 | `vim.diagnostic.goto_next()` / `goto_prev()` | Deprecated in favor of `vim.diagnostic.jump()`. | Preserve the two mappings and their diagnostic float with `jump({ count = ... })`. |
+| `client.supports_method()` | Dot-style invocation is deprecated in favor of the `Client:supports_method()` method. | Use colon syntax in none-ls and rustaceanvim attach callbacks. |
 | `{ buffer = event.buf }` in `vim.keymap.set()` | The keymap option was renamed to `buf`. | Use the 0.12 `buf` spelling. The `buffer` field used by autocmd APIs is still current and is intentionally unchanged. |
 | `pcall(vim.treesitter.get_parser, ...)` | In 0.12, parser creation failure returns `nil` instead of throwing. | Test the return value before starting Tree-sitter. |
 | Mutating `client.server_capabilities.semanticTokensProvider` | This changes negotiated client state directly; 0.12 exposes a public semantic-token switch. | Use `vim.lsp.semantic_tokens.enable(false, { bufnr = ..., client_id = ... })`. |
@@ -27,6 +28,7 @@ The authoritative baseline is Neovim's
 | `vim.lsp.config()` and `vim.lsp.enable()` | These are the current 0.12 APIs. The legacy `require('lspconfig')` framework is deprecated, but this configuration does not use it. | Retain and simplify the existing native LSP setup. |
 | Marksman launch fields nested below `settings` | `cmd`, `filetypes`, and `root_markers` are client configuration fields, not server settings. | Move them to the top level. Their values match nvim-lspconfig's Marksman defaults, so activation behavior is retained. |
 | `vim.fn.*`, `vim.opt*`, `vim.keymap.set`, and autocmd APIs | All inspected uses are documented 0.12 APIs. | Keep them; rewriting valid APIs would add churn without an extensibility benefit. |
+| Selene `std = "neovim"` without a matching standard-library file | Selene only resolves built-in standard libraries or YAML files in the project; the missing file prevents Lua diagnostics from running. | Add a LuaJIT-based `neovim.yml` that declares the documented `vim` host global. API validity remains covered by this versioned audit and `checkhealth vim.deprecated`. |
 
 The file-local wrapping change uses the documented
 [`'wrap'`](https://neovim.io/doc/user/options/#'wrap') and
@@ -81,3 +83,4 @@ line breaks to the file.
 - [nvim-treesitter main-branch README](https://github.com/nvim-treesitter/nvim-treesitter/blob/main/README.md)
 - [rustaceanvim documentation](https://github.com/mrcjkb/rustaceanvim/blob/master/doc/rustaceanvim.txt)
 - [vim-tmux-navigator lazy.nvim example](https://github.com/christoomey/vim-tmux-navigator#lazy-loading)
+- [Selene standard-library format](https://kampfkarren.github.io/selene/usage/std.html)

@@ -35,11 +35,6 @@ end
 
 require("lazy").setup({
   spec = spec,
-  lockfile = vim.fn.stdpath("config") .. "/lazy-lock.json",
-  defaults = {
-    lazy = false,
-    version = nil,
-  },
   ui = {
     icons = {
       ft = "",
@@ -48,10 +43,7 @@ require("lazy").setup({
       not_loaded = "",
     },
   },
-  performance = {
-    cache = {
-      enabled = true,
-    },
+  rocks = {
+    enabled = false,
   },
-  state = vim.fn.stdpath("state") .. "/lazy/state.json",
 })

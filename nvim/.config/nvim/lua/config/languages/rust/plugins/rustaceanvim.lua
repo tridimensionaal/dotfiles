@@ -19,7 +19,7 @@ return {
           -- Disable semantic tokens to avoid LSP re-highlighting (e.g. splitting Rust macros into mixed colors).
           vim.lsp.semantic_tokens.enable(false, { bufnr = bufnr, client_id = client.id })
 
-          if not client.supports_method("textDocument/formatting") then
+          if not client:supports_method("textDocument/formatting") then
             return
           end
 

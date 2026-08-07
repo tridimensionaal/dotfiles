@@ -3,7 +3,5 @@ return {
   tag = "stable",
   ft = { "toml" },
   dependencies = { "nvim-lua/plenary.nvim" },
-  config = function()
-    require("crates").setup()
-  end,
+  opts = {},
 }

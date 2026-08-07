@@ -1,4 +1,3 @@
-local lualine = require("lualine")
 local colors = require("dracula").colors()
 
 -- from lualine
@@ -176,4 +175,4 @@ ins_right({
   padding = { left = 1 },
 })
 
-lualine.setup(config)
+return config

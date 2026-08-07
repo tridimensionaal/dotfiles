@@ -3,9 +3,6 @@
 return {
   "Saghen/blink.cmp",
   version = "1.*", -- use tagged releases with prebuilt fuzzy matcher binaries
-  dependencies = {
-    "L3MON4D3/LuaSnip",
-  },
   opts = {
     keymap = {
       preset = "default",
@@ -22,7 +19,4 @@ return {
       default = { "lsp", "path", "snippets", "buffer" },
     },
   },
-  config = function(_, opts)
-    require("blink.cmp").setup(opts)
-  end,
 }
