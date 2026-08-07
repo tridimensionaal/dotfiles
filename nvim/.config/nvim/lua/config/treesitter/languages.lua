@@ -46,8 +46,7 @@ function M.parsers()
 end
 
 function M.start(bufnr)
-  local ok_parser = pcall(vim.treesitter.get_parser, bufnr)
-  if not ok_parser then
+  if not vim.treesitter.get_parser(bufnr) then
     return
   end
 

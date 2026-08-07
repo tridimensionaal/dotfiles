@@ -1,5 +1,6 @@
 return {
   server = "bashls",
+  mason = "bash-language-server",
 
   settings = {
     bashIde = {

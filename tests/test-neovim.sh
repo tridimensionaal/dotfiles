@@ -9,5 +9,6 @@ REPO_ROOT=$(dirname "${SCRIPT_DIR}")
 export NVIM_CONFIG_ROOT="${REPO_ROOT}/nvim/.config/nvim"
 
 nvim --headless --clean -l "${SCRIPT_DIR}/nvim/wrapping_spec.lua"
+nvim --headless --clean -l "${SCRIPT_DIR}/nvim/lsp_config_spec.lua"
 
 printf 'Neovim checks passed.\n'

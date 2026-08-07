@@ -1,6 +1,7 @@
 -- from astronvim
 return {
   server = "basedpyright",
+  mason = "basedpyright",
 
   settings = {
     basedpyright = {

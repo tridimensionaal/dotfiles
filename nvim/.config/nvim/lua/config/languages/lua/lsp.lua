@@ -1,5 +1,6 @@
 return {
   server = "lua_ls",
+  mason = "lua-language-server",
 
   settings = {
     Lua = {

@@ -2,6 +2,7 @@ return {
   servers = {
     {
       server = "cssls",
+      mason = "css-lsp",
       filetypes = { "css", "scss", "less" },
       settings = {
         css = {
@@ -20,6 +21,7 @@ return {
     },
     {
       server = "tailwindcss",
+      mason = "tailwindcss-language-server",
       filetypes = {
         "astro",
         "css",

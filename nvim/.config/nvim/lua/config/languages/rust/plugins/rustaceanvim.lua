@@ -2,10 +2,10 @@ local rust_lsp = require("config.languages.rust.lsp")
 
 return {
   "mrcjkb/rustaceanvim",
-  version = "^6",
+  version = "^9",
   lazy = false,
   ft = { "rust" },
-  config = function()
+  init = function()
     local format_augroup = vim.api.nvim_create_augroup("RustaceanvimFormatOnSave", {})
     local capabilities = require("config.lsp.capabilities")
     local settings = vim.deepcopy(rust_lsp.settings or {})
@@ -17,7 +17,7 @@ return {
         default_settings = settings,
         on_attach = function(client, bufnr)
           -- Disable semantic tokens to avoid LSP re-highlighting (e.g. splitting Rust macros into mixed colors).
-          client.server_capabilities.semanticTokensProvider = nil
+          vim.lsp.semantic_tokens.enable(false, { bufnr = bufnr, client_id = client.id })
 
           if not client.supports_method("textDocument/formatting") then
             return
