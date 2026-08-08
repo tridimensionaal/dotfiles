@@ -48,7 +48,17 @@ autocmd({ "BufEnter", "BufLeave" }, {
     if event.event == "BufEnter" then
       enable_prose_wrapping()
     else
+      local bufnr = event.buf
+      local winid = vim.api.nvim_get_current_win()
       reset_prose_wrapping()
+
+      vim.schedule(function()
+        if not vim.api.nvim_win_is_valid(winid) or vim.api.nvim_win_get_buf(winid) ~= bufnr then
+          return
+        end
+
+        vim.api.nvim_win_call(winid, enable_prose_wrapping)
+      end)
     end
   end,
   group = prose_wrapping_group,
