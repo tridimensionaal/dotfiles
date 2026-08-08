@@ -32,6 +32,17 @@ local function lsp_configs(lsp)
 
   return configs
 end
+
+local function native_config(lsp)
+  local config = vim.deepcopy(lsp)
+
+  config.mason = nil
+  config.server = nil
+  config.servers = nil
+  config.skip_builtin = nil
+
+  return config
+end
 --
 -- configure and enable all language servers declared in `config.languages`.
 --
@@ -46,22 +57,14 @@ function M.setup()
   local capabilities = require("config.lsp.capabilities")
 
   mappings.setup()
+  vim.lsp.config("*", { capabilities = capabilities })
 
   for _, lang in pairs(languages) do
     if lang.lsp and not lang.lsp.skip_builtin then
       -- register and enable every server declared by this language module.
       for _, lsp in ipairs(lsp_configs(lang.lsp)) do
         if type(lsp.server) == "string" then
-          vim.lsp.config(lsp.server, {
-            capabilities = capabilities,
-            on_attach = mappings.on_attach,
-            settings = lsp.settings,
-            filetypes = lsp.filetypes,
-            root_markers = lsp.root_markers,
-            cmd = lsp.cmd,
-            init_options = lsp.init_options,
-          })
-
+          vim.lsp.config(lsp.server, native_config(lsp))
           vim.lsp.enable(lsp.server)
         end
       end

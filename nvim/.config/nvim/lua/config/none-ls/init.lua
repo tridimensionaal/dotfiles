@@ -45,9 +45,7 @@ local function has_null_ls_formatter(bufnr)
   return false
 end
 
-null_ls.setup({
-  debug = true,
-  log_level = "debug",
+return {
   sources = collect_sources(),
 
   --- attach handler per buffer after a none-ls client attaches.
@@ -65,7 +63,7 @@ null_ls.setup({
   --- @param bufnr integer buffer number.
   ---
   on_attach = function(client, bufnr)
-    if not client.supports_method("textDocument/formatting") then
+    if not client:supports_method("textDocument/formatting") then
       return
     end
 
@@ -74,10 +72,10 @@ null_ls.setup({
       return
     end
 
-    vim.api.nvim_clear_autocmds({ group = format_augroup, buffer = bufnr })
+    vim.api.nvim_clear_autocmds({ group = format_augroup, buf = bufnr })
     vim.api.nvim_create_autocmd("BufWritePre", {
       group = format_augroup,
-      buffer = bufnr,
+      buf = bufnr,
       -- run format-before-save for the current buffer
       callback = function()
         if vim.v.cmdbang == 1 then
@@ -96,4 +94,4 @@ null_ls.setup({
       end,
     })
   end,
-})
+}

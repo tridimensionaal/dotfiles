@@ -10,9 +10,8 @@
 
 return {
   server = "marksman",
-  settings = {
-    cmd = { "marksman", "server" },
-    filetypes = { "markdown", "markdown.mdx" },
-    root_markers = { ".marksman.toml", ".git" },
-  },
+  mason = "marksman",
+  cmd = { "marksman", "server" },
+  filetypes = { "markdown", "markdown.mdx" },
+  root_markers = { ".marksman.toml", ".git" },
 }

@@ -6,7 +6,7 @@ function M.setup()
   api.nvim_create_autocmd("LspAttach", {
     group = api.nvim_create_augroup("LspKeymaps", { clear = true }),
     callback = function(event)
-      local opts = { buffer = event.buf, silent = true }
+      local opts = { buf = event.buf, silent = true }
 
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
       vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)

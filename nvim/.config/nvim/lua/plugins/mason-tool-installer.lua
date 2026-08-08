@@ -1,40 +1,34 @@
+local function add_tool(ensure, seen, tool)
+  if type(tool) ~= "string" or seen[tool] then
+    return
+  end
+
+  table.insert(ensure, tool)
+  seen[tool] = true
+end
+
+local function add_lsp_tools(ensure, seen, lsp)
+  add_tool(ensure, seen, lsp.mason or lsp.server)
+
+  if type(lsp.servers) ~= "table" then
+    return
+  end
+
+  for _, config in ipairs(lsp.servers) do
+    if type(config) == "string" then
+      add_tool(ensure, seen, config)
+    elseif type(config) == "table" then
+      add_tool(ensure, seen, config.mason or config.server)
+    end
+  end
+end
+
 return {
   "WhoIsSethDaniel/mason-tool-installer.nvim",
-  dependencies = {
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
-  },
-  event = "VeryLazy",
+  dependencies = { "mason-org/mason.nvim" },
 
-  config = function()
-    local function add_tool(ensure, seen, tool)
-      if type(tool) ~= "string" or seen[tool] then
-        return
-      end
-
-      table.insert(ensure, tool)
-      seen[tool] = true
-    end
-
-    local function add_lsp_tools(ensure, seen, lsp)
-      add_tool(ensure, seen, lsp.server)
-
-      if type(lsp.servers) ~= "table" then
-        return
-      end
-
-      for _, config in ipairs(lsp.servers) do
-        if type(config) == "string" then
-          add_tool(ensure, seen, config)
-        elseif type(config) == "table" then
-          add_tool(ensure, seen, config.server)
-        end
-      end
-    end
-
+  opts = function()
     local languages = require("config.languages")
-    local mason_tool_installer = require("mason-tool-installer")
-
     local ensure = {}
     local seen = {}
 
@@ -56,12 +50,10 @@ return {
       end
     end
 
-    mason_tool_installer.setup({
+    return {
       ensure_installed = ensure,
       auto_update = false,
       run_on_start = true,
-    })
-
-    mason_tool_installer.run_on_start()
+    }
   end,
 }
