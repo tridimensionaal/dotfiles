@@ -17,13 +17,39 @@ local prose_filetypes = {
   text = true,
 }
 
+local function enable_prose_wrapping()
+  vim.opt_local.wrap = true
+  vim.opt_local.linebreak = true
+end
+
+local function reset_prose_wrapping()
+  vim.cmd("setlocal wrap< linebreak<")
+end
+
 local prose_wrapping_group = augroup("ProseWrapping", { clear = true })
-autocmd({ "BufEnter", "FileType" }, {
-  pattern = "*",
+autocmd("FileType", {
+  pattern = { "markdown", "markdown.mdx", "text" },
   callback = function()
-    local enabled = prose_filetypes[vim.bo.filetype] == true
-    vim.wo.wrap = enabled
-    vim.wo.linebreak = enabled
+    enable_prose_wrapping()
+
+    local undo = "setlocal wrap< linebreak<"
+    vim.b.undo_ftplugin = vim.b.undo_ftplugin and (vim.b.undo_ftplugin .. " | " .. undo) or undo
+  end,
+  group = prose_wrapping_group,
+})
+
+autocmd({ "BufEnter", "BufLeave" }, {
+  pattern = "*",
+  callback = function(event)
+    if not prose_filetypes[vim.bo.filetype] then
+      return
+    end
+
+    if event.event == "BufEnter" then
+      enable_prose_wrapping()
+    else
+      reset_prose_wrapping()
+    end
   end,
   group = prose_wrapping_group,
 })
