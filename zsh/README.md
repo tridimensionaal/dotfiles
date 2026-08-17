@@ -1,9 +1,10 @@
 # Zsh
 
-The main Zsh config lives under `~/.config/zsh` with two intentional top-level entries:
+The main Zsh config lives under `~/.config/zsh` with one tracked top-level entry:
 
 - `~/.zshenv` sets `ZDOTDIR="$HOME/.config/zsh"`
-- `~/.zshrc` collects integrations from installers that do not respect `ZDOTDIR`; the main config sources it
+
+The main config also sources `~/.zshrc` when it is readable. This optional file is machine-owned and untracked; installers can add local integrations there without dirtying this repository.
 
 Install it with:
 
@@ -27,4 +28,4 @@ Tracked config files:
 - completion uses a cache under `${XDG_CACHE_HOME:-$HOME/.cache}/zsh`
 - vi mode is enabled with `jj` returning to command mode
 - `/usr/share/nvm/init-nvm.sh` is sourced when present
-- the `Bash-scripts-for-daily-task` integration is optional and only loads when `${BASH_SCRIPTS_INIT}` or its default path exists
+- `$HOME/.local/bin`, `$HOME/bin`, and an installed `/opt/nvim` are added to `PATH` by the tracked config

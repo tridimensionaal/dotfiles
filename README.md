@@ -68,7 +68,7 @@ Run `./check.sh` to validate the tracked shell scripts, Starship and nwg-bar con
 | [nvim](nvim/README.md) | `~/.config/nvim` | Lazy.nvim, Mason, LSP, Treesitter |
 | [tmux](tmux/README.md) | `~/.config/tmux`, `~/.tmux.conf` | TPM, vim-style navigation |
 | [alacritty](alacritty/README.md) | `~/.config/alacritty` | Dracula theme, Hack Nerd Font |
-| [zsh](zsh/README.md) | `~/.config/zsh`, `~/.config/starship.toml`, `~/.zshenv`, `~/.zshrc` | XDG layout, Starship prompt |
+| [zsh](zsh/README.md) | `~/.config/zsh`, `~/.config/starship.toml`, `~/.zshenv` | XDG layout, Starship prompt |
 | [sway](sway/README.md) | `~/.config/sway` | Modular Sway session |
 | [waybar](waybar/README.md) | `~/.config/waybar`, `~/.config/nwg-bar` | Sway modules and desktop actions |
 | [gtk](gtk/README.md) | `~/.config/gtk-3.0`, `~/.config/gtk-4.0` | Adwaita dark preference |
@@ -81,8 +81,9 @@ Component behavior and assumptions live in each package README.
 
 To save an encrypted SSH key's passphrase in the graphical login keyring, run `/usr/lib/seahorse/ssh-askpass ~/.ssh/id_ed25519` once, then log out and back in.
 
-Three home-level files are intentional:
+Two tracked home-level files are intentional:
 
 - `~/.zshenv` sets `ZDOTDIR="$HOME/.config/zsh"`.
-- `~/.zshrc` receives integrations from tools that do not respect `ZDOTDIR`.
 - `~/.tmux.conf` sources `~/.config/tmux/tmux.conf`.
+
+The tracked Zsh config also sources an optional `~/.zshrc`. That file is machine-owned and untracked so installers that do not respect `ZDOTDIR` can add integrations without modifying this repository.
