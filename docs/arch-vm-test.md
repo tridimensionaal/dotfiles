@@ -57,8 +57,8 @@ After the first boot, update the guest and install the repo prerequisites from o
 ```sh
 sudo pacman -Syu --needed \
   stow git less gcr-4 gnome-keyring seahorse jq curl unzip gzip tar gcc \
-  fontconfig gtk3 neovim tree-sitter-cli \
-  tmux wl-clipboard alacritty zsh starship sway swaybg waybar nwg-bar wmenu thunar grim brightnessctl \
+  fontconfig gtk3 bat fd fzf neovim ripgrep tree-sitter-cli \
+  tmux wl-clipboard xdg-utils alacritty zsh starship sway swaybg waybar nwg-bar wmenu thunar grim brightnessctl \
   nm-connection-editor network-manager-applet pavucontrol gnome-calendar \
   gnome-power-manager pipewire pipewire-pulse wireplumber xorg-xwayland xdg-desktop-portal-gtk \
   xdg-desktop-portal-wlr polkit polkit-gnome ttf-hack-nerd otf-font-awesome firefox nodejs npm \
@@ -229,3 +229,11 @@ In `nvim`, allow first-run bootstrap to complete with network access enabled:
 - Treesitter parser installs
 
 Exit Neovim and open it a second time. The second start should be clean enough to be considered usable.
+
+Confirm `Space f f` includes hidden files but not Git-ignored files, and use
+`Space f g` to find text in a hidden, non-ignored file. Also smoke-test the
+remaining `Space f b`, `Space f h`, and `Space f r` mappings.
+
+In Zsh, smoke-test `Ctrl-t`, `Ctrl-r`, and `Alt-c`. In tmux copy mode,
+highlight a relative path and confirm `Ctrl-o` opens it in Neovim in the
+current pane while `o` sends it to the default application.
