@@ -204,6 +204,10 @@ check_nvim_dependencies() {
 
   check_command_dependency "$package" git
   check_command_dependency "$package" nvim
+  check_command_dependency "$package" fzf
+  check_command_dependency "$package" fd
+  check_command_dependency "$package" rg
+  check_command_dependency "$package" bat
   if have_command nvim; then
     check_version_dependency "$package" nvim "0.12.0" "$(nvim_version)"
   fi
@@ -224,6 +228,8 @@ check_tmux_dependencies() {
   fi
   check_command_dependency "$package" git
   check_command_dependency "$package" bash
+  check_command_dependency "$package" nvim
+  check_command_dependency "$package" xdg-open
   check_any_command_dependency "$package" wl-copy xsel xclip
 
   if [[ ! -x "$HOME/.tmux/plugins/tpm/tpm" ]]; then
@@ -246,6 +252,8 @@ check_zsh_dependencies() {
     check_version_dependency "$package" zsh "5.1" "$(zsh_version)"
   fi
   check_command_dependency "$package" starship
+  check_command_dependency "$package" fzf
+  check_command_dependency "$package" fd
 }
 
 check_sway_dependencies() {

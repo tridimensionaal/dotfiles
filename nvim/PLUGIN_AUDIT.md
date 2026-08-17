@@ -54,7 +54,8 @@ line breaks to the file.
 | [rustaceanvim](https://github.com/mrcjkb/rustaceanvim) | Supported. Major 9 targets Neovim 0.12; its documented breaking changes do not conflict with this configuration. | Move from `^6` to `^9`, initialize `vim.g.rustaceanvim` in lazy.nvim's `init` phase, and use the public semantic-token API. |
 | [crates.nvim](https://github.com/saecki/crates.nvim) | Supported. The empty `setup({})` callback can be represented directly by lazy.nvim `opts`. | Keep the stable release pin and filetype trigger; use `opts = {}`. |
 | [nvim-tree.lua](https://github.com/nvim-tree/nvim-tree.lua) | Supported. Its options, commands, and keys are already declarative. | Keep the setup. Do not move netrw-disabling globals earlier because that could alter directory-startup behavior. |
-| [nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons) | Supported and used by nvim-tree, bufferline, and lualine. | Keep it as a dependency. |
+| [nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons) | Supported and used by nvim-tree, bufferline, lualine, and fzf-lua. | Keep it as a dependency. |
+| [fzf-lua](https://github.com/ibhagwan/fzf-lua) | Supported on Neovim 0.12 and uses the same `fzf` engine as the shell integration. Its file and grep pickers support hidden-file and ignore controls. | Use the native fzf profile with `fd`, `ripgrep`, and `bat`; include hidden files while retaining ignore rules. |
 | [bufferline.nvim](https://github.com/akinsho/bufferline.nvim) | Supported. The configuration is declarative, but one lazy key description is nested as an unused positional table. | Keep the stable pin and options; place `desc` in the documented key-spec field. |
 | [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) | Supported. The statusline module performs setup as a side effect. Its existing client/filetype selection determines the visible LSP name. | Return an options table and let lazy.nvim run setup. Retain the client selection to avoid changing visible statusline behavior. |
 | [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim) | Supported and already configured with declarative `opts`. | No change. |
@@ -83,6 +84,7 @@ line breaks to the file.
 - [Mason package registry](https://github.com/mason-org/mason-registry)
 - [none-ls setup and debugging guidance](https://github.com/nvimtools/none-ls.nvim/blob/main/doc/MAIN.md)
 - [nvim-treesitter main-branch README](https://github.com/nvim-treesitter/nvim-treesitter/blob/main/README.md)
+- [fzf-lua configuration and picker documentation](https://github.com/ibhagwan/fzf-lua)
 - [rustaceanvim documentation](https://github.com/mrcjkb/rustaceanvim/blob/master/doc/rustaceanvim.txt)
 - [vim-tmux-navigator lazy.nvim example](https://github.com/christoomey/vim-tmux-navigator#lazy-loading)
 - [Selene standard-library format](https://kampfkarren.github.io/selene/usage/std.html)

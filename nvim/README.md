@@ -32,3 +32,15 @@ The package also keeps repo-only lint configuration such as `selene.toml` and
 `$HOME`.
 
 First launch may need network access so Lazy.nvim, Mason, and Treesitter can bootstrap plugins, tool binaries, and parsers.
+
+## Fuzzy finding
+
+`fzf-lua` uses the system `fzf`, `fd`, `ripgrep`, and `bat`. File and text
+searches include hidden files while respecting Git ignore rules.
+
+- `Space f f` finds files
+- `Space f g` searches text across files
+- `Space f b` switches buffers
+- `Space f h` searches help
+- `Space f r` resumes the previous picker
+- `Ctrl-j` and `Ctrl-k` move down and up through picker results
