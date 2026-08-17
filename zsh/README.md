@@ -26,6 +26,14 @@ Tracked config files:
 - Powerline separators and module icons require a Nerd Font configured in the terminal
 - `EDITOR`, `VISUAL`, and `GIT_EDITOR` default to `nvim`
 - completion uses a cache under `${XDG_CACHE_HOME:-$HOME/.cache}/zsh`
+- fzf uses `fd` so hidden entries are included while Git-ignored entries and `.git` are excluded
 - vi mode is enabled with `jj` returning to command mode
 - `/usr/share/nvm/init-nvm.sh` is sourced when present
 - `$HOME/.local/bin`, `$HOME/bin`, and an installed `/opt/nvim` are added to `PATH` by the tracked config
+
+## Fuzzy finding
+
+- `Ctrl-t` inserts selected files or directories into the command line
+- `Ctrl-r` searches command history
+- `Alt-c` changes to a selected directory
+- `Ctrl-j` and `Ctrl-k` move down and up through finder results

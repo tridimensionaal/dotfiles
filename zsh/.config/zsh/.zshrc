@@ -38,6 +38,16 @@ compinit -d "$ZCOMPDUMP"
 # insensitive case only if there are no case-sensitive matches,
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 
+# Use fd as fzf's filesystem source so hidden entries are visible while Git
+# ignore rules and the repository metadata directory remain excluded.
+if [[ -t 0 ]] && (( $+commands[fzf] && $+commands[fd] )); then
+  export FZF_DEFAULT_COMMAND='fd --type f --type l --strip-cwd-prefix --hidden --exclude .git'
+  export FZF_CTRL_T_COMMAND='fd --type f --type d --type l --strip-cwd-prefix --hidden --exclude .git'
+  export FZF_ALT_C_COMMAND='fd --type d --strip-cwd-prefix --hidden --exclude .git'
+  export FZF_DEFAULT_OPTS='--height=80% --layout=reverse --border'
+  source <(fzf --zsh)
+fi
+
 # load aliases if present.
 [[ -r ${ZDOTDIR:-${XDG_CONFIG_HOME:-$HOME/.config}/zsh}/.zsh_aliases ]] && source "${ZDOTDIR:-${XDG_CONFIG_HOME:-$HOME/.config}/zsh}/.zsh_aliases"
 
