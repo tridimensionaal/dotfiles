@@ -26,4 +26,10 @@ Without TPM, basic tmux settings still load, but theme and plugin features will 
 - pane navigation uses `h/j/k/l`
 - splits and new windows start in the current pane directory
 - `Ctrl+Space`, then `f` opens an 80% popup shell in the current pane directory
-- TPM plugins are enabled for sensible defaults, vim navigation, Dracula, and yank
+- TPM plugins are enabled for sensible defaults, vim navigation, Dracula, yank, and opening copy-mode selections
+
+## Opening copy-mode selections
+
+Highlight a path in copy mode, then press `Ctrl-o` to open it with Neovim in
+the current pane. Press `o` instead to open the selection with the system
+default application through `xdg-open`.
