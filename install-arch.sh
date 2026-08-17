@@ -58,10 +58,15 @@ PACMAN_FULL_PACKAGES=(
   gzip
   tar
   gcc
+  bat
+  fd
+  fzf
   neovim
+  ripgrep
   tree-sitter-cli
   tmux
   wl-clipboard
+  xdg-utils
   zsh
   starship
   nodejs
