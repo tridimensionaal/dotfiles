@@ -15,6 +15,14 @@ ZCOMPDUMP="$_zsh_cache_dir/.zcompdump"
 bindkey -v
 bindkey -M viins 'jj' vi-cmd-mode
 
+# User command paths belong to the tracked config, not the local integration hook.
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$PATH:$HOME/bin"
+
+if [[ -x /opt/nvim/nvim ]]; then
+  export PATH="$PATH:/opt/nvim"
+fi
+
 # Prefer Neovim for CLI editor integrations.
 export EDITOR=nvim
 export VISUAL=nvim
@@ -36,12 +44,6 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 if [[ -z "${SSH_CONNECTION:-}" ]]; then
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
 fi
-
-# ---start_of_bash_scripts_setup---
-# Optional integration with Bash-scripts-for-daily-task.
-_bash_scripts_init="${BASH_SCRIPTS_INIT:-$HOME/github/Bash-scripts-for-daily-task/setup/init}"
-[[ -r "$_bash_scripts_init" ]] && source "$_bash_scripts_init"
-# ---end_of_bash_scripts_setup---
 
 # Load integrations added by tools that do not respect ZDOTDIR.
 [[ -r "$HOME/.zshrc" ]] && source "$HOME/.zshrc"
