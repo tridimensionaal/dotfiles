@@ -18,14 +18,17 @@ autocmd("VimEnter", {
     directory = vim.fs.normalize(vim.fn.fnamemodify(directory, ":p"))
     vim.api.nvim_set_current_dir(directory)
 
-    local directory_buffer = vim.api.nvim_get_current_buf()
-    vim.cmd.enew()
-
-    if vim.api.nvim_buf_is_valid(directory_buffer) then
-      vim.api.nvim_buf_delete(directory_buffer, { force = true })
-    end
-
+    local directory_buffer = vim.fn.bufnr(directory)
     vim.schedule(function()
+      local netrw_buffer = vim.api.nvim_get_current_buf()
+      vim.cmd.enew()
+
+      for _, bufnr in ipairs({ directory_buffer, netrw_buffer }) do
+        if vim.api.nvim_buf_is_valid(bufnr) then
+          vim.api.nvim_buf_delete(bufnr, { force = true })
+        end
+      end
+
       vim.cmd("FzfLua files")
     end)
   end,
