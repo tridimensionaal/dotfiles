@@ -1,6 +1,7 @@
 "$schema" = "https://starship.rs/config-schema.json"
 
 scan_timeout = 100
+command_timeout = 1000
 add_newline = true
 palette = "dracula"
 format = """
