@@ -12,8 +12,10 @@ mkdir -p "$_zsh_cache_dir"
 ZCOMPDUMP="$_zsh_cache_dir/.zcompdump"
 
 # activate vim mode
+KEYTIMEOUT=25
 bindkey -v
 bindkey -M viins 'jj' vi-cmd-mode
+bindkey -M viins '^?' backward-delete-char
 
 # User command paths belong to the tracked config, not the local integration hook.
 export PATH="$HOME/.local/bin:$PATH"
