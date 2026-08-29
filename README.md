@@ -2,11 +2,11 @@
 
 Personal GNU Stow dotfiles for an Arch Linux Sway workstation.
 
-![GitHub and Neovim on the main monitor](docs/screenshots/03-github-neovim-main-monitor.png)
+![Workspace 1 with Neovim](docs/screenshots/workspace-1-neovim.png)
 
-![Power menu on the main monitor](docs/screenshots/04-power-menu-main-monitor.png)
+![Workspace 2 with a personal website and GitHub](docs/screenshots/workspace-2-web.png)
 
-![tmux, htop, and Fastfetch on the main monitor](docs/screenshots/02-tmux-htop-fastfetch-main-monitor.png)
+![Workspace 3 with htop and Fastfetch](docs/screenshots/workspace-3-system.png)
 
 ## System
 
