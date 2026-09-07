@@ -34,9 +34,6 @@ filetype overrides apply buffer-local settings through Neovim's `after/ftplugin/
 - validated plugin revisions are recorded in `lazy-lock.json`
 - editor tooling installation is handled by Mason plus `mason-tool-installer`
 
-The complete 0.12 API and plugin review, including the decision for every
-configured dependency, is in [PLUGIN_AUDIT.md](PLUGIN_AUDIT.md).
-
 The package also keeps repo-only lint configuration such as `selene.toml` and
 `neovim.yml`, but those files are ignored by Stow and are not linked into
 `$HOME`.

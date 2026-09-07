@@ -15,7 +15,7 @@ function M.setup()
       vim.keymap.set("n", "gy", vim.lsp.buf.type_definition, opts)
       vim.keymap.set("n", "K", function()
         local max_width = math.max(20, math.floor(vim.api.nvim_win_get_width(0) * 0.5))
-        vim.lsp.buf.hover({ max_width = max_width })
+        vim.lsp.buf.hover({ max_width = max_width, border = "rounded" })
       end, opts)
     end,
   })
