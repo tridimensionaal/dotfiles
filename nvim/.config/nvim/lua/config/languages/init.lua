@@ -6,5 +6,6 @@ M.rust = require("config.languages.rust")
 M.markdown = require("config.languages.markdown")
 M.bash = require("config.languages.bash")
 M.css = require("config.languages.css")
+M.c = require("config.languages.c")
 
 return M
