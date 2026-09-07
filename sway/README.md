@@ -32,7 +32,9 @@ The Sway config lives under `~/.config/sway`.
 - `Mod+r`: resize mode
 - `Mod+minus`: show scratchpad
 - `Mod+Shift+minus`: move window to scratchpad
-- `Print`: run `grim`
+- `Print` / `ImpPnt`: select a rectangle and open it in Swappy to save, copy, or annotate
+
+Screenshots use `grim`, `slurp`, and `swappy`, with `wl-clipboard` for copying and `otf-font-awesome` for toolbar icons. Both Arch installation profiles include these dependencies. In Swappy, use `Ctrl+s` to save or `Ctrl+c` to copy.
 
 The audio bindings use PipeWire's native `wpctl` interface. Volume increases are capped at 100%.
 

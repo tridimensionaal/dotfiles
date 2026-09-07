@@ -33,6 +33,9 @@ PACMAN_GUI_PACKAGES=(
   wmenu
   thunar
   grim
+  slurp
+  swappy
+  wl-clipboard
   brightnessctl
   nm-connection-editor
   network-manager-applet
@@ -65,7 +68,6 @@ PACMAN_FULL_PACKAGES=(
   ripgrep
   tree-sitter-cli
   tmux
-  wl-clipboard
   xdg-utils
   zsh
   starship

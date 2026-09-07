@@ -270,6 +270,9 @@ check_sway_dependencies() {
   check_command_dependency "$package" wpctl
   check_command_dependency "$package" brightnessctl
   check_command_dependency "$package" grim
+  check_command_dependency "$package" slurp
+  check_command_dependency "$package" swappy
+  check_command_dependency "$package" wl-copy
   check_command_dependency "$package" swaynag
   check_command_dependency "$package" thunar
   check_command_dependency "$package" pkill
