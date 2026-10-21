@@ -12,6 +12,7 @@ bash -n \
   install.sh \
   install-arch.sh \
   remote-install.sh \
+  tmux/.config/tmux/scripts/weather.sh \
   sway/.config/sway/scripts/toggle-output-layout \
   test-toggle-output-layout.sh
 

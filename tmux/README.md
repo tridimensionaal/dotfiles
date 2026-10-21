@@ -27,6 +27,11 @@ Without TPM, basic tmux settings still load, but theme and plugin features will 
 - splits and new windows start in the current pane directory
 - `Ctrl+Space`, then `f` opens an 80% popup shell in the current pane directory
 - TPM plugins are enabled for sensible defaults, vim navigation, Dracula, yank, and opening copy-mode selections
+- active windows use Dracula's colours without tmux's default underline
+- weather uses Celsius and automatic location; successful readings are cached for
+  20 minutes, failed requests retry after one minute, and requests time out after
+  eight seconds. The script lives in the Stow-managed config, so TPM updates do
+  not overwrite it. It requires `curl` and `flock` (from `util-linux` on Arch).
 
 ## Opening copy-mode selections
 
