@@ -1,6 +1,7 @@
 "$schema" = "https://starship.rs/config-schema.json"
 
-scan_timeout = 100
+# Allow cold directory reads on the home HDD more time (milliseconds).
+scan_timeout = 500
 command_timeout = 1000
 add_newline = true
 palette = "dracula"
