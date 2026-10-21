@@ -7,7 +7,7 @@ The Sway config lives under `~/.config/sway`.
 - `config` is the entrypoint and includes ordered files from `config.d/`
 - `00-vars.conf` defines the modifier, direction keys, terminal, browser, and launcher
 - `10-input.conf` sets the keyboard layout to `latam`
-- `20-output.conf` sets the wallpaper
+- `20-output.conf` sets the wallpaper and the CCS MGMG2441P's 1080p/200 Hz mode
 - `30-appearance.conf` sets gaps, borders, focus behavior, and colors
 - `40-bindings.conf` defines launch, focus, workspace, layout, and hardware keybindings
 - `50-rules.conf` defines workspace assignment and floating utility windows
@@ -46,6 +46,11 @@ Sway starts:
 - `waybar`, restarted on reload
 - `nm-applet --indicator`
 - `polkit-gnome-authentication-agent-1`
+
+The optional `~/.config/systemd/user/codex-app-server.service` is retained for
+manual rollback of the Codex startup workaround. Sway does not start it, and it
+is not enabled at login. To start it manually, run
+`systemctl --user start codex-app-server.service` without `sudo`.
 
 ## Desktop Rules
 

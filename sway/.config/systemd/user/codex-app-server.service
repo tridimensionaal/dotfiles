@@ -1,0 +1,20 @@
+[Unit]
+Description=Codex managed background server
+ConditionFileIsExecutable=%h/.local/bin/codex
+StartLimitIntervalSec=120
+StartLimitBurst=6
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=%h
+Environment=PATH=%h/.local/bin:%h/bin:/usr/local/bin:/usr/bin
+ExecStart=%h/.local/bin/codex app-server daemon start
+ExecStop=%h/.local/bin/codex app-server daemon stop
+TimeoutStartSec=150
+TimeoutStopSec=90
+Restart=on-failure
+RestartSec=2
+# Codex owns its detached daemon and updater. A readiness timeout must not kill
+# the still-starting server before the next readiness check can connect.
+KillMode=process
