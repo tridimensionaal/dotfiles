@@ -1,0 +1,7 @@
+# Keep Git history walks used by the prompt fast in every repository.
+[fetch]
+    writeCommitGraph = true
+
+[maintenance "commit-graph"]
+    enabled = true
+    auto = 32

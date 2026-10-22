@@ -74,7 +74,7 @@ Run `./check.sh` to validate the tracked shell scripts, Starship and nwg-bar con
 | [nvim](nvim/README.md) | `~/.config/nvim` | Lazy.nvim, Mason, LSP, Treesitter |
 | [tmux](tmux/README.md) | `~/.config/tmux`, `~/.tmux.conf` | TPM, vim-style navigation |
 | [alacritty](alacritty/README.md) | `~/.config/alacritty` | Dracula theme, Hack Nerd Font |
-| [zsh](zsh/README.md) | `~/.config/zsh`, `~/.config/starship.toml`, `~/.zshenv` | XDG layout, Starship prompt |
+| [zsh](zsh/README.md) | `~/.config/zsh`, `~/.config/starship.toml`, `~/.config/git/config`, `~/.zshenv` | XDG layout, Starship prompt, Git performance defaults |
 | [sway](sway/README.md) | `~/.config/sway` | Modular Sway session |
 | [waybar](waybar/README.md) | `~/.config/waybar`, `~/.config/nwg-bar` | Sway modules and desktop actions |
 | [gtk](gtk/README.md) | `~/.config/gtk-3.0`, `~/.config/gtk-4.0` | Adwaita dark preference |

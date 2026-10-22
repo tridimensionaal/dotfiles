@@ -17,11 +17,15 @@ Tracked config files:
 - `~/.config/zsh/.zshrc`
 - `~/.config/zsh/.zsh_aliases`
 - `~/.config/starship.toml`
+- `~/.config/git/config`
 
 ## Notes
 
 - history is stored at `${XDG_STATE_HOME:-$HOME/.local/state}/zsh/history`
 - Starship is initialized at the end of the main Zsh config and reads `~/.config/starship.toml`
+- Starship allows 500 ms for directory scans and 2 seconds for external commands, including Git, to accommodate cold disk reads
+- the global Git config refreshes commit-graph caches after fetches that download packs and during automatic maintenance once 32 reachable commits are missing from the cache; this speeds up ahead/behind counts across repositories
+- Git also reads the machine-owned `~/.gitconfig`, whose settings take precedence over `~/.config/git/config`
 - the Starship prompt intentionally mirrors the former Powerlevel10k two-line Powerline layout
 - Powerline separators and module icons require a Nerd Font configured in the terminal
 - `EDITOR`, `VISUAL`, and `GIT_EDITOR` default to `nvim`

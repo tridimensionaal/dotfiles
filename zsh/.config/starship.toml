@@ -2,7 +2,8 @@
 
 # Allow cold directory reads on the home HDD more time (milliseconds).
 scan_timeout = 500
-command_timeout = 1000
+# Give Git and other prompt commands time for cold disk reads too.
+command_timeout = 2000
 add_newline = true
 palette = "dracula"
 format = """
